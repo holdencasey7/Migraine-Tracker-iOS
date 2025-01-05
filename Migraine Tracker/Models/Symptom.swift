@@ -14,6 +14,7 @@ final class Symptom:Identifiable, Hashable, GenericTriggerTreatmentSymptom{
     var title: String
     var icon: String?
     @Relationship(inverse: \Entry.symptoms) var entriesIn: [Entry] = []
+    @Relationship(deleteRule: .cascade) var ratings: [Rating] = []
     
     init(title: String?, icon: String?) {
         self.id = UUID()
