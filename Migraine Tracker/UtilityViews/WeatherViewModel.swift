@@ -16,6 +16,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     @Published var temperature: String = "--"
     @Published var condition: String = "Loading..."
+    @Published var pressure: String = "--"
     
     override init() {
         super.init()
@@ -30,6 +31,8 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             DispatchQueue.main.async {
                 self.temperature = "\(weather.currentWeather.temperature.value)°C"
                 self.condition = weather.currentWeather.condition.description
+                let pressureInHg = weather.currentWeather.pressure.converted(to: .inchesOfMercury).value
+                self.pressure = String(format: "%.2f inHg", pressureInHg)
             }
         } catch {
             print("Error fetching weather: \(error)")

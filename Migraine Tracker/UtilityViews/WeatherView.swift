@@ -16,6 +16,7 @@ struct WeatherView: View {
                 .font(.largeTitle)
             Text("Condition: \(viewModel.condition)")
             Text("Temperature: \(viewModel.temperature)")
+            Text("Pressure: \(viewModel.pressure)") 
         }
         .padding()
     }
