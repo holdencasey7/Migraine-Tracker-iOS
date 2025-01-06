@@ -26,29 +26,9 @@ struct EntryCalendarView: View {
                     Calendar.current.isDate($0.timestamp, inSameDayAs: selectedDate)
                 }
                 VStack {
-                    EntryListView(isEntryDetailVisible: $isEntryDetailPresented, entries: filteredEntries)
-                        .padding(.top, 15)
-                    if !isEntryDetailPresented {
-                        Button(action: {
-                            isEntryDetailPresented = false
-                            showingEntries = false
-                            self.selectedDate = nil
-                        }) {
-                            Text("DONE")
-                            .kerning(3)
-                            .font(Font.custom("Avenir", size: 19))
-                            .padding(5)
-                            .padding(.trailing, 39)
-                            .padding(.leading, 39)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.white.opacity(0.85))
-                            )
-                        }
-                        .padding(.bottom, 15)
-                    }
+                    EntryListFromCalendarView(isEntryDetailPresented: $isEntryDetailPresented, showingEntries: $showingEntries, selectedDate: $selectedDate, entries: filteredEntries)
                 }
-                .background(isEntryDetailPresented ? Color.white.edgesIgnoringSafeArea(.all) : Color("FirstLightPink").edgesIgnoringSafeArea(.all))
+                .background(Color("FirstLightPink"))
                 
             }
         }
