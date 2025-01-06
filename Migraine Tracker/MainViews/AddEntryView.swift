@@ -26,6 +26,10 @@ struct AddEntryView: View {
     @State var presentTreatmentSheet: Bool = false
     @State var presentSymptomSheet: Bool = false
     
+    @State private var submitInProgress = false
+    @StateObject var weatherViewModel = WeatherViewModel()
+    @State private var errorMessage: String?
+    
     var body: some View {
         VStack {
             Text("NEW MIGRAINE ENTRY")
@@ -146,20 +150,53 @@ struct AddEntryView: View {
             }
             Spacer()
             Button("ADD ENTRY") {
-                let entry = Entry(timestamp: date, intensity: Int(intensity), triggers: finalSelectedTriggers, symptoms: finalSelectedSymptoms, treatments: finalSelectedTreatments, notes: notes)
-                modelContext.insert(entry)
-                try? modelContext.save()
-                date = Date()
-                intensity = 1.0
-                notes = ""
-                finalSelectedTriggers.removeAll()
-                finalSelectedTreatments.removeAll()
-                finalSelectedSymptoms.removeAll()
+                Task {
+                    await submit()
+                }
             }
             .padding()
             .font(Font.custom("Avenir", size: 25))
+            .disabled(submitInProgress)
         }
         .background(Image("FirstPinkAttempt").resizable().edgesIgnoringSafeArea(.all).aspectRatio(contentMode: .fill))
+    }
+    
+    private func submit() async {
+        submitInProgress = true
+        errorMessage = nil  // Reset error message
+    
+        let entry = Entry(timestamp: date, intensity: Int(intensity), triggers: finalSelectedTriggers, symptoms: finalSelectedSymptoms, treatments: finalSelectedTreatments, notes: notes)
+        
+        await weatherViewModel.fetchWeather() { success in
+            if success {
+                // Proceed with creating the Entry model
+                
+
+                // Use the fetched weather data for the Entry
+                entry.temperature = weatherViewModel.temperature
+                entry.condition = weatherViewModel.condition
+                entry.pressure = weatherViewModel.pressure
+                entry.humidity = weatherViewModel.humidity
+                entry.pressureTrend = weatherViewModel.pressureTrend
+                
+                // You can save the Entry to your database or handle it as needed
+                // For example, saveEntry(newEntry) here
+                
+                submitInProgress = false  // Enable the button again
+            } else {
+                errorMessage = "Failed to fetch weather data."
+            }
+        }
+        
+        modelContext.insert(entry)
+        try? modelContext.save()
+        date = Date()
+        intensity = 1.0
+        notes = ""
+        finalSelectedTriggers.removeAll()
+        finalSelectedTreatments.removeAll()
+        finalSelectedSymptoms.removeAll()
+        submitInProgress = false
     }
 }
 

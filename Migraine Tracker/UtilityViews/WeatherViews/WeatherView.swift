@@ -8,43 +8,47 @@
 import SwiftUI
 
 struct WeatherView: View {
-    @StateObject var weather: WeatherViewModel
+    @State var temperature: Double?
+    @State var pressure: Double?
+    @State var condition: String?
+    @State var humidity: Double?
+    @State var pressureTrend: String?
     
     var body: some View {
         VStack {
-            if let temp = weather.temperature {
+            if let temp = temperature {
                 Text("Temperature: \(String(format: "%.1f°F", temp))")
                     .font(.headline)
             } else {
-                Text("Fetching temperature...")
+                Text("Temperature: No data")
             }
             
-            if let pressure = weather.pressure {
+            if let pressure = pressure {
                 Text("Pressure: \(String(format: "%.2f inHg", pressure))")
                     .font(.headline)
             } else {
-                Text("Fetching pressure...")
+                Text("Pressure: No data")
             }
             
-            if let condition = weather.condition {
+            if let condition = condition {
                 Text("Condition: \(condition)")
                     .font(.headline)
             } else {
-                Text("Fetching condition...")
+                Text("Condition: No data")
             }
             
-            if let humidity = weather.humidity {
+            if let humidity = humidity {
                 Text("Humidity: \(String(format: "%.0f%%", humidity))")
                     .font(.headline)
             } else {
-                Text("Fetching humidity...")
+                Text("Humidity: No data")
             }
             
-            if let pressureTrend = weather.pressureTrend {
+            if let pressureTrend = pressureTrend {
                 Text("Pressure Trend: \(pressureTrend)")
                     .font(.headline)
             } else {
-                Text("Fetching pressure trend...")
+                Text("Pressure Trend: No data")
             }
             
             
@@ -54,5 +58,6 @@ struct WeatherView: View {
 }
 
 #Preview {
-    WeatherView(weather: WeatherViewModel())
+    let weather = WeatherViewModel()
+    WeatherView(temperature: weather.temperature, pressure: weather.pressure, condition: weather.condition, humidity: weather.humidity, pressureTrend: weather.pressureTrend)
 }

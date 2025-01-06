@@ -25,7 +25,7 @@ final class Entry:Identifiable, Hashable {
     var pressureTrend: String?
     
     
-    init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String) {
+    init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String, temperature: Double? = nil, condition: String? = nil, pressure: Double? = nil, humidity: Double? = nil, pressureTrend: String? = nil) {
         self.id = UUID()
         
         if intensity < 1 {
@@ -42,12 +42,12 @@ final class Entry:Identifiable, Hashable {
         self.symptoms = symptoms
         self.treatments = treatments
         self.notes = notes
-        let weather = WeatherViewModel()
-        self.temperature = weather.temperature
-        self.condition = weather.condition
-        self.pressure = weather.pressure
-        self.humidity = weather.humidity
-        self.pressureTrend = weather.pressureTrend
+        
+        self.temperature = temperature
+        self.condition = condition
+        self.pressure = pressure
+        self.humidity = humidity
+        self.pressureTrend = pressureTrend
         
         for trigger in triggers {
             trigger.entriesIn.append(self)

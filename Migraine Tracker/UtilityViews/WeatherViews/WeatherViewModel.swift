@@ -20,6 +20,8 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var humidity: Double?
     @Published var pressureTrend: String?
     
+    private var currentLocation: CLLocation?
+    
     override init() {
         super.init()
         locationManager.delegate = self
@@ -27,7 +29,14 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     
-    func fetchWeather(for location: CLLocation) async {
+    // Fetch weather based on the current location and call completion with success status
+    func fetchWeather(completion: @escaping (Bool) -> Void) async {
+        guard let location = currentLocation else {
+            print("Error: No location available.")
+            completion(false) // Return failure if no location
+            return
+        }
+        
         do {
             let weather = try await weatherService.weather(for: location)
             DispatchQueue.main.async {
@@ -36,17 +45,27 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 self.condition = weather.currentWeather.condition.description
                 self.humidity = weather.currentWeather.humidity * 100
                 self.pressureTrend = weather.currentWeather.pressureTrend.description
+                
+                completion(true)  // Return success once data is fetched
             }
         } catch {
             print("Error fetching weather: \(error)")
+            completion(false) // Return failure in case of error
         }
     }
 
-    // ✅ Conformance to CLLocationManagerDelegate
+    // Conformance to CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
+        currentLocation = location  // Store the most recent location
         Task {
-            await fetchWeather(for: location)
+            await fetchWeather { success in
+                if success {
+                    print("Weather data fetched successfully")
+                } else {
+                    print("Failed to fetch weather data")
+                }
+            }
         }
         locationManager.stopUpdatingLocation()  // Stop for battery efficiency
     }
@@ -55,3 +74,4 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         print("Location error: \(error.localizedDescription)")
     }
 }
+
