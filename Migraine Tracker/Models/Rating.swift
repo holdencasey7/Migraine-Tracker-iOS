@@ -12,12 +12,12 @@ import SwiftData
 final class Rating:Identifiable, Hashable {
     @Attribute(.unique) var id: UUID
     @Relationship(inverse: \Treatment.ratings) var treatment: Treatment
-    var rating: Int
+    var ratingValue: Int
     
-    init (treatment: Treatment, rating: Int) {
+    init (treatment: Treatment, ratingValue: Int) {
         self.id = UUID()
         self.treatment = treatment
-        self.rating = rating
+        self.ratingValue = ratingValue
         
         treatment.ratings.append(self)
     }

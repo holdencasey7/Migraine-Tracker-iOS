@@ -28,6 +28,7 @@ struct TopTriggersView: View {
     }
     
     private func getTopFiveTriggers() -> Array<Dictionary<Trigger, Int>.Element>.SubSequence {
+        // Change to just count trigger.entriesIn
         var triggerDictionary: [Trigger: Int] = [:]
         entries.forEach { entry in
             @State var currEntry: Entry = entry
