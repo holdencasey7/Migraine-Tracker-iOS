@@ -18,55 +18,87 @@ struct WeatherView: View {
     
     var body: some View {
         VStack {
-            if let temp = temperature {
-                Text("Temperature: \(String(format: "%.1f°F", temp))")
-                    .font(.headline)
-            } else {
-                Text("Temperature: No data")
-            }
-            
-            if let pressure = pressure {
-                HStack {
-                    Text("Pressure: \(String(format: "%.2f inHg", pressure))")
-                        .font(.headline)
-                    if let pressureTrend = pressureTrend {
-                        if pressureTrend == .falling {
-                            Image(systemName: "arrow.down.circle")
-                        } else if pressureTrend == .rising {
-                            Image(systemName: "arrow.up.circle")
-                        } else if pressureTrend == .steady {
-                            Image(systemName: "arrow.right.circle")
-                        } else {
-                            Image(systemName: "arrow.right.circle")
+            Text("WEATHER")
+                .font(Font.custom("Avenir", size: 19))
+                .kerning(Constants.kerningSubtitle)
+                .padding(3)
+                .padding(.horizontal, 53.5)
+                .padding(.bottom, 2)
+                .padding(.top, 2)
+                .background(Color("FirstLightPink"))
+                .clipShape(UnevenRoundedRectangle(
+                    topLeadingRadius: 29,
+                    bottomLeadingRadius: 0,
+                    bottomTrailingRadius: 0,
+                    topTrailingRadius: 29,
+                    style: .continuous
+                ))
+            VStack {
+                if let temp = temperature {
+                    Text("Temperature: \(String(format: "%.1f°F", temp))")
+                        .font(Font.custom("Avenir", size: 17))
+                } else {
+                    Text("Temperature: No data")
+                        .font(Font.custom("Avenir", size: 17))
+                }
+                
+                if let pressure = pressure {
+                    HStack {
+                        Text("Pressure: \(String(format: "%.2f inHg", pressure))")
+                            .font(Font.custom("Avenir", size: 17))
+                        if let pressureTrend = pressureTrend {
+                            if pressureTrend == .falling {
+                                Image(systemName: "arrow.down.circle")
+                            } else if pressureTrend == .rising {
+                                Image(systemName: "arrow.up.circle")
+                            } else if pressureTrend == .steady {
+                                Image(systemName: "arrow.right.circle")
+                            } else {
+                                Image(systemName: "arrow.right.circle")
+                            }
                         }
                     }
+                } else {
+                    Text("Pressure: No data")
+                        .font(Font.custom("Avenir", size: 17))
                 }
-            } else {
-                Text("Pressure: No data")
-            }
-            
-            if let condition = condition?.description {
-                HStack {
-                    Text("Condition: \(condition)")
-                        .font(.headline)
-                    if let conditionSymbol = conditionSymbol {
-                        Image(systemName: conditionSymbol)
+                
+                if let condition = condition?.description {
+                    HStack {
+                        Text("Condition: \(condition)")
+                            .font(Font.custom("Avenir", size: 17))
+                        if let conditionSymbol = conditionSymbol {
+                            Image(systemName: conditionSymbol)
+                        }
                     }
+                } else {
+                    Text("Condition: No data")
+                        .font(Font.custom("Avenir", size: 19))
                 }
-            } else {
-                Text("Condition: No data")
+                
+                if let humidity = humidity {
+                    Text("Humidity: \(String(format: "%.0f%%", humidity))")
+                        .font(Font.custom("Avenir", size: 17))
+                } else {
+                    Text("Humidity: No data")
+                        .font(Font.custom("Avenir", size: 17))
+                }
             }
-            
-            if let humidity = humidity {
-                Text("Humidity: \(String(format: "%.0f%%", humidity))")
-                    .font(.headline)
-            } else {
-                Text("Humidity: No data")
-            }
+            .padding(5)
+            .padding(.horizontal, 7)
+            .padding(.bottom, 5)
+            .padding(.top, -7)
         }
+        .frame(width: 224, height: 145)
+        .padding(.top, 1.1)
+        .background(
+            RoundedRectangle(cornerRadius: 30, style: .continuous)
+                .fill(Color.white)
+                .stroke(Color.black, lineWidth: 1)
+        )
     }
 }
 
 #Preview {
-    WeatherView(temperature: 72.898, pressure: 30.045, condition: .cloudy, humidity: 88.93, pressureTrend: .rising)
+    WeatherView(temperature: 101.55, pressure: 30.045, condition: .freezingDrizzle, humidity: 89.88, pressureTrend: .rising, conditionSymbol: "cloud")
 }

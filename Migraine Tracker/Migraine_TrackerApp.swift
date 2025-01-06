@@ -11,8 +11,6 @@ import SwiftData
 @main
 @MainActor
 struct Migraine_TrackerApp: App {
-//    var models: [any PersistentModel.Type] = [Entry.self, Trigger.self, Treatment.self]
-
     var body: some Scene {
         WindowGroup {
             ContentView()
