@@ -25,8 +25,21 @@ struct WeatherView: View {
             }
             
             if let pressure = pressure {
-                Text("Pressure: \(String(format: "%.2f inHg", pressure))")
-                    .font(.headline)
+                HStack {
+                    Text("Pressure: \(String(format: "%.2f inHg", pressure))")
+                        .font(.headline)
+                    if let pressureTrend = pressureTrend {
+                        if pressureTrend == .falling {
+                            Image(systemName: "arrow.down.circle")
+                        } else if pressureTrend == .rising {
+                            Image(systemName: "arrow.up.circle")
+                        } else if pressureTrend == .steady {
+                            Image(systemName: "arrow.right.circle")
+                        } else {
+                            Image(systemName: "arrow.right.circle")
+                        }
+                    }
+                }
             } else {
                 Text("Pressure: No data")
             }
@@ -44,27 +57,6 @@ struct WeatherView: View {
             } else {
                 Text("Humidity: No data")
             }
-            
-            if let pressureTrend = pressureTrend {
-                HStack {
-                    Text("Pressure Trend: ")
-                        .font(.headline)
-                    if pressureTrend == .falling {
-                        Image(systemName: "arrow.down.circle")
-                    } else if pressureTrend == .rising {
-                        Image(systemName: "arrow.up.circle")
-                    } else if pressureTrend == .steady {
-                        Image(systemName: "arrow.right.circle")
-                    } else {
-                        Image(systemName: "arrow.right.circle")
-                    }
-                }
-            } else {
-                Text("Pressure Trend: No data")
-            }
-            
-            
-
         }
     }
 }

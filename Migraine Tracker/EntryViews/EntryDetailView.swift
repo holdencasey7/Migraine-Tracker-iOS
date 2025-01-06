@@ -26,6 +26,7 @@ struct EntryDetailView: View {
     }()
     var body: some View {
         VStack(spacing: 10) {
+            WeatherView(temperature: entry.temperature, pressure: entry.pressure, condition: entry.condition, humidity: entry.humidity, pressureTrend: entry.pressureTrend)
 //            Spacer()
             Text("Migraine on \(entry.timestamp, formatter: dateFormatter)")
                 .font(Font.custom("Avenir", size: 19))
