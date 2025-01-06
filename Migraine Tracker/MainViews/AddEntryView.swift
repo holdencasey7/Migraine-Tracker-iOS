@@ -41,7 +41,7 @@ struct AddEntryView: View {
 //                    .padding(.bottom, -10)
 //                    .padding(.top, -10)
 //                    .background(Color.white.opacity(0.6), in: RoundedRectangle(cornerRadius: 10))
-//                Spacer()
+                Spacer()
                 VStack (alignment: .leading, spacing: -10){
                     HStack {
                         Text("Start Date:")
@@ -171,6 +171,7 @@ struct AddEntryView: View {
                     }
                 }
                 .padding(10)
+                .padding(.bottom, 10)
                 .font(Font.custom("Avenir", size: 25))
                 .disabled(submitInProgress)
 //                .background(Color.white.opacity(0.6), in: RoundedRectangle(cornerRadius: 10))

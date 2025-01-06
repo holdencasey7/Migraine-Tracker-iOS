@@ -19,7 +19,7 @@ struct GenericTileView<T: GenericTriggerTreatmentSymptom>: View {
                 .frame(maxWidth: Constants.genericTileViewFrameMaxWidth)
             Spacer()
         }
-        .frame(maxWidth: Constants.genericTileViewFrameMaxWidth, maxHeight: Constants.genericTileViewFrameMaxHeight)
+        .frame(width: Constants.genericTileViewFrameMaxWidth, height: Constants.genericTileViewFrameMaxHeight)
     }
 }
 
