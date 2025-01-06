@@ -14,10 +14,12 @@ struct AddSymptomTileView: View {
         VStack {
             Image("AddSymptomIcon")
                 .resizable()
-                .scaledToFit()
+                .frame(width: Constants.genericTileViewIconFrameWidth, height: Constants.genericTileViewIconFrameHeight)
             Text("New Symptom")
-                .font(Font.custom("Avenir", size: 19))
                 .multilineTextAlignment(.center)
+                .font(Font.custom("Avenir", size: Constants.genericTileViewTitleFontSize))
+                .frame(maxWidth: Constants.genericTileViewFrameMaxWidth)
+            Spacer()
         }
         .onTapGesture {
             showAddSymptomSheet = true
@@ -27,6 +29,7 @@ struct AddSymptomTileView: View {
         .sheet(isPresented: $showAddSymptomSheet) {
             SymptomCreationView(isPresented: $showAddSymptomSheet)
         }
+        .frame(width: Constants.genericTileViewFrameMaxWidth, height: Constants.genericTileViewFrameMaxHeight)
     }
 }
 

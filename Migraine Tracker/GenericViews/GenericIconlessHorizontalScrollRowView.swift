@@ -18,6 +18,7 @@ struct GenericIconlessHorizontalScrollRowView<T: GenericTriggerTreatmentSymptom>
                     }).last != item)
                 }
             }
+            .frame(minHeight: 20)
         }
     }
 }

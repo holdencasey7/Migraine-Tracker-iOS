@@ -13,11 +13,13 @@ struct GenericTileView<T: GenericTriggerTreatmentSymptom>: View {
         VStack {
             Image(item.icon ?? "DefaultSymptomIcon")
                 .resizable()
-                .scaledToFit()
+                .frame(width: Constants.genericTileViewIconFrameWidth, height: Constants.genericTileViewIconFrameHeight)
             Text(item.title)
                 .font(Font.custom("Avenir", size: Constants.genericTileViewTitleFontSize))
                 .frame(maxWidth: Constants.genericTileViewFrameMaxWidth)
+            Spacer()
         }
+        .frame(maxWidth: Constants.genericTileViewFrameMaxWidth, maxHeight: Constants.genericTileViewFrameMaxHeight)
     }
 }
 

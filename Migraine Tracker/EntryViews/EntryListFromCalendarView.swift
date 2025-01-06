@@ -30,7 +30,7 @@ struct EntryListFromCalendarView: View {
                         }) {
                             Image(systemName: "arrow.left.circle")
                                 .font(.system(size: 40))
-                                .padding(5)
+                                .padding(3)
                         }
                         Spacer()
                     }
@@ -39,7 +39,7 @@ struct EntryListFromCalendarView: View {
                     HStack {
                         Spacer()
                         Text("SORT BY: ")
-                            .font(Font.custom("Avenir", size: 17))
+                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                             .kerning(1)
                         EntrySortPickerView(selectedSortMethod: $selectedSortMethod)
                         Spacer()

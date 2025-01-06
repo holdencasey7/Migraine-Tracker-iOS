@@ -18,7 +18,7 @@ struct EntryListView: View {
                         Button(action: { presentCalendarSheet = true }) {
                             Image(systemName: "calendar.circle")
                                 .font(.system(size: 40))
-                                .padding(5)
+                                .padding(3)
                         }
                         .sheet(isPresented: $presentCalendarSheet) {
                             EntryCalendarView(entries: entries, isPresented: $presentCalendarSheet)

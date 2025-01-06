@@ -27,8 +27,9 @@ enum Constants {
     static let weatherViewOuterHStackSpacing: CGFloat = 35
     
     // Generic Views
-    static let genericTileViewTitleFontSize: CGFloat = 19
+    static let genericTileViewTitleFontSize: CGFloat = 14
     static let genericTileViewFrameMaxWidth: CGFloat = 100
+    static let genericTileViewFrameMaxHeight: CGFloat = 100
     static let genericRowViewTitleFontSize: CGFloat = 19
     static let genericRowViewFrameMaxWidth: CGFloat = 30
     static let genericRowViewFrameMaxHeight: CGFloat = 30
@@ -37,8 +38,13 @@ enum Constants {
     static let genericIconlessHorizontalScrollRowViewHStackSpacing: CGFloat = 5
     static let genericHorizontalScrollRowViewHStackSpacing: CGFloat = 5
     static let genericHorizontalScrollTileViewHStackSpacing: CGFloat = 10
+    static let genericHorizontalScrollTileViewFrameHeight: CGFloat = 110
+    static let genericTileViewIconFrameWidth: CGFloat = 75
+    static let genericTileViewIconFrameHeight: CGFloat = 75
     
     // Entry Views
     static let entryDetailViewButtonRoundedRectangleCornerRadius: CGFloat = 10
     static let entryDetailViewButtonRoundedRectangleOpacity: CGFloat = 0.85
+    static let addEntryViewButtonRoundedRectangleCornerRadius: CGFloat = 10
+    static let addEntryViewButtonRoundedRectangleOpacity: CGFloat = 0.85
 }
