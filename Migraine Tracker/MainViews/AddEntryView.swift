@@ -156,6 +156,15 @@ struct AddEntryView: View {
                     await submit()
                 }
                 showSuccessPopup = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    date = Date()
+                    intensity = 1.0
+                    notes = ""
+                    finalSelectedTriggers.removeAll()
+                    finalSelectedTreatments.removeAll()
+                    finalSelectedSymptoms.removeAll()
+                    submitInProgress = false
+                }
             }
             .padding()
             .font(Font.custom("Avenir", size: 25))
@@ -173,21 +182,12 @@ struct AddEntryView: View {
         
         await weatherViewModel.fetchWeather() { success in
             if success {
-                // Proceed with creating the Entry model
-                
-
-                // Use the fetched weather data for the Entry
                 entry.temperature = weatherViewModel.temperature
                 entry.condition = weatherViewModel.condition
                 entry.pressure = weatherViewModel.pressure
                 entry.humidity = weatherViewModel.humidity
                 entry.pressureTrend = weatherViewModel.pressureTrend
                 entry.conditionSymbol = weatherViewModel.conditionSymbol
-                
-                // You can save the Entry to your database or handle it as needed
-                // For example, saveEntry(newEntry) here
-                
-                submitInProgress = false  // Enable the button again
             } else {
                 errorMessage = "Failed to fetch weather data."
             }
@@ -195,13 +195,6 @@ struct AddEntryView: View {
         
         modelContext.insert(entry)
         try? modelContext.save()
-        date = Date()
-        intensity = 1.0
-        notes = ""
-        finalSelectedTriggers.removeAll()
-        finalSelectedTreatments.removeAll()
-        finalSelectedSymptoms.removeAll()
-        submitInProgress = false
     }
 }
 
