@@ -178,6 +178,7 @@ struct AddEntryView: View {
                 entry.pressure = weatherViewModel.pressure
                 entry.humidity = weatherViewModel.humidity
                 entry.pressureTrend = weatherViewModel.pressureTrend
+                entry.conditionSymbol = weatherViewModel.conditionSymbol
                 
                 // You can save the Entry to your database or handle it as needed
                 // For example, saveEntry(newEntry) here

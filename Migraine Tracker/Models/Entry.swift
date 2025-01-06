@@ -24,9 +24,10 @@ final class Entry:Identifiable, Hashable {
     var pressure: Double?
     var humidity: Double?
     var pressureTrend: PressureTrend?
+    var conditionSymbol: String?
     
     
-    init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String, temperature: Double? = nil, condition: WeatherCondition? = nil, pressure: Double? = nil, humidity: Double? = nil, pressureTrend: PressureTrend? = nil) {
+    init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String, temperature: Double? = nil, condition: WeatherCondition? = nil, pressure: Double? = nil, humidity: Double? = nil, pressureTrend: PressureTrend? = nil, conditionSymbol: String? = nil) {
         self.id = UUID()
         
         if intensity < 1 {
@@ -49,6 +50,7 @@ final class Entry:Identifiable, Hashable {
         self.pressure = pressure
         self.humidity = humidity
         self.pressureTrend = pressureTrend
+        self.conditionSymbol = conditionSymbol
         
         for trigger in triggers {
             trigger.entriesIn.append(self)

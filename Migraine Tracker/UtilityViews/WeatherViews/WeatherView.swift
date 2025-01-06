@@ -14,6 +14,7 @@ struct WeatherView: View {
     @State var condition: WeatherCondition?
     @State var humidity: Double?
     @State var pressureTrend: PressureTrend?
+    @State var conditionSymbol: String?
     
     var body: some View {
         VStack {
@@ -45,8 +46,13 @@ struct WeatherView: View {
             }
             
             if let condition = condition?.description {
-                Text("Condition: \(condition)")
-                    .font(.headline)
+                HStack {
+                    Text("Condition: \(condition)")
+                        .font(.headline)
+                    if let conditionSymbol = conditionSymbol {
+                        Image(systemName: conditionSymbol)
+                    }
+                }
             } else {
                 Text("Condition: No data")
             }

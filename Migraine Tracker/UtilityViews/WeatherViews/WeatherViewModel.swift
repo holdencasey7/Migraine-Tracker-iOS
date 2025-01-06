@@ -19,6 +19,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var pressure: Double?
     @Published var humidity: Double?
     @Published var pressureTrend: PressureTrend?
+    @Published var conditionSymbol: String?
     
     private var currentLocation: CLLocation?
     
@@ -45,6 +46,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 self.condition = weather.currentWeather.condition
                 self.humidity = weather.currentWeather.humidity * 100
                 self.pressureTrend = weather.currentWeather.pressureTrend
+                self.conditionSymbol = weather.currentWeather.symbolName
                 
                 completion(true)  // Return success once data is fetched
             }
