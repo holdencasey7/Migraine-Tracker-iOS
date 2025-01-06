@@ -30,6 +30,8 @@ struct AddEntryView: View {
     @StateObject var weatherViewModel = WeatherViewModel()
     @State private var errorMessage: String?
     
+    @State private var showSuccessPopup = false
+    
     var body: some View {
         VStack {
             Text("NEW MIGRAINE ENTRY")
@@ -153,12 +155,32 @@ struct AddEntryView: View {
                 Task {
                     await submit()
                 }
+                showSuccessPopup = true
+                withAnimation(.easeOut(duration: 1.5)) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        showSuccessPopup = false
+                    }
+                }
             }
             .padding()
             .font(Font.custom("Avenir", size: 25))
             .disabled(submitInProgress)
         }
         .background(Image("FirstPinkAttempt").resizable().edgesIgnoringSafeArea(.all).aspectRatio(contentMode: .fill))
+        .overlay(
+            Group {
+                if showSuccessPopup {
+                    Text("✅ Success!")
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+//                        .opacity(showSuccessPopup ? 1 : 0)
+                        .transition(.opacity)
+                        .animation(.easeOut(duration: 1.5), value: showSuccessPopup)
+                }
+            }
+        )
     }
     
     private func submit() async {
