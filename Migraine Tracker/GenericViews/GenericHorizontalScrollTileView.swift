@@ -12,16 +12,21 @@ struct GenericHorizontalScrollTileView<T: GenericTriggerTreatmentSymptom>: View 
     
     var body: some View {
         ScrollView(.horizontal) {
-            HStack {
+            HStack(spacing: Constants.genericHorizontalScrollTileViewHStackSpacing) {
                 ForEach(items.sorted(by: { $0.title < $1.title})) { item in
                     GenericTileView(item: item)
-                        .padding(.horizontal, 10)
                 }
             }
         }
     }
 }
 
-//#Preview {
-//    GenericHorizontalScrollTileView()
-//}
+#Preview {
+    GenericHorizontalScrollTileView(items: [
+        Trigger(title: "Test Trigger", icon: "DefaultTriggerIcon"),
+        Trigger(title: "Test Trigger", icon: "DefaultTriggerIcon"),
+        Trigger(title: "Test Trigger", icon: "DefaultTriggerIcon"),
+        Trigger(title: "Test Trigger", icon: "DefaultTriggerIcon"),
+        Trigger(title: "Test Trigger", icon: "DefaultTriggerIcon"),
+    ])
+}

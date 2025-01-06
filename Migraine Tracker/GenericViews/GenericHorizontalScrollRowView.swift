@@ -11,7 +11,7 @@ struct GenericHorizontalScrollRowView<T: GenericTriggerTreatmentSymptom>: View {
     var items: [T]
     var body: some View {
         ScrollView(.horizontal) {
-            HStack(alignment: .firstTextBaseline, spacing: 5) {
+            HStack(alignment: .firstTextBaseline, spacing: Constants.genericHorizontalScrollRowViewHStackSpacing) {
                 ForEach(items.sorted(by: { $0.title < $1.title
                 })) { item in
                     GenericRowView<T>(item: item)

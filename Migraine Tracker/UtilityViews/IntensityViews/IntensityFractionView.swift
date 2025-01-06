@@ -9,23 +9,22 @@ import SwiftUI
 
 struct IntensityFractionView: View {
     var intensity: Int
-    let maxIntensity: Int = 5
     var body: some View {
         VStack {
             ZStack {
-                Image("\(intensity)_5_Circle")
+                Image("\(intensity)_\(Constants.maxIntensity)_Circle")
                     .resizable()
                     .frame(width: 125, height: 125)
-                Text("\(intensity)/\(maxIntensity)")
-                    .font(Font.custom("Avenir", size: 25))
+                Text("\(intensity)/\(Constants.maxIntensity)")
+                    .font(Font.custom("Avenir", size: Constants.intensityFractionFontSize))
             }
             Text("INTENSITY")
-                .font(Font.custom("Avenir", size: 17))
+                .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                 .kerning(3)
         }
     }
 }
 
 #Preview {
-    IntensityFractionView(intensity: 4)
+    IntensityFractionView(intensity: 2)
 }

@@ -11,7 +11,7 @@ struct GenericListView<T: GenericTriggerTreatmentSymptom>: View {
     var items: [T]
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: Constants.genericListViewVStackSpacing) {
                 ForEach(items.sorted(by: { $0.title < $1.title
                 })) { item in
                     GenericRowView<T>(item: item)

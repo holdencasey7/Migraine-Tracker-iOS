@@ -14,9 +14,9 @@ struct GenericRowView<T : GenericTriggerTreatmentSymptom>: View {
             Image(item.icon ?? "DefaultTriggerIcon")
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: 30, maxHeight: 30)
+                .frame(maxWidth: Constants.genericRowViewFrameMaxWidth, maxHeight: Constants.genericRowViewFrameMaxHeight)
             Text(item.title)
-                .font(Font.custom("Avenir", size: 19))
+                .font(Font.custom("Avenir", size: Constants.genericRowViewTitleFontSize))
         }
     }
 }

@@ -30,10 +30,10 @@ final class Entry:Identifiable, Hashable {
     init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String, temperature: Double? = nil, condition: WeatherCondition? = nil, pressure: Double? = nil, humidity: Double? = nil, pressureTrend: PressureTrend? = nil, conditionSymbol: String? = nil) {
         self.id = UUID()
         
-        if intensity < 1 {
-            self.intensity = 1
-        } else if intensity > 5 {
-            self.intensity = 5
+        if intensity < Constants.minIntensity {
+            self.intensity = Constants.minIntensity
+        } else if intensity > Constants.maxIntensity {
+            self.intensity = Constants.maxIntensity
         } else {
             self.intensity = intensity
         }

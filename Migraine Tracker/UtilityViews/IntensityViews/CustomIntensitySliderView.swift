@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CustomIntensitySliderView: UIViewRepresentable {
     @Binding var value: Double
-    let range: ClosedRange<Double> = 1...5
+    let range: ClosedRange<Double> = Double(Constants.minIntensity)...Double(Constants.maxIntensity)
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
         slider.minimumValue = Float(range.lowerBound)

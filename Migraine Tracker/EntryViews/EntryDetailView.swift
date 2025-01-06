@@ -29,7 +29,7 @@ struct EntryDetailView: View {
             
 //            Spacer()
             Text("Migraine on \(entry.timestamp, formatter: dateFormatter)")
-                .font(Font.custom("Avenir", size: 19))
+                .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                 .fontWeight(.bold)
                 .onAppear { isEntryDetailVisible = true }
                 .onDisappear { isEntryDetailVisible = false }
@@ -48,8 +48,8 @@ struct EntryDetailView: View {
                 Spacer()
                 VStack {
                     Text("SYMPTOMS")
-                        .font(Font.custom("Avenir", size: 17))
-                        .kerning(3)
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .kerning(Constants.subtitleKerning)
                     GenericListView(items: entry.symptoms)
                 }
                 .layoutPriority(0.5)
@@ -57,8 +57,8 @@ struct EntryDetailView: View {
                 Spacer()
                 VStack {
                     Text("TRIGGERS")
-                        .font(Font.custom("Avenir", size: 17))
-                        .kerning(3)
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .kerning(Constants.subtitleKerning)
                     GenericListView(items: entry.triggers)
                 }
                 .layoutPriority(0.5)
@@ -67,8 +67,8 @@ struct EntryDetailView: View {
             }
             VStack {
                 Text("TREATMENTS")
-                    .font(Font.custom("Avenir", size: 17))
-                    .kerning(3)
+                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    .kerning(Constants.subtitleKerning)
                 GenericIconlessHorizontalScrollRowView(items: entry.treatments)
                     .padding(.trailing, 20)
                     .padding(.leading, 20)
@@ -80,13 +80,13 @@ struct EntryDetailView: View {
                 Button(action: editEntry) {
                     Text("EDIT")
                         .kerning(3)
-                        .font(Font.custom("Avenir", size: 20))
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .padding(5)
                         .padding(.trailing, 10)
                         .padding(.leading, 10)
                         .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color("FirstLightPink").opacity(0.85))
+                            RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
+                                .fill(Color("FirstLightPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
                         )
                 }
                 .padding(.leading, 40)
@@ -97,25 +97,25 @@ struct EntryDetailView: View {
                 Button(action: {presentFollowupSheet = true}) {
                     Text("FOLLOWUP")
                         .kerning(3)
-                        .font(Font.custom("Avenir", size: 20))
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .padding(5)
                         .padding(.trailing, 10)
                         .padding(.leading, 10)
                         .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color("FirstLightPink").opacity(0.85))
+                            RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
+                                .fill(Color("FirstLightPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
                         )
                 }
                 Spacer()
                 Button(action: {presentDeleteAlert = true}) {
                     Image(systemName: "trash")
-                        .font(Font.custom("Avenir", size: 25))
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .padding(5)
                         .padding(.trailing, 10)
                         .padding(.leading, 10)
                         .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color("FirstLightPink").opacity(0.85))
+                            RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
+                                .fill(Color("FirstLightPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
                         )
                         .foregroundStyle(Color.black)
                 }
@@ -137,6 +137,6 @@ struct EntryDetailView: View {
     }
 }
 
-//#Preview {
-//    EntryDetailView(entry: .init(timestamp: Date(), intensity: 3, notes: "with notes"))
-//}
+#Preview {
+    EntryDetailView(entry: .init(timestamp: Date(), intensity: 3, notes: "with notes"), isEntryDetailVisible: .constant(true))
+}

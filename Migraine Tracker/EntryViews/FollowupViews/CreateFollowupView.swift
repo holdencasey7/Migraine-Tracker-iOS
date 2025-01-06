@@ -12,7 +12,7 @@ struct CreateFollowupView: View {
     @Binding var entry: Entry
     @Environment(\.modelContext) private var modelContext
     
-    @State var newIntensity: Int = 0
+    @State var newIntensity: Int = 1
     @State var newSymptoms: [Symptom] = []
     @State var newTreatments: [Treatment] = []
     @State var treatmentRatings: [Treatment: Int] = [:]

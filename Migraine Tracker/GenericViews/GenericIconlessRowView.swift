@@ -13,7 +13,7 @@ struct GenericIconlessRowView<T: GenericTriggerTreatmentSymptom>: View {
     var body: some View {
         HStack {
             Text("\(item.title)\(includeComma ? ", " : "")")
-                .font(Font.custom("Avenir", size: 19))
+                .font(Font.custom("Avenir", size: Constants.genericIconlessRowViewTitleFontSize))
         }
     }
 }

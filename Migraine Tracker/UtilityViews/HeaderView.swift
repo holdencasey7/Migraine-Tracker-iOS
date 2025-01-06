@@ -10,7 +10,7 @@ import SwiftUI
 struct HeaderView: View {
     var body: some View {
         Text("M I G R A I N E    T R A C K E R")
-            .font(Font.custom("Avenir", size: 24))
+            .font(Font.custom("Avenir", size: Constants.headerFontSize))
             .foregroundColor(Color.black)
 //            .bold()
     }

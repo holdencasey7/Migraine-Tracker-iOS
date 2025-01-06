@@ -17,13 +17,13 @@ struct WeatherView: View {
     @State var conditionSymbol: String?
     
     var body: some View {
-        HStack(spacing: 35) {
+        HStack(spacing: Constants.weatherViewOuterHStackSpacing) {
             if let temp = temperature {
                 Text("\(String(format: "%.0f°F", temp))")
-                    .font(Font.custom("Avenir", size: 17))
+                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
             } else {
                 Text("--°F")
-                    .font(Font.custom("Avenir", size: 17))
+                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
             }
             
             if let conditionSymbol = conditionSymbol {
@@ -33,9 +33,9 @@ struct WeatherView: View {
             }
             
             if let pressure = pressure {
-                HStack(alignment: .lastTextBaseline, spacing: 1) {
+                HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
                     Text("\(String(format: "%.2f\"Hg", pressure))")
-                        .font(Font.custom("Avenir", size: 17))
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                     if let pressureTrend = pressureTrend {
                         if pressureTrend == .falling {
                             Image(systemName: "arrow.down.circle")
@@ -50,19 +50,19 @@ struct WeatherView: View {
                 }
             } else {
                 Text("--\"Hg")
-                    .font(Font.custom("Avenir", size: 17))
+                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
             }
             
             if let humidity = humidity {
-                HStack(alignment: .lastTextBaseline, spacing: 1) {
+                HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
                     Text("\(String(format: "%.0f%%", humidity))")
-                        .font(Font.custom("Avenir", size: 17))
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                     Image(systemName: "humidity")
                 }
             } else {
-                HStack(alignment: .lastTextBaseline, spacing: 1) {
+                HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
                     Text("--%")
-                        .font(Font.custom("Avenir", size: 17))
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                     Image(systemName: "humidity")
                 }
             }
@@ -70,9 +70,9 @@ struct WeatherView: View {
         .padding()
         .padding(.horizontal, 10)
         .background(
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
+            RoundedRectangle(cornerRadius: Constants.weatherViewRoundedRectangleCornerRadius, style: .continuous)
                 .fill(Color.white)
-                .stroke(Color.black, lineWidth: 1)
+                .stroke(Color.black, lineWidth: Constants.weatherViewRoundedRectanlgeBorderWidth)
         )
     }
 }

@@ -15,8 +15,8 @@ struct GenericTileView<T: GenericTriggerTreatmentSymptom>: View {
                 .resizable()
                 .scaledToFit()
             Text(item.title)
-                .font(Font.custom("Avenir", size: 19))
-                .frame(maxWidth: 100)
+                .font(Font.custom("Avenir", size: Constants.genericTileViewTitleFontSize))
+                .frame(maxWidth: Constants.genericTileViewFrameMaxWidth)
         }
     }
 }
