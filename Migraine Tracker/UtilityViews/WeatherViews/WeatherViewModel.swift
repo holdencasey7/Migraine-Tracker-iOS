@@ -15,10 +15,10 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private var locationManager = CLLocationManager()
     
     @Published var temperature: Double?
-    @Published var condition: String?
+    @Published var condition: WeatherCondition?
     @Published var pressure: Double?
     @Published var humidity: Double?
-    @Published var pressureTrend: String?
+    @Published var pressureTrend: PressureTrend?
     
     private var currentLocation: CLLocation?
     
@@ -42,9 +42,9 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             DispatchQueue.main.async {
                 self.temperature = weather.currentWeather.temperature.converted(to: .fahrenheit).value
                 self.pressure = weather.currentWeather.pressure.converted(to: .inchesOfMercury).value
-                self.condition = weather.currentWeather.condition.description
+                self.condition = weather.currentWeather.condition
                 self.humidity = weather.currentWeather.humidity * 100
-                self.pressureTrend = weather.currentWeather.pressureTrend.description
+                self.pressureTrend = weather.currentWeather.pressureTrend
                 
                 completion(true)  // Return success once data is fetched
             }

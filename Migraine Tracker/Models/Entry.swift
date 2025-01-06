@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import WeatherKit
 
 @Model
 final class Entry:Identifiable, Hashable {
@@ -19,13 +20,13 @@ final class Entry:Identifiable, Hashable {
     var notes: String
     @Relationship(deleteRule: .cascade) var followup: Followup?
     var temperature: Double?
-    var condition: String?
+    var condition: WeatherCondition?
     var pressure: Double?
     var humidity: Double?
-    var pressureTrend: String?
+    var pressureTrend: PressureTrend?
     
     
-    init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String, temperature: Double? = nil, condition: String? = nil, pressure: Double? = nil, humidity: Double? = nil, pressureTrend: String? = nil) {
+    init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String, temperature: Double? = nil, condition: WeatherCondition? = nil, pressure: Double? = nil, humidity: Double? = nil, pressureTrend: PressureTrend? = nil) {
         self.id = UUID()
         
         if intensity < 1 {

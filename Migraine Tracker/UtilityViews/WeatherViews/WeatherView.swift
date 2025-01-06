@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import WeatherKit
 
 struct WeatherView: View {
     @State var temperature: Double?
     @State var pressure: Double?
-    @State var condition: String?
+    @State var condition: WeatherCondition?
     @State var humidity: Double?
-    @State var pressureTrend: String?
+    @State var pressureTrend: PressureTrend?
     
     var body: some View {
         VStack {
@@ -30,7 +31,7 @@ struct WeatherView: View {
                 Text("Pressure: No data")
             }
             
-            if let condition = condition {
+            if let condition = condition?.description {
                 Text("Condition: \(condition)")
                     .font(.headline)
             } else {
@@ -45,8 +46,19 @@ struct WeatherView: View {
             }
             
             if let pressureTrend = pressureTrend {
-                Text("Pressure Trend: \(pressureTrend)")
-                    .font(.headline)
+                HStack {
+                    Text("Pressure Trend: ")
+                        .font(.headline)
+                    if pressureTrend == .falling {
+                        Image(systemName: "arrow.down.circle")
+                    } else if pressureTrend == .rising {
+                        Image(systemName: "arrow.up.circle")
+                    } else if pressureTrend == .steady {
+                        Image(systemName: "arrow.right.circle")
+                    } else {
+                        Image(systemName: "arrow.right.circle")
+                    }
+                }
             } else {
                 Text("Pressure Trend: No data")
             }
@@ -58,6 +70,5 @@ struct WeatherView: View {
 }
 
 #Preview {
-    let weather = WeatherViewModel()
-    WeatherView(temperature: weather.temperature, pressure: weather.pressure, condition: weather.condition, humidity: weather.humidity, pressureTrend: weather.pressureTrend)
+    WeatherView(temperature: 72.898, pressure: 30.045, condition: .cloudy, humidity: 88.93, pressureTrend: .rising)
 }
