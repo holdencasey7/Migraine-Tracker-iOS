@@ -26,7 +26,7 @@ struct EntryDetailView: View {
     }()
     var body: some View {
         VStack(spacing: 10) {
-            WeatherView(temperature: entry.temperature, pressure: entry.pressure, condition: entry.condition, humidity: entry.humidity, pressureTrend: entry.pressureTrend, conditionSymbol: entry.conditionSymbol)
+            
 //            Spacer()
             Text("Migraine on \(entry.timestamp, formatter: dateFormatter)")
                 .font(Font.custom("Avenir", size: 19))
@@ -34,6 +34,7 @@ struct EntryDetailView: View {
                 .onAppear { isEntryDetailVisible = true }
                 .onDisappear { isEntryDetailVisible = false }
             IntensityFractionView(intensity: entry.intensity)
+
             if !entry.notes.isEmpty {
                 ScrollView {
                     let notes = entry.notes.isEmpty ? "No notes" : entry.notes
@@ -73,6 +74,8 @@ struct EntryDetailView: View {
                     .padding(.leading, 20)
                 Spacer()
             }
+            WeatherView(temperature: entry.temperature, pressure: entry.pressure, condition: entry.condition, humidity: entry.humidity, pressureTrend: entry.pressureTrend, conditionSymbol: entry.conditionSymbol)
+                .padding()
             HStack {
                 Button(action: editEntry) {
                     Text("EDIT")
