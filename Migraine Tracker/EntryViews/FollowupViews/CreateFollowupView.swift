@@ -14,7 +14,8 @@ struct CreateFollowupView: View {
     
     @State var newIntensity: Int = 0
     @State var newSymptoms: [Symptom] = []
-    @State var symptomRatings: [Symptom: Int] = [:]
+    @State var newTreatments: [Treatment] = []
+    @State var treatmentRatings: [Treatment: Int] = [:]
     @State var endDate: Date = Date()
     
     var body: some View {

@@ -14,9 +14,9 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let weatherService = WeatherService()
     private var locationManager = CLLocationManager()
     
-    @Published var temperature: String = "--"
-    @Published var condition: String = "Loading..."
-    @Published var pressure: String = "--"
+    @Published var temperature: Double?
+    @Published var condition: String = "Unknown"
+    @Published var pressure: Double?
     
     override init() {
         super.init()
@@ -29,10 +29,9 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         do {
             let weather = try await weatherService.weather(for: location)
             DispatchQueue.main.async {
-                self.temperature = "\(weather.currentWeather.temperature.value)°C"
+                self.temperature = weather.currentWeather.temperature.converted(to: .fahrenheit).value
+                self.pressure = weather.currentWeather.pressure.converted(to: .inchesOfMercury).value
                 self.condition = weather.currentWeather.condition.description
-                let pressureInHg = weather.currentWeather.pressure.converted(to: .inchesOfMercury).value
-                self.pressure = String(format: "%.2f inHg", pressureInHg)
             }
         } catch {
             print("Error fetching weather: \(error)")

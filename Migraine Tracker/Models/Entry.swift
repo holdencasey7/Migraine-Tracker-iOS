@@ -18,6 +18,9 @@ final class Entry:Identifiable, Hashable {
     @Relationship var treatments: [Treatment]
     var notes: String
     @Relationship(deleteRule: .cascade) var followup: Followup?
+    var temperature: Double?
+    var condition: String?
+    var pressure: Double?
     
     
     init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String) {
@@ -37,6 +40,10 @@ final class Entry:Identifiable, Hashable {
         self.symptoms = symptoms
         self.treatments = treatments
         self.notes = notes
+        let weather = WeatherViewModel()
+        self.temperature = weather.temperature
+        self.condition = weather.condition
+        self.pressure = weather.pressure
         
         for trigger in triggers {
             trigger.entriesIn.append(self)
