@@ -63,6 +63,7 @@ struct EntryListFromCalendarView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
+                .padding(.bottom, 25)
             }
             .background(Color("FirstLightPink"))
             .edgesIgnoringSafeArea(.all)

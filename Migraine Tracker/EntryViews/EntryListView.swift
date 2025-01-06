@@ -54,6 +54,7 @@ struct EntryListView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
+                .padding(.bottom, 100)
             }
             .background(Color("FirstLightPink"))
             .edgesIgnoringSafeArea(.all)
