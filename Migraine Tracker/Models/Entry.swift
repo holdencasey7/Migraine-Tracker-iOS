@@ -21,6 +21,8 @@ final class Entry:Identifiable, Hashable {
     var temperature: Double?
     var condition: String?
     var pressure: Double?
+    var humidity: Double?
+    var pressureTrend: String?
     
     
     init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String) {
@@ -44,6 +46,8 @@ final class Entry:Identifiable, Hashable {
         self.temperature = weather.temperature
         self.condition = weather.condition
         self.pressure = weather.pressure
+        self.humidity = weather.humidity
+        self.pressureTrend = weather.pressureTrend
         
         for trigger in triggers {
             trigger.entriesIn.append(self)

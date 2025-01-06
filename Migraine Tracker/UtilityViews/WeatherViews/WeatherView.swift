@@ -26,9 +26,29 @@ struct WeatherView: View {
                 Text("Fetching pressure...")
             }
             
-            Text("Condition: \(weather.condition)")
-                .font(.subheadline)
-                .padding(.top, 10)
+            if let condition = weather.condition {
+                Text("Condition: \(condition)")
+                    .font(.headline)
+            } else {
+                Text("Fetching condition...")
+            }
+            
+            if let humidity = weather.humidity {
+                Text("Humidity: \(String(format: "%.0f%%", humidity))")
+                    .font(.headline)
+            } else {
+                Text("Fetching humidity...")
+            }
+            
+            if let pressureTrend = weather.pressureTrend {
+                Text("Pressure Trend: \(pressureTrend)")
+                    .font(.headline)
+            } else {
+                Text("Fetching pressure trend...")
+            }
+            
+            
+
         }
     }
 }

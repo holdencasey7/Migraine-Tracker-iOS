@@ -15,8 +15,10 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private var locationManager = CLLocationManager()
     
     @Published var temperature: Double?
-    @Published var condition: String = "Unknown"
+    @Published var condition: String?
     @Published var pressure: Double?
+    @Published var humidity: Double?
+    @Published var pressureTrend: String?
     
     override init() {
         super.init()
@@ -32,6 +34,8 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 self.temperature = weather.currentWeather.temperature.converted(to: .fahrenheit).value
                 self.pressure = weather.currentWeather.pressure.converted(to: .inchesOfMercury).value
                 self.condition = weather.currentWeather.condition.description
+                self.humidity = weather.currentWeather.humidity * 100
+                self.pressureTrend = weather.currentWeather.pressureTrend.description
             }
         } catch {
             print("Error fetching weather: \(error)")
