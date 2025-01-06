@@ -5,19 +5,41 @@ struct EntryListView: View {
     @Environment(\.modelContext) var modelContext
     @Binding var isEntryDetailVisible: Bool
     @State var selectedSortMethod: EntrySortPickerView.SortMethod = .timestampDescending
+    @State var presentCalendarSheet: Bool = false
     
     var entries: [Entry]
     
     var body: some View {
         NavigationStack {
             VStack {
-                HStack {
-                    Text("SORT BY: ")
-                        .font(Font.custom("Avenir", size: 17))
-                        .kerning(1)
-                    EntrySortPickerView(selectedSortMethod: $selectedSortMethod)
+                ZStack {
+                    // Left-Aligned Calendar Button
+                    HStack {
+                        Button(action: { presentCalendarSheet = true }) {
+                            Image(systemName: "calendar.circle")
+                                .font(.system(size: 40))
+                                .padding(5)
+                        }
+                        .sheet(isPresented: $presentCalendarSheet) {
+                            EntryCalendarView(entries: entries, isPresented: $presentCalendarSheet)
+                        }
+                        Spacer()
+                    }
+                    
+                    // Centered Sort Picker
+                    HStack {
+                        Spacer()
+                        Text("SORT BY: ")
+                            .font(Font.custom("Avenir", size: 17))
+                            .kerning(1)
+                        EntrySortPickerView(selectedSortMethod: $selectedSortMethod)
+                        Spacer()
+                    }
                 }
+                .padding(.horizontal)
                 .background(Color("FirstLightPink"))
+                .padding(.bottom, -10)
+                
                 List {
                     ForEach(entries.sorted(by: selectedSortMethod.sortClosure)) { entry in
                         NavigationLink(destination: EntryDetailView(entry: entry, isEntryDetailVisible: $isEntryDetailVisible)) {
