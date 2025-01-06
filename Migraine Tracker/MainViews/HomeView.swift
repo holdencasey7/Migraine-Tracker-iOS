@@ -13,54 +13,18 @@ struct HomeView: View {
     @Query var triggers: [Trigger]
     @Query var treatments: [Treatment]
     @Query var symptoms: [Symptom]
+    @Query var entries: [Entry]
     
     @State var presentManageTriggerSheet: Bool = false
     @State var presentManageTreatmentSheet: Bool = false
     
     var body: some View {
         VStack {
-            Text("Home View")
+            FrequencyLineChartView(entries: entries)
             Spacer()
-            HStack {
-                VStack {
-                    Text("My Triggers")
-                        .font(.headline)
-//                    TriggerListView(triggers: triggers)
-                    Button("Manage Triggers") {
-                        presentManageTriggerSheet = true
-                    }
-                    .font(.title2)
-                    .padding(5)
-                    .padding(.trailing, 10)
-                    .padding(.leading, 10)
-                    .background(Color("LightGrey"), in: RoundedRectangle(cornerRadius: 10))
-                    .sheet(isPresented: $presentManageTriggerSheet) {
-                        TriggerEditableMenuView(isPresented: $presentManageTriggerSheet)
-                    }
-                }
-                VStack {
-                    Text("My Treatments")
-                        .font(.headline)
-//                    TreatmentListView(treatments: treatments)
-                    Button("Manage Treatments") {
-                        presentManageTreatmentSheet = true
-                    }
-                    .font(.title2)
-                    .padding(5)
-                    .padding(.trailing, 10)
-                    .padding(.leading, 10)
-                    .background(Color("LightGrey"), in: RoundedRectangle(cornerRadius: 10))
-                    .sheet(isPresented: $presentManageTreatmentSheet) {
-                        TreatmentEditableMenuView(isPresented: $presentManageTreatmentSheet)
-                    }
-                }
-            }
-            VStack {
-                Text("My Symptoms")
-                    .font(.headline)
-                SymptomGridView(symptoms: symptoms)
-                Spacer()
-            }
+            LeadingTriggerAndTreatmentView(triggers: triggers, treatments: treatments)
+            Spacer()
+            GiantAddEntryButtonView()
         }
     }
 }
