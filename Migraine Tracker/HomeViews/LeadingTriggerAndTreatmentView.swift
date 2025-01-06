@@ -14,13 +14,13 @@ struct LeadingTriggerAndTreatmentView: View {
     var body: some View {
         VStack {
             if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers) {
-                Text("Most Common Trigger: \(mostCommonTrigger)")
+                Text("Most Common Trigger: \(mostCommonTrigger.title)")
             } else {
                 Text("No Triggers Found")
             }
             
             if let mostEffectiveTreatment = getMostEffectiveTreatment(treatments: treatments) {
-                Text("Most Effective Treatment: \(mostEffectiveTreatment)")
+                Text("Most Effective Treatment: \(mostEffectiveTreatment.title)")
             } else {
                 Text("No Treatment Ratings Found")
             }
