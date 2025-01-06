@@ -46,6 +46,7 @@ struct EntrySortPickerView: View {
                 .padding(.top, -10)
                 .background(Color.white.opacity(0.6), in: RoundedRectangle(cornerRadius: 10))
         }.id(selectedSortMethod)
+            .background(Color("FirstLightPink")).edgesIgnoringSafeArea(.all)
     }
 }
 
