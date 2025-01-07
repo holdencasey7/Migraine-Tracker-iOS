@@ -14,7 +14,7 @@ final class Treatment:Identifiable, Hashable, GenericTriggerTreatmentSymptom{
     var title: String
     var icon: String?
     var category: TreatmentCategory
-    @Relationship(inverse: \Entry.treatments) var entriesIn: [Entry] = []
+    @Relationship(deleteRule: .nullify, inverse: \Entry.treatments) var entriesIn: [Entry] = []
     @Relationship(deleteRule: .cascade) var ratings: [Rating] = []
     
     init(title: String?, icon: String?, category: TreatmentCategory) {

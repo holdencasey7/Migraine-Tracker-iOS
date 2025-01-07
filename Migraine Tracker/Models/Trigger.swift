@@ -14,7 +14,7 @@ final class Trigger:Identifiable, Hashable, GenericTriggerTreatmentSymptom {
     var title: String
     var icon: String?
     var category: TriggerCategory?
-    @Relationship(inverse: \Entry.triggers) var entriesIn: [Entry] = []
+    @Relationship(deleteRule: .nullify, inverse: \Entry.triggers) var entriesIn: [Entry] = []
     
     init(title: String?, icon: String?) {
         self.id = UUID()

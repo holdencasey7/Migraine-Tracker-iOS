@@ -21,6 +21,13 @@ struct CreateFollowupView: View {
     var body: some View {
         VStack {
             RateTreatmentsView(treatmentRatings: $treatmentRatings)
+            HStack {
+                Text("Start Date:")
+                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    .padding()
+                DatePicker("", selection: $endDate)
+                    .padding(.trailing, 50)
+            }
             Button(action: addFollowup) {
                 Text("Add Followup")
             }
@@ -33,7 +40,7 @@ struct CreateFollowupView: View {
     }
     
     private func addFollowup() {
-        let followup: Followup = .init(entry: entry)
+        let followup: Followup = .init(entry: entry, endDate: endDate)
         modelContext.insert(followup)
         try? modelContext.save()
         

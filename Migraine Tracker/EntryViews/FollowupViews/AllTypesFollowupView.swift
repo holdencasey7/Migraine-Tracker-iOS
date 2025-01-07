@@ -31,7 +31,7 @@ struct AllTypesFollowupView: View {
             var hasNewTreatment = false
             var existingRatedTreatments: [Treatment] = []
             followup.ratings.forEach { rating in
-                existingRatedTreatments.append(rating.treatment)
+                existingRatedTreatments.append(rating.treatment ?? .init(title: "Error Treatment", icon: "", category: .other))
             }
             entry.treatments.forEach { treatment in
                 if !existingRatedTreatments.contains(treatment) {

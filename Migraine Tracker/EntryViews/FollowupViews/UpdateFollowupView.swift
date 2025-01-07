@@ -36,7 +36,7 @@ struct UpdateFollowupView: View {
         var existingTreatmentsToRatings: [Treatment : Int] = [:]
         if let followup = entry.followup {
             followup.ratings.forEach { rating in
-                existingTreatmentsToRatings[rating.treatment] = rating.ratingValue
+                existingTreatmentsToRatings[rating.treatment ?? .init(title: "Error Treatment", icon: "", category: .other)] = rating.ratingValue
             }
         }
         return existingTreatmentsToRatings

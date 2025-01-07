@@ -187,6 +187,8 @@ struct AddEntryView: View {
     
         let entry = Entry(timestamp: date, intensity: Int(intensity), triggers: finalSelectedTriggers, symptoms: finalSelectedSymptoms, treatments: finalSelectedTreatments, notes: notes)
         
+        weatherViewModel.requestLocationUpdate()
+        
         await weatherViewModel.fetchWeather() { success in
             if success {
                 entry.temperature = weatherViewModel.temperature

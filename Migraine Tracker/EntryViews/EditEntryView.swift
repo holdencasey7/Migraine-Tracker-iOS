@@ -164,8 +164,10 @@ struct EditEntryView: View {
                     
                     if let followup = entry.followup {
                         followup.ratings.forEach { rating in
-                            if !entry.treatments.contains(rating.treatment) {
-                                modelContext.delete(rating)
+                            if let treatment = rating.treatment {
+                                if !entry.treatments.contains(treatment) {
+                                    modelContext.delete(rating)
+                                }
                             }
                         }
                     }

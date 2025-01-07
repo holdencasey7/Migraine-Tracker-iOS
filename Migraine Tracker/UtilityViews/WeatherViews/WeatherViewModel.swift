@@ -67,13 +67,18 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                 } else {
                     print("Failed to fetch weather data")
                 }
+                manager.stopUpdatingLocation()  // Stop for battery efficiency
             }
         }
-        locationManager.stopUpdatingLocation()  // Stop for battery efficiency
+//        locationManager.stopUpdatingLocation()  // Stop for battery efficiency
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location error: \(error.localizedDescription)")
+    }
+    
+    func requestLocationUpdate() {
+        locationManager.startUpdatingLocation()
     }
 }
 

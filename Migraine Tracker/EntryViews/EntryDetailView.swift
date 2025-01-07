@@ -134,6 +134,7 @@ struct EntryDetailView: View {
     }
     private func deleteEntry() {
         modelContext.delete(entry)
+        isEntryDetailVisible = false
     }
     private func editEntry() {
         presentEditSheet = true

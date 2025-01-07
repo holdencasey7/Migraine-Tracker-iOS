@@ -11,8 +11,8 @@ import SwiftData
 @Model
 final class Rating:Identifiable, Hashable {
     @Attribute(.unique) var id: UUID
-    @Relationship(inverse: \Treatment.ratings) var treatment: Treatment
-    @Relationship(inverse: \Followup.ratings) var followup: Followup
+    @Relationship(deleteRule: .nullify, inverse: \Treatment.ratings) var treatment: Treatment?
+    @Relationship(deleteRule: .nullify, inverse: \Followup.ratings) var followup: Followup?
     var ratingValue: Int
     
     init (treatment: Treatment, followup: Followup, ratingValue: Int) {
@@ -20,9 +20,6 @@ final class Rating:Identifiable, Hashable {
         self.treatment = treatment
         self.followup = followup
         self.ratingValue = ratingValue
-        
-        treatment.ratings.append(self)
-        followup.ratings.append(self)
     }
 }
 
