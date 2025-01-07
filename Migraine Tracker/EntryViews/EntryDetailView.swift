@@ -106,11 +106,7 @@ struct EntryDetailView: View {
                                 .fill(Color("FirstLightPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
                         )
                         .sheet(isPresented: $presentFollowupSheet) {
-                            if let followup = entry.followup {
-                                FollowupDetailView(followup: followup)
-                            } else {
-                                CreateFollowupView(entry: $entry)
-                            }
+                            AllTypesFollowupView(entry: $entry, isPresented: $presentFollowupSheet)
                         }
                 }
                 Spacer()
