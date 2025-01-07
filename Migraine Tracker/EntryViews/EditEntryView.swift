@@ -117,7 +117,7 @@ struct EditEntryView: View {
                     .padding(.trailing, 15)
                 }
                 VStack(alignment: .center) {
-                    Button(action: { presentSymptomSheet = true }) {
+                    Button(action: { presentTreatmentSheet = true }) {
                         HStack {
                             Image(systemName: "pencil.circle")
                             Text("TREATMENTS")

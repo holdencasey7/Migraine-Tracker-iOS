@@ -33,17 +33,16 @@ struct CreateFollowupView: View {
     }
     
     private func addFollowup() {
-        treatmentRatings.forEach { treatment, ratingValue in
-            let rating: Rating = .init(treatment: treatment, ratingValue: ratingValue)
-            modelContext.insert(rating)
-            try? modelContext.save()
-        }
-        
         let followup: Followup = .init(entry: entry)
         modelContext.insert(followup)
         try? modelContext.save()
-        // I shouldn't need to do entry.followup = followup because it's in the init() of Followup
         
+        treatmentRatings.forEach { treatment, ratingValue in
+            let rating: Rating = .init(treatment: treatment, followup: followup, ratingValue: ratingValue)
+            modelContext.insert(rating)
+            try? modelContext.save()
+        }
+    
     }
 }
 

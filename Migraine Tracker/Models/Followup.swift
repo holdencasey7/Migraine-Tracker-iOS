@@ -12,6 +12,7 @@ import SwiftData
 final class Followup:Identifiable, Hashable {
     @Attribute(.unique) var id: UUID
     @Relationship(inverse: \Entry.followup) var entry: Entry
+    @Relationship(deleteRule: .cascade) var ratings: [Rating] = []
     
     init (entry: Entry) {
         self.id = UUID()
