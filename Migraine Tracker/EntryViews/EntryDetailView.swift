@@ -105,6 +105,13 @@ struct EntryDetailView: View {
                             RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
                                 .fill(Color("FirstLightPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
                         )
+                        .sheet(isPresented: $presentFollowupSheet) {
+                            if let followup = entry.followup {
+                                FollowupDetailView(followup: followup)
+                            } else {
+                                CreateFollowupView(entry: $entry)
+                            }
+                        }
                 }
                 Spacer()
                 Button(action: {presentDeleteAlert = true}) {

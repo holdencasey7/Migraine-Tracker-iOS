@@ -19,10 +19,26 @@ struct CreateFollowupView: View {
     @State var endDate: Date = Date()
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            RateTreatmentsView(treatmentRatings: $treatmentRatings)
+            Button(action: addFollowup) {
+                Text("Add Followup")
+            }
+        }
+        .onAppear {
+            entry.treatments.forEach { treatment in
+                treatmentRatings[treatment] = 0
+            }
+        }
     }
     
     private func addFollowup() {
+        treatmentRatings.forEach { treatment, ratingValue in
+            let rating: Rating = .init(treatment: treatment, ratingValue: ratingValue)
+            modelContext.insert(rating)
+            try? modelContext.save()
+        }
+        
         let followup: Followup = .init(entry: entry)
         modelContext.insert(followup)
         try? modelContext.save()

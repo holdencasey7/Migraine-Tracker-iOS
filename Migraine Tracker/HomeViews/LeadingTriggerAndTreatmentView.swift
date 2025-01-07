@@ -19,11 +19,11 @@ struct LeadingTriggerAndTreatmentView: View {
                 Text("No Triggers Found")
             }
             
-            if let mostEffectiveTreatment = getMostEffectiveTreatment(treatments: treatments) {
-                Text("Most Effective Treatment: \(mostEffectiveTreatment.title)")
-            } else {
-                Text("No Treatment Ratings Found")
-            }
+//            if let mostEffectiveTreatment = getMostEffectiveTreatment(treatments: treatments) {
+//                Text("Most Effective Treatment: \(mostEffectiveTreatment.title)")
+//            } else {
+//                Text("No Treatment Ratings Found")
+//            }
         }
     }
     
@@ -36,21 +36,21 @@ struct LeadingTriggerAndTreatmentView: View {
         return sortedTriggerDictionary.first?.key
     }
     
-    private func getMostEffectiveTreatment(treatments: [Treatment]) -> Treatment? {
-        var treatmentDictionary: [Treatment: Double] = [:]
-        treatments.forEach { treatment in
-            var treatmentRating = 0.0
-            treatment.ratings.forEach { rating in
-                treatmentRating += Double(rating.ratingValue)
-            }
-            if treatment.ratings.count > 0 {
-                treatmentRating /= Double(treatment.ratings.count)
-            }
-            treatmentDictionary[treatment, default: 0.0] = treatmentRating
-        }
-        let sortedTreatmentDictionary = treatmentDictionary.sorted { $0.value > $1.value }
-        return sortedTreatmentDictionary.first?.key
-    }
+//    private func getMostEffectiveTreatment(treatments: [Treatment]) -> Treatment? {
+//        var treatmentDictionary: [Treatment: Double] = [:]
+//        treatments.forEach { treatment in
+//            var treatmentRating = 0.0
+//            treatment.ratings.forEach { rating in
+//                treatmentRating += Double(rating.ratingValue)
+//            }
+//            if treatment.ratings.count > 0 {
+//                treatmentRating /= Double(treatment.ratings.count)
+//            }
+//            treatmentDictionary[treatment, default: 0.0] = treatmentRating
+//        }
+//        let sortedTreatmentDictionary = treatmentDictionary.sorted { $0.value > $1.value }
+//        return sortedTreatmentDictionary.first?.key
+//    }
 }
 
 //#Preview {

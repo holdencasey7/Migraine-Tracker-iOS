@@ -22,3 +22,12 @@ final class Rating:Identifiable, Hashable {
         treatment.ratings.append(self)
     }
 }
+
+//enum RatingOptions: String, Codable, CaseIterable, Identifiable {
+//    case not = "Not Effective"
+//    case mild = "Mildly Effective"
+//    case very = "Very Effective"
+//    case noRating = "No Rating"
+//    
+//    var id:String { rawValue }
+//}

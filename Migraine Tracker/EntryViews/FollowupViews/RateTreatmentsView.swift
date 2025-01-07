@@ -8,9 +8,41 @@
 import SwiftUI
 
 struct RateTreatmentsView: View {
-    @Binding var treatments: [Treatment] // Ask ChatGPT how to best implement this
+    @Binding var treatmentRatings: [Treatment : Int]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(Array(treatmentRatings.keys), id: \.self) { treatment in
+                HStack {
+                    Text(treatment.title)
+                    HStack {
+                        Image(systemName: treatmentRatings[treatment] ?? 0 == 0 ? "star" : "star.fill")
+                            .onTapGesture {
+                                if treatmentRatings[treatment] == 1 {
+                                    treatmentRatings[treatment] = 0
+                                } else {
+                                    treatmentRatings[treatment] = 1
+                                }
+                            }
+                        Image(systemName: treatmentRatings[treatment] ?? 0 <= 1 ? "star" : "star.fill")
+                            .onTapGesture {
+                                if treatmentRatings[treatment] == 2 {
+                                    treatmentRatings[treatment] = 0
+                                } else {
+                                    treatmentRatings[treatment] = 2
+                                }
+                            }
+                        Image(systemName: treatmentRatings[treatment] ?? 0 <= 2 ? "star" : "star.fill")
+                            .onTapGesture {
+                                if treatmentRatings[treatment] == 3 {
+                                    treatmentRatings[treatment] = 0
+                                } else {
+                                    treatmentRatings[treatment] = 3
+                                }
+                            }
+                    }
+                }
+            }
+        }
     }
 }
 
