@@ -22,7 +22,7 @@ struct CreateFollowupView: View {
         VStack {
             RateTreatmentsView(treatmentRatings: $treatmentRatings)
             HStack {
-                Text("Start Date:")
+                Text("End Date:")
                     .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                     .padding()
                 DatePicker("", selection: $endDate)

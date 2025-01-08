@@ -10,13 +10,19 @@ import SwiftUI
 struct AllTypesFollowupView: View {
     @Binding var entry: Entry
     @Binding var isPresented: Bool
+    @State var followup: Followup?
     var body: some View {
         let pickView = pickFollowupView(entry: entry)
         switch pickView {
         case 0:
-            FollowupDetailView(followup: entry.followup!)
+            if let followup = entry.followup {
+                FollowupDetailView(followup: followup)
+            }
+            
         case 1:
-            UpdateFollowupView(entry: $entry)
+            if let followup = entry.followup {
+                UpdateFollowupView(followup: $followup, newEndDate: followup.endDate, isPresented: .constant(true))
+            }
         case 2:
             CreateFollowupView(entry: $entry)
         default:

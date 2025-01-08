@@ -10,25 +10,42 @@ import SwiftData
 
 struct UpdateFollowupView: View {
     @Environment(\.modelContext) private var modelContext
-    @Binding var entry: Entry
+    @Binding var followup: Followup?
     @State var changedTreatmentRatings: [Treatment: Int] = [:]
     @State var newTreatmentRatings: [Treatment: Int] = [:]
+    @State var newEndDate: Date
+    @Binding var isPresented: Bool
     
     var body: some View {
         VStack{
-            Text("Existing Ratings:")
-            RateTreatmentsView(treatmentRatings: $changedTreatmentRatings)
-            Text("New Ratings:")
-            RateTreatmentsView(treatmentRatings: $newTreatmentRatings)
+            HStack {
+                Text("End Date:")
+                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    .padding()
+                DatePicker("", selection: $newEndDate)
+                    .padding(.trailing, 50)
+            }
+            if !changedTreatmentRatings.isEmpty {
+                Text("Existing Ratings:")
+                RateTreatmentsView(treatmentRatings: $changedTreatmentRatings)
+            }
+            if !newTreatmentRatings.isEmpty {
+                Text("New Ratings:")
+                RateTreatmentsView(treatmentRatings: $newTreatmentRatings)
+            }
             Button(action: updateFollowup) {
                 Text("Update Followup")
             }
         }
         .onAppear {
-            let existingTreatmentsToRatings = getExistingRatings(entry: entry)
-            let newRatingValues = getNewRatingValues(entry: entry, existingTreatmentsToRatings: existingTreatmentsToRatings)
-            changedTreatmentRatings = existingTreatmentsToRatings
-            newTreatmentRatings = newRatingValues
+            if let followup = followup {
+                if let entry = followup.entry {
+                    let existingTreatmentsToRatings = getExistingRatings(entry: entry)
+                    let newRatingValues = getNewRatingValues(entry: entry, existingTreatmentsToRatings: existingTreatmentsToRatings)
+                    changedTreatmentRatings = existingTreatmentsToRatings
+                    newTreatmentRatings = newRatingValues
+                }
+            }
         }
     }
     
@@ -53,18 +70,24 @@ struct UpdateFollowupView: View {
     }
     
     private func updateFollowup() {
-        newTreatmentRatings.forEach { treatment, ratingValue in
-            let rating: Rating = .init(treatment: treatment, followup: entry.followup!, ratingValue: ratingValue)
-            modelContext.insert(rating)
+        if let followup = followup {
+            newTreatmentRatings.forEach { treatment, ratingValue in
+                let rating: Rating = .init(treatment: treatment, followup: followup, ratingValue: ratingValue)
+                modelContext.insert(rating)
+                try? modelContext.save()
+            }
+            changedTreatmentRatings.forEach { treatment, ratingValue in
+                let rating: Rating = followup.ratings.first { $0.treatment == treatment }!
+                rating.ratingValue = ratingValue
+                modelContext.insert(rating)
+                try? modelContext.save()
+            }
+            
+            followup.endDate = newEndDate
+            modelContext.insert(followup)
             try? modelContext.save()
         }
-        
-        changedTreatmentRatings.forEach { treatment, ratingValue in
-            let rating: Rating = entry.followup!.ratings.first { $0.treatment == treatment }!
-            rating.ratingValue = ratingValue
-            modelContext.insert(rating)
-            try? modelContext.save()
-        }
+        isPresented = false
     }
 }
 
