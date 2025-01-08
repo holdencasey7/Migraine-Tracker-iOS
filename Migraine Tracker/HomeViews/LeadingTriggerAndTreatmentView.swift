@@ -13,27 +13,49 @@ struct LeadingTriggerAndTreatmentView: View {
     
     var body: some View {
         VStack {
-            if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers) {
-                Text("Most Common Trigger: \(mostCommonTrigger.title)")
+            if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers).0 {
+                if let countOfMostCommonTrigger = getMostCommonTrigger(triggers: triggers).1 {
+                    Text("Most Common Trigger: \(mostCommonTrigger.title) (\(countOfMostCommonTrigger) entries)")
+                } else {
+                    Text("Most Common Trigger: \(mostCommonTrigger.title)")
+                }
             } else {
                 Text("No Triggers Found")
             }
             
-//            if let mostEffectiveTreatment = getMostEffectiveTreatment(treatments: treatments) {
-//                Text("Most Effective Treatment: \(mostEffectiveTreatment.title)")
-//            } else {
-//                Text("No Treatment Ratings Found")
-//            }
+            if let highestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).0 {
+                if let averageRatingOfHighestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).1 {
+                    Text("Highest Average Rating Treatment: \(highestAverageRatingTreatment.title) (\(averageRatingOfHighestAverageRatingTreatment))")
+                } else {
+                    Text("Highest Average Rating Treatment: \(highestAverageRatingTreatment.title)")
+                }
+            } else {
+                Text("No Rated Treatments Found")
+            }
         }
     }
     
-    private func getMostCommonTrigger(triggers: [Trigger]) -> Trigger? {
+    private func getMostCommonTrigger(triggers: [Trigger]) -> (Trigger?, Int?) {
         var triggerDictionary: [Trigger: Int] = [:]
         triggers.forEach { trigger in
             triggerDictionary[trigger, default: 0] = trigger.entriesIn.count
         }
         let sortedTriggerDictionary = triggerDictionary.sorted { $0.value > $1.value }
-        return sortedTriggerDictionary.first?.key
+        return (sortedTriggerDictionary.first?.key, sortedTriggerDictionary.first?.value)
+    }
+    
+    private func getHighestAverageRatedTreatment(treatments: [Treatment]) -> (Treatment?, Double?) {
+        var highestAverageRating: Double?
+        var highestAverageRatingTreatment: Treatment?
+        treatments.forEach { treatment in
+            if let averageRating = treatment.averageRating {
+                if highestAverageRating == nil || averageRating > highestAverageRating! {
+                    highestAverageRating = averageRating
+                    highestAverageRatingTreatment = treatment
+                }
+            }
+        }
+        return (highestAverageRatingTreatment, highestAverageRating)
     }
     
 //    private func getMostEffectiveTreatment(treatments: [Treatment]) -> Treatment? {

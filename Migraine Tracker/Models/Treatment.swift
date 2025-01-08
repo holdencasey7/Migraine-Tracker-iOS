@@ -17,6 +17,12 @@ final class Treatment:Identifiable, Hashable, GenericTriggerTreatmentSymptom{
     @Relationship(deleteRule: .nullify, inverse: \Entry.treatments) var entriesIn: [Entry] = []
     @Relationship(deleteRule: .cascade) var ratings: [Rating] = []
     
+    var averageRating: Double? {
+        guard !ratings.isEmpty else { return nil }
+        let total = ratings.reduce(0.0) { $0 + Double($1.ratingValue) }
+        return total / Double(ratings.count)
+    }
+    
     init(title: String?, icon: String?, category: TreatmentCategory) {
         self.id = UUID()
         

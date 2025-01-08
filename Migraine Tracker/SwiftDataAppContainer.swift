@@ -41,7 +41,7 @@ let appContainer: ModelContainer = {
         
         // If not, add default treatments
         let treatments = [
-            Treatment(title: "Painkillers", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
+            Treatment(title: "Other Painkillers", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
             Treatment(title: "Excedrin", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
             Treatment(title: "Midol", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
             Treatment(title: "Triptan", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),

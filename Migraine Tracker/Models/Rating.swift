@@ -19,7 +19,13 @@ final class Rating:Identifiable, Hashable {
         self.id = UUID()
         self.treatment = treatment
         self.followup = followup
-        self.ratingValue = ratingValue
+        if ratingValue < 0 {
+            self.ratingValue = 0
+        } else if ratingValue > 3 {
+            self.ratingValue = 3
+        } else {
+            self.ratingValue = ratingValue
+        }
     }
 }
 

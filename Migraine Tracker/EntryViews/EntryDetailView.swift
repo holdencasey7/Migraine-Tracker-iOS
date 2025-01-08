@@ -95,7 +95,7 @@ struct EntryDetailView: View {
                 }
                 Spacer()
                 Button(action: {presentFollowupSheet = true}) {
-                    Text("FOLLOWUP")
+                    Text("FOLLOW UP")
                         .kerning(3)
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .padding(5)
