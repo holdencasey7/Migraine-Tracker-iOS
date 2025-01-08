@@ -16,7 +16,7 @@ struct ContentView: View {
             Spacer()
             TabView(selection: $selection) {
                 Tab("Home", systemImage: "house", value: 0) {
-                    HomeView()
+                    HomeView(contentViewSelection: $selection)
                 }
                 
                 Tab("Add Migraine", systemImage: "plus.square", value: 1) {

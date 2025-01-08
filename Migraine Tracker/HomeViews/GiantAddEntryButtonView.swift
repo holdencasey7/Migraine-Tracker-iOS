@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct GiantAddEntryButtonView: View {
+    @Binding var contentViewSelection: Int
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: {
+            contentViewSelection = 1
+        }) {
+            Image(systemName: "plus")
+                .font(Font.system(size: 100))
+        }
     }
 }
 
 #Preview {
-    GiantAddEntryButtonView()
+    GiantAddEntryButtonView(contentViewSelection: .constant(0))
 }

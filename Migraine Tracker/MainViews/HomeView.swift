@@ -17,6 +17,7 @@ struct HomeView: View {
     
     @State var presentManageTriggerSheet: Bool = false
     @State var presentManageTreatmentSheet: Bool = false
+    @Binding var contentViewSelection: Int
     
     var body: some View {
         VStack {
@@ -24,11 +25,11 @@ struct HomeView: View {
             Spacer()
             LeadingTriggerAndTreatmentView(triggers: triggers, treatments: treatments)
             Spacer()
-            GiantAddEntryButtonView()
+            GiantAddEntryButtonView(contentViewSelection: $contentViewSelection)
         }
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView(contentViewSelection: .constant(0))
 }
