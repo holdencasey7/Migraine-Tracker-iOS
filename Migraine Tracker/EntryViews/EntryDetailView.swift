@@ -134,6 +134,7 @@ struct EntryDetailView: View {
     }
     private func deleteEntry() {
         modelContext.delete(entry)
+        try? modelContext.save()
         isEntryDetailVisible = false
     }
     private func editEntry() {

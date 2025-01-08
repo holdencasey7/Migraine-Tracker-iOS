@@ -4,8 +4,9 @@ import SwiftData
 struct EntryListView: View {
     @Environment(\.modelContext) var modelContext
     @Binding var isEntryDetailVisible: Bool
-    @State var selectedSortMethod: EntrySortPickerView.SortMethod = .timestampDescending
-    @State var presentCalendarSheet: Bool = false
+    @State private var selectedSortMethod: EntrySortPickerView.SortMethod = .timestampDescending
+    @State private var presentCalendarSheet: Bool = false
+    @State private var selectedEntry: Entry? = nil  // Tracks the selected entry for navigation
     
     var entries: [Entry]
     
@@ -42,8 +43,16 @@ struct EntryListView: View {
                 
                 List {
                     ForEach(entries.sorted(by: selectedSortMethod.sortClosure)) { entry in
-                        NavigationLink(destination: EntryDetailView(entry: entry, isEntryDetailVisible: $isEntryDetailVisible)) {
-                            EntryRowView(entry: entry)
+                        Button {
+                            selectedEntry = entry
+                            isEntryDetailVisible = true
+                        } label: {
+                            HStack {
+                                EntryRowView(entry: entry)
+                                Spacer()
+                                Image(systemName: "chevron.right") // Standard disclosure indicator
+                                    .foregroundColor(.gray)
+                            }
                         }
                     }
                     .onDelete { indexSet in
@@ -58,18 +67,13 @@ struct EntryListView: View {
             }
             .background(Color("FirstLightPink"))
             .edgesIgnoringSafeArea(.all)
+            .navigationDestination(isPresented: $isEntryDetailVisible) {
+                if let selectedEntry = selectedEntry {
+                    EntryDetailView(entry: selectedEntry, isEntryDetailVisible: $isEntryDetailVisible)
+                }
+            }
         }
         .background(Color("FirstLightPink"))
         .edgesIgnoringSafeArea(.all)
     }
-}
-
-#Preview {
-    EntryListView(isEntryDetailVisible: .constant(false), entries: [
-        .init(timestamp: Date(), intensity: 1, notes: "1"),
-        .init(timestamp: Date(), intensity: 2, notes: "2"),
-        .init(timestamp: Date(), intensity: 3, notes: "3"),
-        .init(timestamp: Date(), intensity: 4, notes: "4"),
-        .init(timestamp: Date(), intensity: 5, notes: "5")
-    ])
 }

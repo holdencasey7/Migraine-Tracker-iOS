@@ -22,7 +22,7 @@ struct FollowupDetailView: View {
         if let followup = followup {
             VStack {
                 ForEach(followup.ratings) { rating in
-                    RatingView(rating: rating)
+                    RatingRowView(rating: rating)
                 }
                 VStack {
                     if let entry = followup.entry {

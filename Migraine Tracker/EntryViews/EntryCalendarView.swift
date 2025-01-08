@@ -26,7 +26,7 @@ struct EntryCalendarView: View {
                     Calendar.current.isDate($0.timestamp, inSameDayAs: selectedDate)
                 }
                 VStack {
-                    EntryListFromCalendarView(isEntryDetailPresented: $isEntryDetailPresented, showingEntries: $showingEntries, selectedDate: $selectedDate, entries: filteredEntries)
+                    EntryListFromCalendarView(isEntryDetailVisible: $isEntryDetailPresented, showingEntries: $showingEntries, selectedDate: $selectedDate, entries: filteredEntries)
                 }
                 .background(Color("FirstLightPink"))
                 

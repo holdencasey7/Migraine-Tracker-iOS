@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RatingView: View {
+struct RatingRowView: View {
     var rating: Rating
     var body: some View {
         HStack {

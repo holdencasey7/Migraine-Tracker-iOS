@@ -10,10 +10,11 @@ import SwiftData
 
 struct EntryListFromCalendarView: View {
     @Environment(\.modelContext) var modelContext
-    @Binding var isEntryDetailPresented: Bool
+    @Binding var isEntryDetailVisible: Bool
     @Binding var showingEntries: Bool
     @Binding var selectedDate: Date?
     @State var selectedSortMethod: EntrySortPickerView.SortMethod = .timestampDescending
+    @State private var selectedEntry: Entry? = nil  // Tracks the selected entry for navigation
     
     var entries: [Entry]
     
@@ -24,7 +25,7 @@ struct EntryListFromCalendarView: View {
                     // Left-Aligned Calendar Button
                     HStack {
                         Button(action: {
-                            isEntryDetailPresented = false
+                            isEntryDetailVisible = false
                             showingEntries = false
                             self.selectedDate = nil
                         }) {
@@ -51,8 +52,16 @@ struct EntryListFromCalendarView: View {
                 
                 List {
                     ForEach(entries.sorted(by: selectedSortMethod.sortClosure)) { entry in
-                        NavigationLink(destination: EntryDetailView(entry: entry, isEntryDetailVisible: $isEntryDetailPresented)) {
-                            EntryRowView(entry: entry)
+                        Button {
+                            selectedEntry = entry
+                            isEntryDetailVisible = true
+                        } label: {
+                            HStack {
+                                EntryRowView(entry: entry)
+                                Spacer()
+                                Image(systemName: "chevron.right") // Standard disclosure indicator
+                                    .foregroundColor(.gray)
+                            }
                         }
                     }
                     .onDelete { indexSet in
@@ -63,7 +72,14 @@ struct EntryListFromCalendarView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
-                .padding(.bottom, 25)
+                .padding(.bottom, 100)
+            }
+            .background(Color("FirstLightPink"))
+            .edgesIgnoringSafeArea(.all)
+            .navigationDestination(isPresented: $isEntryDetailVisible) {
+                if let selectedEntry = selectedEntry {
+                    EntryDetailView(entry: selectedEntry, isEntryDetailVisible: $isEntryDetailVisible)
+                }
             }
             .background(Color("FirstLightPink"))
             .edgesIgnoringSafeArea(.all)
