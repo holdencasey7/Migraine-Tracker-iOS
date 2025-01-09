@@ -10,7 +10,6 @@ import SwiftUI
 struct CreateTreatmentNoteView: View {
     @Binding var treatment: Treatment
     @Binding var allEntryTreatmentNotes: [TreatmentNote]
-    @State var treatmentNote: TreatmentNote = TreatmentNote()
     
     @State var dosage: String?
     @State var frequency: Int?
@@ -31,7 +30,24 @@ struct CreateTreatmentNoteView: View {
     }
     
     private func submit() {
-        treatment.treatmentNotes.append(treatmentNote)
+        let treatmentNote: TreatmentNote = TreatmentNote(treatmentIn: treatment)
+        
+        if let dosage {
+            treatmentNote.dosage = dosage
+        }
+        if let frequency {
+            treatmentNote.frequency = frequency
+        }
+        if let datesTaken {
+            treatmentNote.datesTaken = datesTaken
+        }
+        if let duration {
+            treatmentNote.durartion = duration
+        }
+        if let otherNotes {
+            treatmentNote.otherNotes = otherNotes
+        }
+        
         allEntryTreatmentNotes.append(treatmentNote)
     }
 }

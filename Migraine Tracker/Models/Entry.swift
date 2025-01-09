@@ -58,6 +58,10 @@ final class Entry:Identifiable, Hashable {
         self.humidity = humidity
         self.pressureTrend = pressureTrend
         self.conditionSymbol = conditionSymbol
+        
+        self.treatmentNotes.forEach { treatmentNote in
+            treatmentNote.entryIn = self
+        }
     }
     
     convenience init(timestamp: Date, intensity: Int, notes: String) {

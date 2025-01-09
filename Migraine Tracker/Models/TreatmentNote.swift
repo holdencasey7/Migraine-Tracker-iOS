@@ -20,7 +20,12 @@ final class TreatmentNote: Identifiable, Hashable {
     var durartion: TimeInterval?
     var otherNotes: String?
     
-    init() {
+    init(treatmentIn: Treatment?) {
         self.id = UUID()
+        
+        if let treatmentIn = treatmentIn {
+            self.treatmentIn = treatmentIn
+            treatmentIn.treatmentNotes.append(self)
+        }
     }
 }

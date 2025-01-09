@@ -188,8 +188,7 @@ struct AddEntryView: View {
         errorMessage = nil  // Reset error message
     
         let entry = Entry(timestamp: date, intensity: Int(intensity), triggers: finalSelectedTriggers, symptoms: finalSelectedSymptoms, treatments: finalSelectedTreatments, treatmentNotes: treatmentNotes, notes: notes)
-            // Make sure I don't need to add treatmentNotes.entry = entry
-            // SwiftData should(?) take care of it
+
         weatherViewModel.requestLocationUpdate()
         
         await weatherViewModel.fetchWeather() { success in
