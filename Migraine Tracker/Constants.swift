@@ -28,7 +28,7 @@ enum Constants {
     }
     
     // Home View
-    static let leadingTriggerTreatmentFontSize: CGFloat = scaledValue(height: 25)
+    static let leadingTriggerTreatmentFontSize: CGFloat = scaledValue(height: 21)
 
     // Subtitle
     static let subtitleKerning: CGFloat = scaledValue(width: 3)

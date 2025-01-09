@@ -12,40 +12,84 @@ struct LeadingTriggerAndTreatmentView: View {
     @State var treatments: [Treatment]
     
     var body: some View {
-        VStack {
-            
-            if let highestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).0 {
-                if let averageRatingOfHighestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).1 {
-                    Text("Leading Treatment: \(highestAverageRatingTreatment.title) (\(String(format: "%.1f", averageRatingOfHighestAverageRatingTreatment))/3)")
+        HStack(alignment: .top) {
+            VStack {
+                if let highestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).0 {
+                    Text("Top Treatment")
                         .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
                         .multilineTextAlignment(.center)
-                } else {
-                    Text("Leading Treatment: \(highestAverageRatingTreatment.title)")
-                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
-                        .multilineTextAlignment(.center)
-                }
-            } else {
-                Text("No Rated Treatments Found")
-                    .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
-            }
-            
-            
-            if let countOfMostCommonTrigger = getMostCommonTrigger(triggers: triggers).1 {
-                if countOfMostCommonTrigger > 0 {
-                    if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers).0 {
-                        Text("Leading Trigger: \(mostCommonTrigger.title) (\(countOfMostCommonTrigger)x)")
-                            .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
-                            .multilineTextAlignment(.center)
+                        .fontWeight(.bold)
+//                        .padding(.bottom, -15)
+                    Spacer()
+                    if let imageName = highestAverageRatingTreatment.icon {
+                        Image(imageName)
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fit)
+                            .frame(width: 100, height: 100)
                     }
-                } else {
-                    Text("No Triggers Logged")
+                    Text("\(highestAverageRatingTreatment.title)")
                         .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+                        .multilineTextAlignment(.center)
+
                 }
-            } else {
-                Text("No Triggers Logged")
-                    .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
             }
+            .padding(.horizontal)
+            VStack {
+                if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers).0 {
+                    Text("Top Trigger")
+                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+                        .multilineTextAlignment(.center)
+                        .fontWeight(.bold)
+//                        .padding(.bottom, -15)
+                    Spacer()
+                    if let imageName = mostCommonTrigger.icon {
+                        Image(imageName)
+                            .resizable()
+                            .aspectRatio(1, contentMode: .fit)
+                            .frame(width: 100, height: 100)
+                    }
+                    Text("\(mostCommonTrigger.title)")
+                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+                        .multilineTextAlignment(.center)
+                }
+            }
+            .padding(.horizontal)
         }
+        
+//        VStack {
+//            
+//            if let highestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).0 {
+//                if let averageRatingOfHighestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).1 {
+//                    Text("Leading Treatment: \(highestAverageRatingTreatment.title) (\(String(format: "%.1f", averageRatingOfHighestAverageRatingTreatment))/3)")
+//                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+//                        .multilineTextAlignment(.center)
+//                } else {
+//                    Text("Leading Treatment: \(highestAverageRatingTreatment.title)")
+//                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+//                        .multilineTextAlignment(.center)
+//                }
+//            } else {
+//                Text("No Rated Treatments Found")
+//                    .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+//            }
+//            
+//            
+//            if let countOfMostCommonTrigger = getMostCommonTrigger(triggers: triggers).1 {
+//                if countOfMostCommonTrigger > 0 {
+//                    if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers).0 {
+//                        Text("Leading Trigger: \(mostCommonTrigger.title) (\(countOfMostCommonTrigger)x)")
+//                            .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+//                            .multilineTextAlignment(.center)
+//                    }
+//                } else {
+//                    Text("No Triggers Logged")
+//                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+//                }
+//            } else {
+//                Text("No Triggers Logged")
+//                    .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+//            }
+//        }
     }
     
     private func getMostCommonTrigger(triggers: [Trigger]) -> (Trigger?, Int?) {

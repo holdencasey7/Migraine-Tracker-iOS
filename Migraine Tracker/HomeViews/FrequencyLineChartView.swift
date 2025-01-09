@@ -42,10 +42,11 @@ struct FrequencyLineChartView: View {
                     }
                 }
             }
-            .frame(height: 300) // Adjust chart height as needed
+            .frame(width: 325, height: 225) // Adjust chart height as needed
+            .padding()
             Text("Entries per \(granularity == .day ? "Day" : granularity == .week ? "Week" : "Month")")
                 .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                .kerning(Constants.subtitleKerning)
+//                .kerning(Constants.subtitleKerning)
                 .padding(.horizontal)
                 .padding(.bottom)
         }
