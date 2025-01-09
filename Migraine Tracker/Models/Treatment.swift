@@ -16,7 +16,14 @@ final class Treatment:Identifiable, Hashable, GenericTriggerTreatmentSymptom{
     var category: TreatmentCategory
     @Relationship(deleteRule: .nullify, inverse: \Entry.treatments) var entriesIn: [Entry] = []
     @Relationship(deleteRule: .cascade) var ratings: [Rating] = []
+    
     @Relationship(deleteRule: .cascade) var treatmentNotes: [TreatmentNote] = []
+    var defaultDosage: String?
+    var defaultFrequency: Int?
+//    var defaultTimeFirstTaken: Date? How would the time ever be a default other than Date()
+    var defaultDurartion: TimeInterval?
+    var defaultOtherNotes: String?
+    
     
     var averageRating: Double? {
         guard !ratings.isEmpty else { return nil }

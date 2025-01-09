@@ -17,7 +17,7 @@ final class Entry:Identifiable, Hashable {
     @Relationship(deleteRule: .nullify) var triggers: [Trigger]
     @Relationship(deleteRule: .nullify) var symptoms: [Symptom]
     @Relationship(deleteRule: .nullify) var treatments: [Treatment]
-    @Relationship(deleteRule: .cascade) var treatmentNotes: [TreatmentNote] = []
+    @Relationship(deleteRule: .cascade) var treatmentNotes: [TreatmentNote]
     var notes: String
     @Relationship(deleteRule: .cascade) var followup: Followup?
     var temperature: Double?
@@ -33,7 +33,7 @@ final class Entry:Identifiable, Hashable {
     }
     
     
-    init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], notes: String, temperature: Double? = nil, condition: WeatherCondition? = nil, pressure: Double? = nil, humidity: Double? = nil, pressureTrend: PressureTrend? = nil, conditionSymbol: String? = nil) {
+    init(timestamp: Date, intensity: Int, triggers: [Trigger], symptoms: [Symptom], treatments: [Treatment], treatmentNotes: [TreatmentNote] = [],notes: String, temperature: Double? = nil, condition: WeatherCondition? = nil, pressure: Double? = nil, humidity: Double? = nil, pressureTrend: PressureTrend? = nil, conditionSymbol: String? = nil) {
         self.id = UUID()
         
         if intensity < Constants.minIntensity {
@@ -49,6 +49,7 @@ final class Entry:Identifiable, Hashable {
         self.triggers = triggers
         self.symptoms = symptoms
         self.treatments = treatments
+        self.treatmentNotes = treatmentNotes
         self.notes = notes
         
         self.temperature = temperature

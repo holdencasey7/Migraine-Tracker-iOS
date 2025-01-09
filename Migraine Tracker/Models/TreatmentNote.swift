@@ -14,6 +14,12 @@ final class TreatmentNote: Identifiable, Hashable {
     @Relationship(deleteRule: .nullify, inverse: \Treatment.treatmentNotes) var treatmentIn: Treatment?
     @Relationship(deleteRule: .nullify, inverse: \Entry.treatmentNotes) var entryIn: Entry?
     
+    var dosage: String?
+    var frequency: Int?
+    var datesTaken: [Date]? // length should be equal to frequency in practice
+    var durartion: TimeInterval?
+    var otherNotes: String?
+    
     init() {
         self.id = UUID()
     }
