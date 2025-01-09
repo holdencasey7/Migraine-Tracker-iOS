@@ -13,9 +13,15 @@ struct GiantAddEntryButtonView: View {
         Button(action: {
             contentViewSelection = 2
         }) {
-            Image(systemName: "plus")
-                .font(Font.system(size: 100))
+            Text("Log New Entry")
+                .font(Font.custom("Avenir", size: 30))
+                .padding()
+                .padding(.horizontal, 10)
         }
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color("LightGrey"))
+        )
     }
 }
 

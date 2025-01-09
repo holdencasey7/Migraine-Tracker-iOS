@@ -33,7 +33,7 @@ struct ContentView: View {
                 }
             }
         }
-        .background(Color("FirstLightPink"))
+        .background(selection == 0 ? Color("MediumPink") : Color("FirstLightPink"))
     }
 }
 

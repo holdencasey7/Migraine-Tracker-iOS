@@ -13,24 +13,34 @@ struct LeadingTriggerAndTreatmentView: View {
     
     var body: some View {
         VStack {
-            if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers).0 {
-                if let countOfMostCommonTrigger = getMostCommonTrigger(triggers: triggers).1 {
-                    Text("Most Common Trigger: \(mostCommonTrigger.title) (\(countOfMostCommonTrigger) entries)")
-                } else {
-                    Text("Most Common Trigger: \(mostCommonTrigger.title)")
-                }
-            } else {
-                Text("No Triggers Found")
-            }
             
             if let highestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).0 {
                 if let averageRatingOfHighestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).1 {
-                    Text("Highest Average Rating Treatment: \(highestAverageRatingTreatment.title) (\(averageRatingOfHighestAverageRatingTreatment))")
+                    Text("Leading Treatment: \(highestAverageRatingTreatment.title) (\(String(format: "%.1f", averageRatingOfHighestAverageRatingTreatment))/3)")
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                 } else {
-                    Text("Highest Average Rating Treatment: \(highestAverageRatingTreatment.title)")
+                    Text("Leading Treatment: \(highestAverageRatingTreatment.title)")
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                 }
             } else {
                 Text("No Rated Treatments Found")
+                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+            }
+            
+            
+            if let countOfMostCommonTrigger = getMostCommonTrigger(triggers: triggers).1 {
+                if countOfMostCommonTrigger > 0 {
+                    if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers).0 {
+                        Text("Leading Trigger: \(mostCommonTrigger.title) (\(countOfMostCommonTrigger)x)")
+                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    }
+                } else {
+                    Text("No Triggers Logged")
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                }
+            } else {
+                Text("No Triggers Logged")
+                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
             }
         }
     }
@@ -57,22 +67,6 @@ struct LeadingTriggerAndTreatmentView: View {
         }
         return (highestAverageRatingTreatment, highestAverageRating)
     }
-    
-//    private func getMostEffectiveTreatment(treatments: [Treatment]) -> Treatment? {
-//        var treatmentDictionary: [Treatment: Double] = [:]
-//        treatments.forEach { treatment in
-//            var treatmentRating = 0.0
-//            treatment.ratings.forEach { rating in
-//                treatmentRating += Double(rating.ratingValue)
-//            }
-//            if treatment.ratings.count > 0 {
-//                treatmentRating /= Double(treatment.ratings.count)
-//            }
-//            treatmentDictionary[treatment, default: 0.0] = treatmentRating
-//        }
-//        let sortedTreatmentDictionary = treatmentDictionary.sorted { $0.value > $1.value }
-//        return sortedTreatmentDictionary.first?.key
-//    }
 }
 
 //#Preview {

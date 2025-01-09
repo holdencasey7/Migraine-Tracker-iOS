@@ -20,12 +20,21 @@ struct HomeView: View {
     @Binding var contentViewSelection: Int
     
     var body: some View {
-        VStack {
-            FrequencyLineChartView(entries: entries)
-            Spacer()
-            LeadingTriggerAndTreatmentView(triggers: triggers, treatments: treatments)
-            Spacer()
-            GiantAddEntryButtonView(contentViewSelection: $contentViewSelection)
+        ZStack {
+            Image("HomeViewBackground")
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all) // Covers entire screen
+            
+            VStack {
+                Spacer()
+                FrequencyLineChartView(entries: entries)
+                Spacer()
+                LeadingTriggerAndTreatmentView(triggers: triggers, treatments: treatments)
+                Spacer()
+                GiantAddEntryButtonView(contentViewSelection: $contentViewSelection)
+                Spacer()
+            }
         }
     }
 }
