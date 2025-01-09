@@ -17,6 +17,7 @@ final class Entry:Identifiable, Hashable {
     @Relationship(deleteRule: .nullify) var triggers: [Trigger]
     @Relationship(deleteRule: .nullify) var symptoms: [Symptom]
     @Relationship(deleteRule: .nullify) var treatments: [Treatment]
+    @Relationship(deleteRule: .cascade) var treatmentNotes: [TreatmentNote] = []
     var notes: String
     @Relationship(deleteRule: .cascade) var followup: Followup?
     var temperature: Double?

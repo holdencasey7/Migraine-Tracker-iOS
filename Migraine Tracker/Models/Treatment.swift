@@ -16,6 +16,7 @@ final class Treatment:Identifiable, Hashable, GenericTriggerTreatmentSymptom{
     var category: TreatmentCategory
     @Relationship(deleteRule: .nullify, inverse: \Entry.treatments) var entriesIn: [Entry] = []
     @Relationship(deleteRule: .cascade) var ratings: [Rating] = []
+    @Relationship(deleteRule: .cascade) var treatmentNotes: [TreatmentNote] = []
     
     var averageRating: Double? {
         guard !ratings.isEmpty else { return nil }

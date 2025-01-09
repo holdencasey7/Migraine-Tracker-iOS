@@ -18,16 +18,18 @@ struct ContentView: View {
                 Tab("Home", systemImage: "house", value: 0) {
                     HomeView(contentViewSelection: $selection)
                 }
-                
-                Tab("Add Migraine", systemImage: "plus.square", value: 1) {
+                Tab("Migraines", systemImage: "chevron.up.chevron.down.square", value: 1) {
+                    EntriesView()
+                }
+                Tab("Add Migraine", systemImage: "plus.square", value: 2) {
                     AddEntryView()
                 }
                 
-                Tab("Migraines", systemImage: "chevron.up.chevron.down.square", value: 2) {
-                    EntriesView()
-                }
                 Tab("Insights", systemImage: "chart.bar", value: 3) {
                     InsightsView()
+                }
+                Tab("Settings", systemImage: "gear", value: 4) {
+                    SettingsView()
                 }
             }
         }

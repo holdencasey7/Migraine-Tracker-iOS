@@ -11,7 +11,7 @@ struct GiantAddEntryButtonView: View {
     @Binding var contentViewSelection: Int
     var body: some View {
         Button(action: {
-            contentViewSelection = 1
+            contentViewSelection = 2
         }) {
             Image(systemName: "plus")
                 .font(Font.system(size: 100))
