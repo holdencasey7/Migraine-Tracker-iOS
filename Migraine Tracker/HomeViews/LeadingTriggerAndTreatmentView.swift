@@ -17,14 +17,16 @@ struct LeadingTriggerAndTreatmentView: View {
             if let highestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).0 {
                 if let averageRatingOfHighestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).1 {
                     Text("Leading Treatment: \(highestAverageRatingTreatment.title) (\(String(format: "%.1f", averageRatingOfHighestAverageRatingTreatment))/3)")
-                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+                        .multilineTextAlignment(.center)
                 } else {
                     Text("Leading Treatment: \(highestAverageRatingTreatment.title)")
-                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+                        .multilineTextAlignment(.center)
                 }
             } else {
                 Text("No Rated Treatments Found")
-                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
             }
             
             
@@ -32,15 +34,16 @@ struct LeadingTriggerAndTreatmentView: View {
                 if countOfMostCommonTrigger > 0 {
                     if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers).0 {
                         Text("Leading Trigger: \(mostCommonTrigger.title) (\(countOfMostCommonTrigger)x)")
-                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                            .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
+                            .multilineTextAlignment(.center)
                     }
                 } else {
                     Text("No Triggers Logged")
-                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
                 }
             } else {
                 Text("No Triggers Logged")
-                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
             }
         }
     }

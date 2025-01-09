@@ -26,6 +26,9 @@ enum Constants {
     private static func scaledValue(height value: CGFloat) -> CGFloat {
         return value * screenHeightRatio
     }
+    
+    // Home View
+    static let leadingTriggerTreatmentFontSize: CGFloat = scaledValue(height: 25)
 
     // Subtitle
     static let subtitleKerning: CGFloat = scaledValue(width: 3)

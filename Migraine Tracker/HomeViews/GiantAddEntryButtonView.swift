@@ -20,7 +20,7 @@ struct GiantAddEntryButtonView: View {
         }
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color("LightGrey"))
+                .fill(Color("FirstLightPink"))
         )
     }
 }

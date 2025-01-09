@@ -29,10 +29,17 @@ struct HomeView: View {
             VStack {
                 Spacer()
                 FrequencyLineChartView(entries: entries)
+                    .frame(maxHeight: 400)
+                    .padding(.horizontal)
+                    .padding(.top, 20)
                 Spacer()
                 LeadingTriggerAndTreatmentView(triggers: triggers, treatments: treatments)
+                    .padding(.top)
+                    .padding(.horizontal)
                 Spacer()
                 GiantAddEntryButtonView(contentViewSelection: $contentViewSelection)
+                    .padding()
+                    .padding(.bottom, 50)
                 Spacer()
             }
         }
