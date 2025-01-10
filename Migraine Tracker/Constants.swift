@@ -53,7 +53,7 @@ enum Constants {
     static let genericTileViewFrameMaxWidth: CGFloat = scaledValue(width: 100)
     static let genericTileViewFrameMaxHeight: CGFloat = scaledValue(height: 100)
     static let genericRowViewTitleFontSize: CGFloat = scaledValue(height: 19)
-    static let genericRowViewFrameMaxWidth: CGFloat = scaledValue(width: 30)
+    static let genericRowViewFrameMaxWidth: CGFloat = scaledValue(width: 45)
     static let genericRowViewFrameMaxHeight: CGFloat = scaledValue(height: 30)
     static let genericListViewVStackSpacing: CGFloat = scaledValue(height: 5)
     static let genericIconlessRowViewTitleFontSize: CGFloat = scaledValue(height: 19)
