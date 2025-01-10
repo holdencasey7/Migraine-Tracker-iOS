@@ -30,160 +30,169 @@ struct EditEntryView: View {
     @State var presentSymptomSheet: Bool = false
     
     var body: some View {
-        VStack {
-            VStack (alignment: .leading, spacing: -10) {
-                HStack {
-                    Text("Start Date:")
-                        .font(Font.custom("Avenir", size: 19))
-                        .padding()
-                    DatePicker("", selection: $date)
-                    .padding(.trailing, 50)
+        GeometryReader { geometry in
+            VStack {
+                Spacer()
+                VStack (alignment: .leading, spacing: -10) {
+                    HStack {
+                        Text("Start Date:")
+                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                            .minimumScaleFactor(01)
+                            .lineLimit(1)
+                            .allowsTightening(true)
+                            .padding()
+                        Spacer()
+                        DatePicker("", selection: $date)
+                            .frame(width: geometry.size.width / 3)
+                            .padding()
+                        Spacer()
+                    }
+                    HStack {
+                        Text("Intensity:")
+                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                            .minimumScaleFactor(1)
+                            .lineLimit(1)
+                            .allowsTightening(true)
+                            .padding()
+                        CustomIntensitySliderView(value: $intensity)
+                            .frame(width: geometry.size.width / 2)
+                        IntensityIconView(intensity: Int(intensity))
+                            .padding()
+                    }
+                }
+                .frame(width: geometry.size.width, height: geometry.size.height / 8)
+                .padding(.bottom)
+                VStack (alignment: .center) {
+                    VStack(alignment: .center) {
+                        Button(action: { presentSymptomSheet = true}) {
+                            HStack {
+                                Image(systemName: "pencil.circle")
+                                Text("SYMPTOMS")
+                                    .kerning(Constants.subtitleKerning)
+                                    .minimumScaleFactor(0.8)
+                                    .lineLimit(1)
+                                    .allowsTightening(true)
+                            }
+                            .frame(width: geometry.size.width / 1.5)
+                        }
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .padding(5)
+                        .background(
+                            RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
+                                .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
+                        )
+                        .sheet(isPresented: $presentSymptomSheet) {
+                            SymptomSelectableGridView(symptoms: symptoms, finalSelectedSymptoms: $finalSelectedSymptoms, selectedSymptoms: entry.symptoms, isPresented: $presentSymptomSheet)
+                        }
+                        GenericHorizontalScrollTileView(items: finalSelectedSymptoms)
+                            .padding(.horizontal)
+                        Spacer(minLength: 0)
+                    }
+                    .frame(height: geometry.size.height / 5)
+                    VStack(alignment: .center) {
+                        Button(action: { presentTriggerSheet = true }) {
+                            HStack {
+                                Image(systemName: "pencil.circle")
+                                Text("TRIGGERS")
+                                    .kerning(Constants.subtitleKerning)
+                            }
+                            .frame(width: geometry.size.width / 1.5)
+                        }
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .padding(5)
+                        .background(
+                            RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
+                                .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
+                        )
+                        .sheet(isPresented: $presentTriggerSheet) {
+                            TriggerSelectableMenuView( triggers: triggers, selectedTriggers: finalSelectedTriggers, finalSelectedTriggers: $finalSelectedTriggers, isPresented: $presentTriggerSheet)
+                        }
+                        GenericHorizontalScrollTileView(items: finalSelectedTriggers)
+                            .padding(.horizontal)
+                        Spacer(minLength: 0)
+                    }
+                    .frame(height: geometry.size.height / 5)
+                    VStack(alignment: .center) {
+                        Button(action: { presentTreatmentSheet = true }) {
+                            HStack {
+                                Image(systemName: "pencil.circle")
+                                Text("TREATMENTS")
+                                    .kerning(Constants.subtitleKerning)
+                            }
+                            .frame(width: geometry.size.width / 1.5)
+                        }
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .padding(5)
+                        .background(
+                            RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
+                                .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
+                        )
+                        .sheet(isPresented: $presentTreatmentSheet) {
+                            TreatmentSelectableMenuView( treatments: treatments, selectedTreatments: finalSelectedTreatments, finalSelectedTreatments: $finalSelectedTreatments, isPresented: $presentTreatmentSheet)
+                        }
+                        GenericIconlessHorizontalScrollRowView(items: finalSelectedTreatments)
+                            .padding(.horizontal)
+                    }
+                    .frame(height: geometry.size.height / 8)
+                    HStack (spacing: -25){
+                        Text("Notes:")
+                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                            .padding()
+                        TextField("Notes", text: $notes)
+                            .padding()
+                            .submitLabel(.done)
+                    }
+                    .frame(height: geometry.size.height / 10)
                     Spacer()
                 }
-                HStack {
-                    Text("Intensity:")
-                        .font(Font.custom("Avenir", size: 19))
-                        .padding()
-                    CustomIntensitySliderView(value: $intensity)
-//                        .padding()
-//                        .frame(width: 200)
-                    IntensityIconView(intensity: Int(intensity))
-                        .padding()
-                }
-            }
-            .padding(.bottom, 35)
-            VStack {
-                VStack(alignment: .center) {
-                    Button(action: { presentSymptomSheet = true}) {
-                        HStack {
-                            Image(systemName: "pencil.circle")
-                            Text("SYMPTOMS")
-                                .kerning(3)
-                        }
-                    }
-                    .kerning(3)
-                    .font(Font.custom("Avenir", size: 19))
-                    .padding(5)
-                    .padding(.trailing, 50)
-                    .padding(.leading, 50)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.white.opacity(0.85))
-                    )
-                    .sheet(isPresented: $presentSymptomSheet) {
-                        SymptomSelectableGridView(symptoms: symptoms, finalSelectedSymptoms: $finalSelectedSymptoms, selectedSymptoms: entry.symptoms, isPresented: $presentSymptomSheet)
-                    }
-                    GenericHorizontalScrollTileView(items: finalSelectedSymptoms)
-                    .frame(minHeight:60, maxHeight: 100)
-                    .padding(.leading, 15)
-                    .padding(.trailing, 15)
-                }
-                VStack(alignment: .center) {
-                    Button(action: { presentTriggerSheet = true }) {
-                        HStack {
-                            Image(systemName: "pencil.circle")
-                            Text("TRIGGERS")
-                                .kerning(3)
-                        }
-                    }
-                    .kerning(3)
-                    .font(Font.custom("Avenir", size: 19))
-                    .padding(5)
-                    .padding(.trailing, 50)
-                    .padding(.leading, 50)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.white.opacity(0.85))
-                    )
-                    .sheet(isPresented: $presentTriggerSheet) {
-                        TriggerSelectableMenuView( triggers: triggers, selectedTriggers: finalSelectedTriggers, finalSelectedTriggers: $finalSelectedTriggers, isPresented: $presentTriggerSheet)
-                    }
-                    GenericHorizontalScrollTileView(items: finalSelectedTriggers)
-                        .frame(minHeight:60, maxHeight: 100)
-                    .padding(.leading, 15)
-                    .padding(.trailing, 15)
-                }
-                VStack(alignment: .center) {
-                    Button(action: { presentTreatmentSheet = true }) {
-                        HStack {
-                            Image(systemName: "pencil.circle")
-                            Text("TREATMENTS")
-                                .kerning(3)
-                        }
-                    }
-                    .font(Font.custom("Avenir", size: 19))
-                    .padding(5)
-                    .padding(.trailing, 50)
-                    .padding(.leading, 50)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.white.opacity(0.85))
-                    )
-                    .sheet(isPresented: $presentTreatmentSheet) {
-                        TreatmentSelectableMenuView( treatments: treatments, selectedTreatments: finalSelectedTreatments, finalSelectedTreatments: $finalSelectedTreatments, isPresented: $presentTreatmentSheet)
-                    }
-                    GenericIconlessHorizontalScrollRowView(items: finalSelectedTreatments)
-                    .frame(minHeight:60)
-                    .padding(.leading, 15)
-                    .padding(.trailing, 15)
-                }
-                HStack (/*alignment: .leading,*/ spacing: -25){
-                    Text("Notes:")
-                        .font(Font.custom("Avenir", size: 19))
-                        .padding()
-                        .padding(.leading, 10)
-                    TextField("Notes", text: $notes)
-                        .padding()
-                        .submitLabel(.done)
-                }
-                .padding(.top, 15)
-            }
-            Spacer()
-            HStack {
                 Spacer()
-                Button("SAVE CHANGES") {
-                    entry.triggers = finalSelectedTriggers
-                    entry.treatments = finalSelectedTreatments
-                    entry.symptoms = finalSelectedSymptoms
-                    entry.notes = notes
-                    entry.intensity = Int(intensity)
-                    entry.timestamp = date
-                    
-                    if let followup = entry.followup {
-                        followup.ratings.forEach { rating in
-                            if let treatment = rating.treatment {
-                                if !entry.treatments.contains(treatment) {
-                                    modelContext.delete(rating)
+                HStack {
+                    Spacer()
+                    Button("SAVE CHANGES") {
+                        entry.triggers = finalSelectedTriggers
+                        entry.treatments = finalSelectedTreatments
+                        entry.symptoms = finalSelectedSymptoms
+                        entry.notes = notes
+                        entry.intensity = Int(intensity)
+                        entry.timestamp = date
+                        
+                        if let followup = entry.followup {
+                            followup.ratings.forEach { rating in
+                                if let treatment = rating.treatment {
+                                    if !entry.treatments.contains(treatment) {
+                                        modelContext.delete(rating)
+                                    }
                                 }
                             }
                         }
+                        
+                        try? modelContext.save()
+                        entry = modelContext.model(for: entry.id) as! Entry
+                        
+                        date = Date()
+                        intensity = 1.0
+                        notes = ""
+                        finalSelectedTriggers.removeAll()
+                        finalSelectedTreatments.removeAll()
+                        finalSelectedSymptoms.removeAll()
+                        
+                        isPresented = false
                     }
-                    
-                    try? modelContext.save()
-                    entry = modelContext.model(for: entry.id) as! Entry
-                    
-                    date = Date()
-                    intensity = 1.0
-                    notes = ""
-                    finalSelectedTriggers.removeAll()
-                    finalSelectedTreatments.removeAll()
-                    finalSelectedSymptoms.removeAll()
-                    
-                    isPresented = false
+                    .padding()
+                    .font(Font.custom("Avenir", size: Constants.addEntrySubmitButtonFontSize))
+                    Spacer()
+                    Button("CANCEL") {
+                        isPresented = false
+                    }
+                    .padding()
+                    .font(Font.custom("Avenir", size: 25))
+                    Spacer()
                 }
-                .padding()
-                .font(Font.custom("Avenir", size: 25))
-                Spacer()
-                Button("CANCEL") {
-                    isPresented = false
-                    //                    try? modelContext.rollback()
-                }
-                .padding()
-                .font(Font.custom("Avenir", size: 25))
+                .frame(maxWidth: .infinity)
                 Spacer()
             }
+            .background(Image("FirstPinkAttempt").resizable().edgesIgnoringSafeArea(.all).aspectRatio(contentMode: .fill))
         }
-        .background(Image("FirstPinkAttempt").resizable().edgesIgnoringSafeArea(.all).aspectRatio(contentMode: .fill))
     }
 }
 

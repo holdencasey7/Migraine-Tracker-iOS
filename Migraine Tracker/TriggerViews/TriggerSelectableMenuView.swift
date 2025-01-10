@@ -17,43 +17,46 @@ struct TriggerSelectableMenuView: View {
     @State var filteredTriggers: [Trigger] = []
     
     var body: some View {
-        NavigationStack {
-            List(TriggerCategory.allCases) { category in
-                Section {
-                    ForEach(filteredTriggers.filter({$0.category == category}).sorted(by: { $0.title < $1.title
-                    })) { trigger in
-                        let selected = selectedTriggers.contains(trigger)
-                        HStack{
-                            TriggerRowView(trigger: trigger)
-                            Spacer()
-                                                    if selected {
-                                                        Image(systemName: "checkmark")
-                                                            .foregroundColor(Color("PrettyPink"))
-                                                    }
+        GeometryReader { geometry in
+            NavigationStack {
+                List(TriggerCategory.allCases) { category in
+                    Section {
+                        ForEach(filteredTriggers.filter({$0.category == category}).sorted(by: { $0.title < $1.title
+                        })) { trigger in
+                            let selected = selectedTriggers.contains(trigger)
+                            HStack{
+                                TriggerRowView(trigger: trigger)
+                                    .frame(height: geometry.size.width * 0.15)
+                                Spacer()
+                                if selected {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(Color("PrettyPink"))
+                                }
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {tapGesture in
+                                if !selected {
+                                    selectedTriggers.append(trigger)
+                                } else {
+                                    selectedTriggers.removeAll(where: { $0 == trigger })
+                                }
+                            }
                         }
-                        .contentShape(Rectangle())
-                                            .onTapGesture {tapGesture in
-                                                if !selected {
-                                                    selectedTriggers.append(trigger)
-                                                } else {
-                                                    selectedTriggers.removeAll(where: { $0 == trigger })
-                                                }
-                                            }
+                    } header: {
+                        Text(category.rawValue)
                     }
-                } header: {
-                    Text(category.rawValue)
-                }
-            } .searchable(text: $searchText)
-                .onChange(of: searchText) {
-                    if searchText.isEmpty {
+                } .searchable(text: $searchText)
+                    .onChange(of: searchText) {
+                        if searchText.isEmpty {
+                            filteredTriggers = triggers
+                        } else {
+                            filteredTriggers = triggers.filter({$0.title.lowercased().starts(with: searchText.lowercased())})
+                        }
+                    }
+                    .onAppear {
                         filteredTriggers = triggers
-                    } else {
-                        filteredTriggers = triggers.filter({$0.title.lowercased().starts(with: searchText.lowercased())})
                     }
-                }
-                .onAppear {
-                    filteredTriggers = triggers
-                }
+            }
         }
         HStack {
             Spacer()

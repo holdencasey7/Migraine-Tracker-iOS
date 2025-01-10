@@ -17,43 +17,46 @@ struct TreatmentSelectableMenuView: View {
     @State var filteredTreatments: [Treatment] = []
     
     var body: some View {
-        NavigationStack {
-            List(TreatmentCategory.allCases) { category in
-                Section {
-                    ForEach(filteredTreatments.filter({$0.category == category}).sorted(by: { $0.title < $1.title
-                    })) { treatment in
-                        let selected = selectedTreatments.contains(treatment)
-                        HStack{
-                            TreatmentRowView(treatment: treatment)
-                            Spacer()
-                            if selected {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(Color("PrettyPink"))
+        GeometryReader { geometry in
+            NavigationStack {
+                List(TreatmentCategory.allCases) { category in
+                    Section {
+                        ForEach(filteredTreatments.filter({$0.category == category}).sorted(by: { $0.title < $1.title
+                        })) { treatment in
+                            let selected = selectedTreatments.contains(treatment)
+                            HStack{
+                                TreatmentRowView(treatment: treatment)
+                                    .frame(height: geometry.size.width * 0.15)
+                                Spacer()
+                                if selected {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(Color("PrettyPink"))
+                                }
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {tapGesture in
+                                if !selected {
+                                    selectedTreatments.append(treatment)
+                                } else {
+                                    selectedTreatments.removeAll(where: { $0 == treatment })
+                                }
                             }
                         }
-                        .contentShape(Rectangle())
-                        .onTapGesture {tapGesture in
-                            if !selected {
-                                selectedTreatments.append(treatment)
-                            } else {
-                                selectedTreatments.removeAll(where: { $0 == treatment })
-                            }
+                    } header: {
+                        Text(category.rawValue)
+                    }
+                } .searchable(text: $searchText)
+                    .onChange(of: searchText) {
+                        if searchText.isEmpty {
+                            filteredTreatments = treatments
+                        } else {
+                            filteredTreatments = treatments.filter({$0.title.lowercased().starts(with: searchText.lowercased())})
                         }
                     }
-                } header: {
-                    Text(category.rawValue)
-                }
-            } .searchable(text: $searchText)
-                .onChange(of: searchText) {
-                    if searchText.isEmpty {
+                    .onAppear {
                         filteredTreatments = treatments
-                    } else {
-                        filteredTreatments = treatments.filter({$0.title.lowercased().starts(with: searchText.lowercased())})
                     }
-                }
-                .onAppear {
-                    filteredTreatments = treatments
-                }
+            }
         }
         HStack {
             Spacer()

@@ -19,6 +19,8 @@ struct HomeView: View {
     @State var presentManageTreatmentSheet: Bool = false
     @Binding var contentViewSelection: Int
     
+    @State private var refreshView: Bool = false
+    
     var body: some View {
         ZStack {
             Image("HomeViewBackground")
@@ -42,6 +44,9 @@ struct HomeView: View {
                     .padding(.bottom, 50)
                 Spacer()
             }
+        }
+        .onAppear {
+            refreshView.toggle()
         }
     }
 }

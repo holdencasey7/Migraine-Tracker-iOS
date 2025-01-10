@@ -42,16 +42,26 @@ struct AddEntryView: View {
                     HStack {
                         Text("Start Date:")
                             .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                            .minimumScaleFactor(1)
+                            .lineLimit(1)
+                            .allowsTightening(true)
                             .padding()
+                        Spacer()
                         DatePicker("", selection: $date)
+                            .frame(width: geometry.size.width / 3)
                             .padding()
+                            
                         Spacer()
                     }
                     HStack {
                         Text("Intensity:")
                             .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                            .minimumScaleFactor(1)
+                            .lineLimit(1)
+                            .allowsTightening(true)
                             .padding()
                         CustomIntensitySliderView(value: $intensity)
+                            .frame(width: geometry.size.width / 2)
                         IntensityIconView(intensity: Int(intensity))
                             .padding()
                     }
@@ -65,6 +75,9 @@ struct AddEntryView: View {
                                 Image(systemName: "plus.circle")
                                 Text("SYMTPOMS")
                                     .kerning(Constants.subtitleKerning)
+                                    .minimumScaleFactor(0.8)
+                                    .lineLimit(1)
+                                    .allowsTightening(true)
                             }
                             .frame(width: geometry.size.width / 1.5)
                         }
@@ -137,7 +150,7 @@ struct AddEntryView: View {
                             .padding()
                             .submitLabel(.done)
                     }
-                        .frame(height: geometry.size.height / 10)
+                    .frame(height: geometry.size.height / 10)
                     Spacer()
                 }
                 Spacer()
@@ -159,7 +172,7 @@ struct AddEntryView: View {
                         }
                     }
                     .padding()
-                    .font(Font.custom("Avenir", size: 25))
+                    .font(Font.custom("Avenir", size: Constants.addEntrySubmitButtonFontSize))
                     .disabled(submitInProgress)
                     Spacer()
                 }
