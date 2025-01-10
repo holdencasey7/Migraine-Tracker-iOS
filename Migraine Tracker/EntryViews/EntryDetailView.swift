@@ -36,7 +36,7 @@ struct EntryDetailView: View {
                     .onAppear { isEntryDetailVisible = true }
                     .onDisappear { isEntryDetailVisible = false }
                 IntensityFractionView(intensity: entry.intensity)
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: geometry.size.width / 3)
                 
                 if !entry.notes.isEmpty {
                     ScrollView {
@@ -49,7 +49,7 @@ struct EntryDetailView: View {
                     }
                     .frame(height: geometry.size.height / 10)
                 }
-                Spacer()
+//                Spacer()
                 HStack {
 //                    Spacer()
                     VStack {
@@ -57,8 +57,9 @@ struct EntryDetailView: View {
                             .modifier(EntryDetailSTTHeaderStyle())
                         GenericListView(items: entry.symptoms)
                     }
+                    .padding(.horizontal)
 //                    .layoutPriority(0.5)
-                    .frame(width: geometry.size.width / 2, height: geometry.size.height / 5)
+                    .frame(width: geometry.size.width / 2, height: geometry.size.height / 4)
 //                    Spacer()
                     VStack {
                         Text("TRIGGERS")
@@ -66,7 +67,8 @@ struct EntryDetailView: View {
                         GenericListView(items: entry.triggers)
                     }
 //                    .layoutPriority(0.5)
-                    .frame(width: geometry.size.width / 2, height: geometry.size.height / 5)
+                    .padding(.horizontal)
+                    .frame(width: geometry.size.width / 2, height: geometry.size.height / 4)
 //                    Spacer()
                 }
                 VStack {
@@ -83,11 +85,12 @@ struct EntryDetailView: View {
                     .frame(maxWidth: .infinity)
                     
                 HStack {
+                    Spacer()
                     Button(action: editEntry) {
                         Text("EDIT")
                             .modifier(RoundedPinkButtonStyle())
                     }
-                    .padding(.leading, 40)
+//                    .padding(.leading, 40)
                     .sheet(isPresented: $presentEditSheet) {
                         EditEntryView(isPresented: $presentEditSheet, entry: $entry, date: entry.timestamp, intensity: Double(entry.intensity), notes: entry.notes, finalSelectedTriggers: entry.triggers, finalSelectedTreatments: entry.treatments, finalSelectedSymptoms: entry.symptoms)
                     }
@@ -105,11 +108,12 @@ struct EntryDetailView: View {
                             .modifier(RoundedPinkButtonStyle())
                             .foregroundStyle(Color.black)
                     }
-                    .padding(.trailing, 40)
+//                    .padding(.trailing, 40)
                     .alert("Delete entry?", isPresented: $presentDeleteAlert) {
                         Button("No", role: .cancel){}
                         Button("Yes", role: .destructive) { deleteEntry() }
                     }
+                    Spacer()
                 }
                 Spacer()
                 

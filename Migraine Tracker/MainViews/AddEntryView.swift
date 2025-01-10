@@ -66,10 +66,10 @@ struct AddEntryView: View {
                                 Text("SYMTPOMS")
                                     .kerning(Constants.subtitleKerning)
                             }
+                            .frame(width: geometry.size.width / 1.5)
                         }
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .padding(5)
-                        .frame(width: geometry.size.width / 1.5)
                         .background(
                             RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
                                 .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
@@ -89,11 +89,11 @@ struct AddEntryView: View {
                                 Text("TRIGGERS")
                                     .kerning(Constants.subtitleKerning)
                             }
+                            .frame(width: geometry.size.width / 1.5)
                         }
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .foregroundStyle(Color.black)
                         .padding(5)
-                        .frame(width: geometry.size.width / 1.5)
                         .background(
                             RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
                                 .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
@@ -114,10 +114,10 @@ struct AddEntryView: View {
                                     .kerning(Constants.subtitleKerning)
                                 
                             }
+                            .frame(width: geometry.size.width / 1.5)
                         }
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .padding(5)
-                        .frame(width: geometry.size.width / 1.5)
                         .background(
                             RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
                                 .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))

@@ -22,6 +22,9 @@ struct IntensityFractionView: View {
             Text("INTENSITY")
                 .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                 .kerning(3)
+                .minimumScaleFactor(0.8)
+                .lineLimit(1)
+                .allowsTightening(true)
         }
     }
 }

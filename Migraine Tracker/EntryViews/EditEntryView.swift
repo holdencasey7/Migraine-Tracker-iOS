@@ -31,25 +31,12 @@ struct EditEntryView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("EDIT MIGRAINE ENTRY")
-                    .font(Font.custom("Avenir", size: 20))
-                    .padding()
-                    .padding(.bottom, -10)
-                    .padding(.top, -10)
-                    .background(Color.white.opacity(0.6), in: RoundedRectangle(cornerRadius: 10))
-            }
-            .padding(.top, 10)
             VStack (alignment: .leading, spacing: -10) {
                 HStack {
                     Text("Start Date:")
                         .font(Font.custom("Avenir", size: 19))
                         .padding()
-                    DatePicker("", selection: $date
-                               // If only want date and no time:
-                               //, displayedComponents: .date
-                    )
-//                    .padding()
+                    DatePicker("", selection: $date)
                     .padding(.trailing, 50)
                     Spacer()
                 }

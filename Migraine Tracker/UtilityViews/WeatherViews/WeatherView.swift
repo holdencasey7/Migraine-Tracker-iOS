@@ -78,9 +78,6 @@ struct WeatherView: View {
                         .minimumScaleFactor(0.8)
                         .lineLimit(1)
                         .allowsTightening(true)
-                        .minimumScaleFactor(0.8)
-                        .lineLimit(1)
-                        .allowsTightening(true)
                     Image(systemName: "humidity")
                 }
             }
