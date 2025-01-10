@@ -75,8 +75,7 @@ struct EntryDetailView: View {
                     Text("TREATMENTS")
                         .modifier(EntryDetailSTTHeaderStyle())
                     GenericIconlessHorizontalScrollRowView(items: entry.treatments)
-                        .padding(.trailing, 20)
-                        .padding(.leading, 20)
+                        .padding(.horizontal)
                     Spacer()
                 }
                 .frame(height: geometry.size.height / 8)

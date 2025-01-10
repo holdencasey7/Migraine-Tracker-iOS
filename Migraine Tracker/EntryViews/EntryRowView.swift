@@ -15,6 +15,7 @@ struct EntryRowView: View {
                 .font(Font.custom("Avenir", size: 17))
                 .padding(.leading, 10)
             Spacer()
+            FollowupCompletionIconView(entry: entry)
             IntensityIconView(intensity: entry.intensity)
                 .padding(3)
             

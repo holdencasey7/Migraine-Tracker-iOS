@@ -61,13 +61,10 @@ struct TreatmentSelectableMenuView: View {
         HStack {
             Spacer()
             Button(action: saveTreatments) {
-                Text("Save")
+                Text("SAVE")
             }
-            .font(.title2)
-            .padding(5)
-            .padding(.trailing, 10)
-            .padding(.leading, 10)
-            .background(Color("LightGrey"), in: RoundedRectangle(cornerRadius: 10))
+            .font(Font.custom("Avenir", size: Constants.addEntrySubmitButtonFontSize))
+            .padding()
             Spacer()
         }
     }

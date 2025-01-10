@@ -84,7 +84,7 @@ struct FollowupDetailView: View {
                     Button(action: {
                         presentUpdateFollowupSheet = true
                     }) {
-                        Text("UPDATE FOLLOW-UP")
+                        Text("EDIT FOLLOW-UP")
                             .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                             .padding()
                     }

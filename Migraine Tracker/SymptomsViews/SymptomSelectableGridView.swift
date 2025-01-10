@@ -44,11 +44,8 @@ struct SymptomSelectableGridView: View {
             }) {
                 Text("SAVE")
             }
-            .font(Font.custom("Avenir", size: 25))
-            .padding(5)
-            .padding(.trailing, 10)
-            .padding(.leading, 10)
-//            .background(Color("LightGrey"), in: RoundedRectangle(cornerRadius: 10))
+            .font(Font.custom("Avenir", size: Constants.addEntrySubmitButtonFontSize))
+            .padding()
         }
     }
 }
