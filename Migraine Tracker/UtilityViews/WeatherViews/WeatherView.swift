@@ -21,9 +21,15 @@ struct WeatherView: View {
             if let temp = temperature {
                 Text("\(String(format: "%.0f°F", temp))")
                     .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(1)
+                    .allowsTightening(true)
             } else {
                 Text("--°F")
                     .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(1)
+                    .allowsTightening(true)
             }
             
             if let conditionSymbol = conditionSymbol {
@@ -36,6 +42,9 @@ struct WeatherView: View {
                 HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
                     Text("\(String(format: "%.2f\"Hg", pressure))")
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .minimumScaleFactor(0.8)
+                        .lineLimit(1)
+                        .allowsTightening(true)
                     if let pressureTrend = pressureTrend {
                         if pressureTrend == .falling {
                             Image(systemName: "arrow.down.circle")
@@ -57,12 +66,21 @@ struct WeatherView: View {
                 HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
                     Text("\(String(format: "%.0f%%", humidity))")
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .minimumScaleFactor(0.8)
+                        .lineLimit(1)
+                        .allowsTightening(true)
                     Image(systemName: "humidity")
                 }
             } else {
                 HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
                     Text("--%")
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .minimumScaleFactor(0.8)
+                        .lineLimit(1)
+                        .allowsTightening(true)
+                        .minimumScaleFactor(0.8)
+                        .lineLimit(1)
+                        .allowsTightening(true)
                     Image(systemName: "humidity")
                 }
             }

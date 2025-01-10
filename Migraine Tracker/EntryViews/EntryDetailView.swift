@@ -27,21 +27,24 @@ struct EntryDetailView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 10) {
-                
-                //            Spacer()
                 Text("Migraine on \(entry.timestamp, formatter: dateFormatter)")
                     .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                     .fontWeight(.bold)
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(1)
+                    .allowsTightening(true)
                     .onAppear { isEntryDetailVisible = true }
                     .onDisappear { isEntryDetailVisible = false }
                 IntensityFractionView(intensity: entry.intensity)
-                    .frame(width: geometry.size.width / 3)
+                    .frame(maxWidth: .infinity)
                 
                 if !entry.notes.isEmpty {
                     ScrollView {
-                        let notes = entry.notes.isEmpty ? "No notes" : entry.notes
-                        Text("\(notes)")
-                            .font(Font.custom("Avenir", size: 15))
+                        Text(entry.notes)
+                            .font(Font.custom("Avenir", size: Constants.bodyFontSize))
+                            .minimumScaleFactor(0.8)
+                            .lineLimit(3)
+                            .allowsTightening(true)
                             .padding()
                     }
                     .frame(height: geometry.size.height / 10)
@@ -51,8 +54,7 @@ struct EntryDetailView: View {
 //                    Spacer()
                     VStack {
                         Text("SYMPTOMS")
-                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                            .kerning(Constants.subtitleKerning)
+                            .modifier(EntryDetailSTTHeaderStyle())
                         GenericListView(items: entry.symptoms)
                     }
 //                    .layoutPriority(0.5)
@@ -60,8 +62,7 @@ struct EntryDetailView: View {
 //                    Spacer()
                     VStack {
                         Text("TRIGGERS")
-                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                            .kerning(Constants.subtitleKerning)
+                            .modifier(EntryDetailSTTHeaderStyle())
                         GenericListView(items: entry.triggers)
                     }
 //                    .layoutPriority(0.5)
@@ -70,30 +71,21 @@ struct EntryDetailView: View {
                 }
                 VStack {
                     Text("TREATMENTS")
-                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                        .kerning(Constants.subtitleKerning)
+                        .modifier(EntryDetailSTTHeaderStyle())
                     GenericIconlessHorizontalScrollRowView(items: entry.treatments)
                         .padding(.trailing, 20)
                         .padding(.leading, 20)
                     Spacer()
                 }
-                .frame(height: geometry.size.height / 5)
+                .frame(height: geometry.size.height / 8)
                 WeatherView(temperature: entry.temperature, pressure: entry.pressure, condition: entry.condition, humidity: entry.humidity, pressureTrend: entry.pressureTrend, conditionSymbol: entry.conditionSymbol)
                     .padding()
-                    .frame(width: geometry.size.width)
+                    .frame(maxWidth: .infinity)
                     
                 HStack {
                     Button(action: editEntry) {
                         Text("EDIT")
-                            .kerning(3)
-                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                            .padding(5)
-                            .padding(.trailing, 10)
-                            .padding(.leading, 10)
-                            .background(
-                                RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
-                                    .fill(Color("FirstLightPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
-                            )
+                            .modifier(RoundedPinkButtonStyle())
                     }
                     .padding(.leading, 40)
                     .sheet(isPresented: $presentEditSheet) {
@@ -102,30 +94,15 @@ struct EntryDetailView: View {
                     Spacer()
                     Button(action: {presentFollowupSheet = true}) {
                         Text("FOLLOW UP")
-                            .kerning(3)
-                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                            .padding(5)
-                            .padding(.trailing, 10)
-                            .padding(.leading, 10)
-                            .background(
-                                RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
-                                    .fill(Color("FirstLightPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
-                            )
-                            .sheet(isPresented: $presentFollowupSheet) {
-                                AllTypesFollowupView(entry: $entry, isPresented: $presentFollowupSheet, followup: entry.followup)
-                            }
+                            .modifier(RoundedPinkButtonStyle())
+                    }
+                    .sheet(isPresented: $presentFollowupSheet) {
+                        AllTypesFollowupView(entry: $entry, isPresented: $presentFollowupSheet, followup: entry.followup)
                     }
                     Spacer()
                     Button(action: {presentDeleteAlert = true}) {
                         Image(systemName: "trash")
-                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                            .padding(5)
-                            .padding(.trailing, 10)
-                            .padding(.leading, 10)
-                            .background(
-                                RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
-                                    .fill(Color("FirstLightPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
-                            )
+                            .modifier(RoundedPinkButtonStyle())
                             .foregroundStyle(Color.black)
                     }
                     .padding(.trailing, 40)

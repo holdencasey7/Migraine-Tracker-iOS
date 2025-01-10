@@ -28,19 +28,22 @@ enum Constants {
     }
     
     // Home View
-    static let leadingTriggerTreatmentFontSize: CGFloat = scaledValue(height: 21)
+    static let leadingTriggerTreatmentFontSize: CGFloat = 21
 
     // Subtitle
-    static let subtitleKerning: CGFloat = scaledValue(width: 3)
-    static let subtitleFontSize: CGFloat = scaledValue(height: 19)
+    static let subtitleKerning: CGFloat = 3
+    static let subtitleFontSize: CGFloat = 19
+    
+    // Body
+    static let bodyFontSize: CGFloat = 15
     
     // Header
-    static let headerFontSize: CGFloat = scaledValue(height: 24)
+    static let headerFontSize: CGFloat = 24
 
     // Intensity
     static let minIntensity: Int = 1
     static let maxIntensity: Int = 5
-    static let intensityFractionFontSize: CGFloat = scaledValue(height: 25)
+    static let intensityFractionFontSize: CGFloat = 25
 
     // Weather View
     static let weatherViewRoundedRectangleCornerRadius: CGFloat = scaledValue(width: 30)

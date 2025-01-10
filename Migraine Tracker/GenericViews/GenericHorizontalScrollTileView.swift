@@ -17,7 +17,6 @@ struct GenericHorizontalScrollTileView<T: GenericTriggerTreatmentSymptom>: View 
                     GenericTileView(item: item)
                 }
             }
-            .frame(maxHeight: Constants.genericHorizontalScrollTileViewFrameHeight)
         }
     }
 }

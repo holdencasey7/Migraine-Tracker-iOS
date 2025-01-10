@@ -17,6 +17,9 @@ struct GenericRowView<T : GenericTriggerTreatmentSymptom>: View {
                 .frame(maxWidth: Constants.genericRowViewFrameMaxWidth, maxHeight: Constants.genericRowViewFrameMaxHeight)
             Text(item.title)
                 .font(Font.custom("Avenir", size: Constants.genericRowViewTitleFontSize))
+                .minimumScaleFactor(0.8)
+                .lineLimit(1)
+                .allowsTightening(true)
         }
     }
 }

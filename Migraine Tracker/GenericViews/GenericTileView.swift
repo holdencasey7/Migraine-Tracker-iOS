@@ -10,16 +10,18 @@ import SwiftUI
 struct GenericTileView<T: GenericTriggerTreatmentSymptom>: View {
     var item: T
     var body: some View {
-        VStack {
-            Image(item.icon ?? "DefaultSymptomIcon")
-                .resizable()
-                .frame(width: Constants.genericTileViewIconFrameWidth, height: Constants.genericTileViewIconFrameHeight)
-            Text(item.title)
-                .font(Font.custom("Avenir", size: Constants.genericTileViewTitleFontSize))
-                .frame(maxWidth: Constants.genericTileViewFrameMaxWidth)
-            Spacer()
-        }
-        .frame(width: Constants.genericTileViewFrameMaxWidth, height: Constants.genericTileViewFrameMaxHeight)
+            VStack() {
+                Image(item.icon ?? "DefaultSymptomIcon")
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fit)
+                Text(item.title)
+                    .font(Font.custom("Avenir", size: Constants.genericTileViewTitleFontSize))
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(1)
+                    .allowsTightening(true)
+                Spacer()
+            }
+            .aspectRatio(1, contentMode: .fit)
     }
 }
 

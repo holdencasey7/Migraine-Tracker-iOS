@@ -35,26 +35,17 @@ struct AddEntryView: View {
     @State var treatmentNotes: [TreatmentNote] = []
     
     var body: some View {
-//        ScrollView {
-            VStack {
-//                Text("NEW MIGRAINE ENTRY")
-//                    .font(Font.custom("Avenir", size: 20))
-//                    .padding()
-//                    .padding(.bottom, -10)
-//                    .padding(.top, -10)
-//                    .background(Color.white.opacity(0.6), in: RoundedRectangle(cornerRadius: 10))
+        GeometryReader { geometry in
+            VStack(alignment: .center) {
                 Spacer()
                 VStack (alignment: .leading, spacing: -10){
                     HStack {
                         Text("Start Date:")
                             .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                             .padding()
-                        DatePicker("", selection: $date
-                                   // If only want date and no time:
-                                   //, displayedComponents: .date
-                        )
-                        //                    .padding()
-                        .padding(.trailing, 50)
+                        DatePicker("", selection: $date)
+                            .padding()
+                        Spacer()
                     }
                     HStack {
                         Text("Intensity:")
@@ -64,9 +55,9 @@ struct AddEntryView: View {
                         IntensityIconView(intensity: Int(intensity))
                             .padding()
                     }
-                    .padding(.bottom, 15)
                 }
-                .padding(.leading, 10)
+                .frame(width: geometry.size.width, height: geometry.size.height / 8)
+                .padding(.bottom)
                 VStack (alignment: .center) {
                     VStack(alignment: .center) {
                         Button(action:{ presentSymptomSheet = true }) {
@@ -78,8 +69,7 @@ struct AddEntryView: View {
                         }
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .padding(5)
-                        .padding(.trailing, 50)
-                        .padding(.leading, 50)
+                        .frame(width: geometry.size.width / 1.5)
                         .background(
                             RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
                                 .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
@@ -88,25 +78,22 @@ struct AddEntryView: View {
                             SymptomSelectableGridView(symptoms: symptoms, finalSelectedSymptoms: $finalSelectedSymptoms, selectedSymptoms: finalSelectedSymptoms, isPresented: $presentSymptomSheet)
                         }
                         GenericHorizontalScrollTileView(items: finalSelectedSymptoms)
-                        //                        .frame(minHeight:60)
-                            .padding(.vertical, 5)
-                            .padding(.leading, 15)
-                            .padding(.trailing, 15)
+                            .padding(.horizontal)
+                        Spacer(minLength: 0)
                     }
+                    .frame(height: geometry.size.height / 5)
                     VStack(alignment: .center) {
                         Button(action: { presentTriggerSheet = true }) {
                             HStack {
                                 Image(systemName: "plus.circle")
                                 Text("TRIGGERS")
                                     .kerning(Constants.subtitleKerning)
-                                
                             }
                         }
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .foregroundStyle(Color.black)
                         .padding(5)
-                        .padding(.trailing, 57)
-                        .padding(.leading, 57)
+                        .frame(width: geometry.size.width / 1.5)
                         .background(
                             RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
                                 .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
@@ -115,11 +102,10 @@ struct AddEntryView: View {
                             TriggerSelectableMenuView( triggers: triggers, selectedTriggers: finalSelectedTriggers, finalSelectedTriggers: $finalSelectedTriggers, isPresented: $presentTriggerSheet)
                         }
                         GenericHorizontalScrollTileView(items: finalSelectedTriggers)
-                        //                        .frame(minHeight:60)
-                            .padding(.vertical, 5)
-                            .padding(.leading, 15)
-                            .padding(.trailing, 15)
+                            .padding(.horizontal)
+                        Spacer(minLength: 0)
                     }
+                    .frame(height: geometry.size.height / 5)
                     VStack(alignment: .center) {
                         Button(action: { presentTreatmentSheet = true }) {
                             HStack {
@@ -131,8 +117,7 @@ struct AddEntryView: View {
                         }
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .padding(5)
-                        .padding(.trailing, 39)
-                        .padding(.leading, 39)
+                        .frame(width: geometry.size.width / 1.5)
                         .background(
                             RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
                                 .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
@@ -141,46 +126,49 @@ struct AddEntryView: View {
                             TreatmentSelectableMenuView( treatments: treatments, selectedTreatments: finalSelectedTreatments, finalSelectedTreatments: $finalSelectedTreatments, isPresented: $presentTreatmentSheet)
                         }
                         GenericIconlessHorizontalScrollRowView(items: finalSelectedTreatments)
-//                                                .frame(minHeight:60)
-                            .padding(.vertical, 5)
-                            .padding(.leading, 15)
-                            .padding(.trailing, 15)
+                            .padding(.horizontal)
                     }
+                    .frame(height: geometry.size.height / 8)
                     HStack (spacing: -25){
                         Text("Notes:")
                             .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                             .padding()
-                            .padding(.leading, 10)
                         TextField("Notes", text: $notes)
                             .padding()
                             .submitLabel(.done)
-                    } .padding(.top, 5)
+                    }
+                        .frame(height: geometry.size.height / 10)
+                    Spacer()
                 }
                 Spacer()
-                Button("ADD ENTRY") {
-                    Task {
-                        await submit()
+                HStack {
+                    Spacer()
+                    Button("ADD ENTRY") {
+                        Task {
+                            await submit()
+                        }
+                        showSuccessPopup = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            date = Date()
+                            intensity = 1.0
+                            notes = ""
+                            finalSelectedTriggers.removeAll()
+                            finalSelectedTreatments.removeAll()
+                            finalSelectedSymptoms.removeAll()
+                            submitInProgress = false
+                        }
                     }
-                    showSuccessPopup = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        date = Date()
-                        intensity = 1.0
-                        notes = ""
-                        finalSelectedTriggers.removeAll()
-                        finalSelectedTreatments.removeAll()
-                        finalSelectedSymptoms.removeAll()
-                        submitInProgress = false
-                    }
+                    .padding()
+                    .font(Font.custom("Avenir", size: 25))
+                    .disabled(submitInProgress)
+                    Spacer()
                 }
-                .padding(10)
-                .padding(.bottom, 10)
-                .font(Font.custom("Avenir", size: 25))
-                .disabled(submitInProgress)
-//                .background(Color.white.opacity(0.6), in: RoundedRectangle(cornerRadius: 10))
+                .frame(maxWidth: .infinity)
+                Spacer()
             }
-//        }
-        .background(Image("FirstPinkAttempt").resizable().edgesIgnoringSafeArea(.all).aspectRatio(contentMode: .fill))
-        .overlay(AddedEntryPopupView(isVisible: $showSuccessPopup))
+            .background(Image("FirstPinkAttempt").resizable().edgesIgnoringSafeArea(.all).aspectRatio(contentMode: .fill))
+            .overlay(AddedEntryPopupView(isVisible: $showSuccessPopup))
+        }
     }
     
     private func submit() async {
@@ -210,5 +198,51 @@ struct AddEntryView: View {
 }
 
 #Preview {
+    let container = try! ModelContainer(for: Trigger.self, Treatment.self, Symptom.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    
+    // Adding sample data
+    let sampleTriggers = [
+        Trigger(title: "Stress", icon: "LifestyleTriggerIcon", category: TriggerCategory.lifestyle),
+        Trigger(title: "Poor Sleep", icon: "LifestyleTriggerIcon", category: TriggerCategory.lifestyle),
+        Trigger(title: "Irregular Meals", icon: "LifestyleTriggerIcon", category: TriggerCategory.lifestyle),
+        Trigger(title: "Physical Exertion", icon: "LifestyleTriggerIcon", category: TriggerCategory.lifestyle),
+        Trigger(title: "Weather", icon: "EnvironmentTriggerIcon", category: TriggerCategory.environment),
+        Trigger(title: "Lights", icon: "EnvironmentTriggerIcon", category: TriggerCategory.environment),
+        Trigger(title: "Smells", icon: "EnvironmentTriggerIcon", category: TriggerCategory.environment),
+        Trigger(title: "Noise", icon: "EnvironmentTriggerIcon", category: TriggerCategory.environment),
+        Trigger(title: "Caffeine", icon: "DietTriggerIcon", category: TriggerCategory.diet),
+        Trigger(title: "Alcohol", icon: "DietTriggerIcon", category: TriggerCategory.diet),
+        Trigger(title: "MSG", icon: "DietTriggerIcon", category: TriggerCategory.diet),
+        Trigger(title: "Nitrates", icon: "DietTriggerIcon", category: TriggerCategory.diet),
+        Trigger(title: "Chocolate", icon: "DietTriggerIcon", category: TriggerCategory.diet),
+        Trigger(title: "Medication", icon: "DefaultTriggerIcon", category: TriggerCategory.other),
+        Trigger(title: "Hormones", icon: "DefaultTriggerIcon", category: TriggerCategory.other),
+    ]
+    let sampleTreatments = [
+        Treatment(title: "Other Painkillers", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
+        Treatment(title: "Excedrin", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
+        Treatment(title: "Midol", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
+        Treatment(title: "Triptan", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
+        Treatment(title: "Herbal Tea", icon: "DefaultTreatmentIcon", category: TreatmentCategory.natural),
+        Treatment(title: "Caffeine", icon: "DefaultTreatmentIcon", category: TreatmentCategory.natural),
+        Treatment(title: "Steam", icon: "DefaultTreatmentIcon", category: TreatmentCategory.natural),
+    ]
+    let sampleSymptoms = [
+        Symptom(title: "Headache", icon: "HeadacheSymptomIcon"),
+        Symptom(title: "Nausea", icon: "NauseaSymptomIcon"),
+        Symptom(title: "Vision Loss", icon: "VisionLossSymptomIcon"),
+        Symptom(title: "Dizziness", icon: "DizzinessSymptomIcon"),
+        Symptom(title: "Neck Pain", icon: "NeckPainSymptomIcon"),
+        Symptom(title: "Fatigue", icon: "FatigueSymptomIcon"),
+        Symptom(title: "Numbness", icon: "NumbnessSymptomIcon")
+    ]
+
     AddEntryView()
+        .onAppear {
+            sampleTriggers.forEach { container.mainContext.insert($0) }
+            sampleTreatments.forEach { container.mainContext.insert($0) }
+            sampleSymptoms.forEach { container.mainContext.insert($0) }
+        }
+        .environment(\.modelContext, container.mainContext)
 }
+
