@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LeadingTriggerAndTreatmentView: View {
-    @State var triggers: [Trigger]
-    @State var treatments: [Treatment]
+    var triggers: [Trigger]
+    var treatments: [Treatment]
     
     var body: some View {
         HStack(alignment: .top) {
