@@ -14,7 +14,8 @@ struct IntensityFractionView: View {
             ZStack {
                 Image("\(intensity)_\(Constants.maxIntensity)_Circle")
                     .resizable()
-                    .frame(width: 125, height: 125)
+//                    .frame(width: 125, height: 125)
+                    .aspectRatio(1, contentMode: .fit)
                 Text("\(intensity)/\(Constants.maxIntensity)")
                     .font(Font.custom("Avenir", size: Constants.intensityFractionFontSize))
             }
