@@ -13,10 +13,14 @@ struct RatingRowView: View {
         HStack {
             if let treatment = rating.treatment {
                 Text(treatment.title)
+                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                 HStack {
                     Image(systemName: rating.ratingValue == 0 ? "star" : "star.fill")
+                        .font(.system(size: Constants.subtitleFontSize))
                     Image(systemName: rating.ratingValue <= 1 ? "star" : "star.fill")
+                        .font(.system(size: Constants.subtitleFontSize))
                     Image(systemName: rating.ratingValue <= 2 ? "star" : "star.fill")
+                        .font(.system(size: Constants.subtitleFontSize))
                 }
             }
         }

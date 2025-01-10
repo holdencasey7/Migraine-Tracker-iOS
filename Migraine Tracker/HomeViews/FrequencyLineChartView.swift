@@ -53,6 +53,7 @@ struct FrequencyLineChartView: View {
         .background(
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.white.opacity(0.5))
+                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
         )
     }
     

@@ -26,9 +26,10 @@ final class Treatment:Identifiable, Hashable, GenericTriggerTreatmentSymptom{
     
     
     var averageRating: Double? {
-        guard !ratings.isEmpty else { return nil }
-        let total = ratings.reduce(0.0) { $0 + Double($1.ratingValue) }
-        return total / Double(ratings.count)
+        let validRatings = ratings.filter { $0.ratingValue != 0 } // Exclude ratings with value 0
+        guard !validRatings.isEmpty else { return nil }
+        let total = validRatings.reduce(0.0) { $0 + Double($1.ratingValue) }
+        return total / Double(validRatings.count)
     }
     
     init(title: String?, icon: String?, category: TreatmentCategory) {
