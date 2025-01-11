@@ -28,8 +28,6 @@ struct AllTypesFollowupView: View {
         default:
             Text("How did I get here?")
         }
-        
-        // Done button?
     }
     
     private func pickFollowupView(entry: Entry) -> Int {

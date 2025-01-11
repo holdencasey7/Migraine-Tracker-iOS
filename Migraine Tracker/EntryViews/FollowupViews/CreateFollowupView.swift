@@ -49,7 +49,6 @@ struct CreateFollowupView: View {
             modelContext.insert(rating)
             try? modelContext.save()
         }
-    
     }
 }
 

@@ -12,43 +12,84 @@ struct CreateTreatmentNoteView: View {
     @Binding var allEntryTreatmentNotes: [TreatmentNote]
     @Binding var isPresented: Bool
     
-    @State var dosage: String?
-    @State var frequency: Int?
-    @State var datesTaken: [Date]?
-    @State var duration: TimeInterval?
-    @State var otherNotes: String?
+    @State var dosage: String = ""
+    @State var frequency: Int = 0
+    @State var datesTaken: [Date] = []
+    @State var duration: TimeInterval = .zero
+    @State var otherNotes: String = ""
     
     var body: some View {
         VStack {
-            Text("Hello")
-            Text(treatment.title)
+            Text("Note for \(treatment.title)")
+                .font(Font.custom("Avenir", size: Constants.headerFontSize))
+                .kerning(Constants.subtitleKerning)
+                .minimumScaleFactor(0.8)
+                .lineLimit(2)
+                .allowsTightening(true)
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Form {
+                TextField("Dosage", text: $dosage)
+                    .autocapitalization(.none)
+                    .padding()
+                
+                TextField("Frequency", value: $frequency, format: .number)
+                    .autocapitalization(.none)
+                    .padding()
+                    .keyboardType(.numberPad)
+            }
+            Button(action: submit) {
+                Text("Submit")
+                    .modifier(RoundedPinkButtonStyle())
+            }
         }
         .onAppear {
-            dosage = treatment.defaultDosage
-            frequency = treatment.defaultFrequency
-            duration = treatment.defaultDurartion
-            otherNotes = treatment.defaultOtherNotes
+            let previousNote = allEntryTreatmentNotes.first { $0.treatmentIn == treatment }
+            if let previousNote {
+                if previousNote.dosage != nil {
+                    dosage = previousNote.dosage!
+                }
+                if previousNote.frequency != nil {
+                    frequency = previousNote.frequency!
+                }
+                if previousNote.datesTaken != nil {
+                    datesTaken = previousNote.datesTaken!
+                }
+                if previousNote.durartion != nil {
+                    duration = previousNote.durartion!
+                }
+                if previousNote.otherNotes != nil {
+                    otherNotes = previousNote.otherNotes!
+                }
+            } else {
+                dosage = treatment.defaultDosage ?? ""
+                frequency = treatment.defaultFrequency ?? 0
+                duration = treatment.defaultDurartion ?? .zero
+                otherNotes = treatment.defaultOtherNotes ?? ""
+                datesTaken = [Date()]
+            }
         }
     }
     
     private func submit() {
         let treatmentNote: TreatmentNote = TreatmentNote(treatmentIn: treatment)
         
-        if let dosage {
+        
             treatmentNote.dosage = dosage
-        }
-        if let frequency {
+        
+        
             treatmentNote.frequency = frequency
-        }
-        if let datesTaken {
+        
+        
             treatmentNote.datesTaken = datesTaken
-        }
-        if let duration {
+        
+        
             treatmentNote.durartion = duration
-        }
-        if let otherNotes {
+        
+        
             treatmentNote.otherNotes = otherNotes
-        }
+        
         
         allEntryTreatmentNotes.append(treatmentNote)
         isPresented = false

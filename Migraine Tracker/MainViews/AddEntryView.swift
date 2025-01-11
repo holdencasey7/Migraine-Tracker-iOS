@@ -169,6 +169,7 @@ struct AddEntryView: View {
                             finalSelectedTreatments.removeAll()
                             finalSelectedSymptoms.removeAll()
                             submitInProgress = false
+                            treatmentNotes.removeAll()
                         }
                     }
                     .padding()

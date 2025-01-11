@@ -20,6 +20,7 @@ struct TreatmentSelectableMenuView: View {
     @State var selectedTreatmentForNotes: Treatment? = nil
     @State var treatmentNotes: [TreatmentNote]
     @Binding var finalTreatmentNotes: [TreatmentNote]
+    @State var toggleBugFix: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -48,7 +49,11 @@ struct TreatmentSelectableMenuView: View {
                             }
                             .swipeActions {
                                 Button("Notes") {
+                                    if !selected {
+                                        selectedTreatments.append(treatment)
+                                    }
                                     selectedTreatmentForNotes = treatment
+                                    toggleBugFix.toggle()
                                 }
                                 .tint(.blue)
                             }
@@ -69,7 +74,7 @@ struct TreatmentSelectableMenuView: View {
                     filteredTreatments = treatments
                 }
             }
-            .onChange(of: selectedTreatmentForNotes) {
+            .onChange(of: toggleBugFix) {
                 isShowingTreatmentNotes = true
             }
             .sheet(isPresented: $isShowingTreatmentNotes) {
@@ -97,6 +102,7 @@ struct TreatmentSelectableMenuView: View {
                 }
             }
         }
+        treatmentNotes = []
         isPresented = false
     }
 }
