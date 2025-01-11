@@ -10,7 +10,7 @@ import SwiftData
 
 struct UpdateFollowupView: View {
     @Environment(\.modelContext) private var modelContext
-    @Binding var followup: Followup?
+    var followup: Followup
     @State var changedTreatmentRatings: [Treatment: Int] = [:]
     @State var newTreatmentRatings: [Treatment: Int] = [:]
     @State var newEndDate: Date
@@ -38,13 +38,11 @@ struct UpdateFollowupView: View {
             }
         }
         .onAppear {
-            if let followup = followup {
-                if let entry = followup.entry {
-                    let existingTreatmentsToRatings = getExistingRatings(entry: entry)
-                    let newRatingValues = getNewRatingValues(entry: entry, existingTreatmentsToRatings: existingTreatmentsToRatings)
-                    changedTreatmentRatings = existingTreatmentsToRatings
-                    newTreatmentRatings = newRatingValues
-                }
+            if let entry = followup.entry {
+                let existingTreatmentsToRatings = getExistingRatings(entry: entry)
+                let newRatingValues = getNewRatingValues(entry: entry, existingTreatmentsToRatings: existingTreatmentsToRatings)
+                changedTreatmentRatings = existingTreatmentsToRatings
+                newTreatmentRatings = newRatingValues
             }
         }
     }
@@ -70,23 +68,19 @@ struct UpdateFollowupView: View {
     }
     
     private func updateFollowup() {
-        if let followup = followup {
-            newTreatmentRatings.forEach { treatment, ratingValue in
-                let rating: Rating = .init(treatment: treatment, followup: followup, ratingValue: ratingValue)
-                modelContext.insert(rating)
-                try? modelContext.save()
-            }
-            changedTreatmentRatings.forEach { treatment, ratingValue in
-                let rating: Rating = followup.ratings.first { $0.treatment == treatment }!
-                rating.ratingValue = ratingValue
-                modelContext.insert(rating)
-                try? modelContext.save()
-            }
-            
-            followup.endDate = newEndDate
-            modelContext.insert(followup)
-            try? modelContext.save()
+        newTreatmentRatings.forEach { treatment, ratingValue in
+            let rating: Rating = .init(treatment: treatment, followup: followup, ratingValue: ratingValue)
+            modelContext.insert(rating)
         }
+        changedTreatmentRatings.forEach { treatment, ratingValue in
+            let rating: Rating = followup.ratings.first { $0.treatment == treatment }!
+            rating.ratingValue = ratingValue
+            modelContext.insert(rating)
+        }
+        
+        followup.endDate = newEndDate
+        modelContext.insert(followup)
+        try? modelContext.save()
         isPresented = false
     }
 }

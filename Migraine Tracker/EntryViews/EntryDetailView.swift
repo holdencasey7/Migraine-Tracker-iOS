@@ -99,7 +99,14 @@ struct EntryDetailView: View {
                             .modifier(RoundedPinkButtonStyle())
                     }
                     .sheet(isPresented: $presentFollowupSheet) {
-                        AllTypesFollowupView(entry: $entry, isPresented: $presentFollowupSheet, followup: entry.followup)
+                        let whichFollowup: Int = pickFollowupView(entry: entry)
+                        if whichFollowup == 0 {
+                            FollowupDetailView(followup: entry.followup!)
+                        } else if whichFollowup == 1 {
+                            UpdateFollowupView(followup: entry.followup!, newEndDate: entry.followup!.endDate, isPresented: .constant(true))
+                        } else if whichFollowup == 2 {
+                            CreateFollowupView(entry: $entry)
+                        }
                     }
                     Spacer()
                     Button(action: {presentDeleteAlert = true}) {
@@ -127,6 +134,28 @@ struct EntryDetailView: View {
     }
     private func editEntry() {
         presentEditSheet = true
+    }
+    
+    private func pickFollowupView(entry: Entry) -> Int {
+        if let followup = entry.followup {
+            var hasNewTreatment = false
+            var existingRatedTreatments: [Treatment] = []
+            followup.ratings.forEach { rating in
+                existingRatedTreatments.append(rating.treatment ?? .init(title: "Error Treatment", icon: "", category: .other))
+            }
+            entry.treatments.forEach { treatment in
+                if !existingRatedTreatments.contains(treatment) {
+                    hasNewTreatment = true
+                }
+            }
+            if hasNewTreatment {
+                return 1
+            } else {
+                return 0
+            }
+        } else {
+            return 2
+        }
     }
 }
 
