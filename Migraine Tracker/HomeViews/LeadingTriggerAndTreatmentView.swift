@@ -20,7 +20,7 @@ struct LeadingTriggerAndTreatmentView: View {
                         .multilineTextAlignment(.center)
                         .fontWeight(.bold)
 //                        .padding(.bottom, -15)
-                    Spacer()
+//                    Spacer()
                     if let imageName = highestAverageRatingTreatment.icon {
                         Image(imageName)
                             .resizable()
@@ -41,7 +41,7 @@ struct LeadingTriggerAndTreatmentView: View {
                         .multilineTextAlignment(.center)
                         .fontWeight(.bold)
 //                        .padding(.bottom, -15)
-                    Spacer()
+//                    Spacer()
                     if let imageName = mostCommonTrigger.icon {
                         Image(imageName)
                             .resizable()
@@ -55,41 +55,6 @@ struct LeadingTriggerAndTreatmentView: View {
             }
             .padding(.horizontal)
         }
-        
-//        VStack {
-//            
-//            if let highestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).0 {
-//                if let averageRatingOfHighestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments).1 {
-//                    Text("Leading Treatment: \(highestAverageRatingTreatment.title) (\(String(format: "%.1f", averageRatingOfHighestAverageRatingTreatment))/3)")
-//                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
-//                        .multilineTextAlignment(.center)
-//                } else {
-//                    Text("Leading Treatment: \(highestAverageRatingTreatment.title)")
-//                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
-//                        .multilineTextAlignment(.center)
-//                }
-//            } else {
-//                Text("No Rated Treatments Found")
-//                    .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
-//            }
-//            
-//            
-//            if let countOfMostCommonTrigger = getMostCommonTrigger(triggers: triggers).1 {
-//                if countOfMostCommonTrigger > 0 {
-//                    if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers).0 {
-//                        Text("Leading Trigger: \(mostCommonTrigger.title) (\(countOfMostCommonTrigger)x)")
-//                            .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
-//                            .multilineTextAlignment(.center)
-//                    }
-//                } else {
-//                    Text("No Triggers Logged")
-//                        .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
-//                }
-//            } else {
-//                Text("No Triggers Logged")
-//                    .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
-//            }
-//        }
     }
     
     private func getMostCommonTrigger(triggers: [Trigger]) -> (Trigger?, Int?) {

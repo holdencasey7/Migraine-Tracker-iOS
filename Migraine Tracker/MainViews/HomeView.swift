@@ -18,8 +18,7 @@ struct HomeView: View {
     @State var presentManageTriggerSheet: Bool = false
     @State var presentManageTreatmentSheet: Bool = false
     @Binding var contentViewSelection: Int
-    
-    @State private var refreshView: Bool = false
+
     
     var body: some View {
         ZStack {
@@ -27,26 +26,23 @@ struct HomeView: View {
                 .resizable()
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all) // Covers entire screen
-            
-            VStack {
-                Spacer()
-                LeadingTriggerAndTreatmentView(triggers: triggers, treatments: treatments)
-                    .padding(.horizontal)
-                    .frame(height: 150)
-                    .padding(.top, 50)
-                Spacer()
-                FrequencyLineChartView(entries: entries)
-                    .padding(.horizontal)
-                    .frame(height: 300)
-                Spacer()
-                GiantAddEntryButtonView(contentViewSelection: $contentViewSelection)
-                    .padding()
-                    .padding(.bottom, 50)
-                Spacer()
+            GeometryReader { geometry in
+                VStack {
+                    Spacer()
+                    LeadingTriggerAndTreatmentView(triggers: triggers, treatments: treatments)
+                        .padding()
+                        .frame(height: geometry.size.height * 0.2)
+                    Spacer()
+                    FrequencyLineChartView(entries: entries)
+                        .padding()
+                        .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.3)
+                    Spacer()
+                    GiantAddEntryButtonView(contentViewSelection: $contentViewSelection)
+                        .padding()
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
-        }
-        .onAppear {
-            refreshView.toggle()
         }
     }
 }

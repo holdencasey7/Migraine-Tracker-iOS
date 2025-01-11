@@ -179,6 +179,7 @@ struct AddEntryView: View {
                 .frame(maxWidth: .infinity)
                 Spacer()
             }
+            .frame(width: geometry.size.width)
             .background(Image("FirstPinkAttempt").resizable().edgesIgnoringSafeArea(.all).aspectRatio(contentMode: .fill))
             .overlay(AddedEntryPopupView(isVisible: $showSuccessPopup))
         }

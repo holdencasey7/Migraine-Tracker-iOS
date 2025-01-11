@@ -117,6 +117,7 @@ struct EntryDetailView: View {
                 Spacer()
                 
             }
+            .frame(width: geometry.size.width)
         }
     }
     private func deleteEntry() {

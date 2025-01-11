@@ -14,6 +14,10 @@ struct RatingRowView: View {
             if let treatment = rating.treatment {
                 Text(treatment.title)
                     .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    .kerning(1)
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(1)
+                    .allowsTightening(true)
                 HStack {
                     Image(systemName: rating.ratingValue == 0 ? "star" : "star.fill")
                         .font(.system(size: Constants.subtitleFontSize))
