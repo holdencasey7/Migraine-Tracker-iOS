@@ -158,18 +158,26 @@ struct EditEntryView: View {
                         entry.intensity = Int(intensity)
                         entry.timestamp = date
                         entry.setTreatmentNotes(treatmentNotes)
-                        
-                        if let followup = entry.followup {
-                            followup.ratings.forEach { rating in
-                                if let treatment = rating.treatment {
-                                    if !entry.treatments.contains(treatment) {
-                                        modelContext.delete(rating)
+                        do {
+                            try modelContext.transaction {
+                                if let followup = entry.followup {
+                                    followup.ratings.forEach { rating in
+                                        if let treatment = rating.treatment {
+                                            if !entry.treatments.contains(treatment) {
+                                                modelContext.delete(rating)
+                                            }
+                                        }
                                     }
                                 }
+                                do {
+                                    try modelContext.save()
+                                } catch {
+                                    print(error)
+                                }
                             }
+                        } catch {
+                            print(error)
                         }
-                        
-                        try? modelContext.save()
                         entry = modelContext.model(for: entry.id) as! Entry
                         
                         date = Date()

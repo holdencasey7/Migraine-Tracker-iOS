@@ -68,19 +68,29 @@ struct UpdateFollowupView: View {
     }
     
     private func updateFollowup() {
-        newTreatmentRatings.forEach { treatment, ratingValue in
-            let rating: Rating = .init(treatment: treatment, followup: followup, ratingValue: ratingValue)
-            modelContext.insert(rating)
+        do {
+            try modelContext.transaction {
+                newTreatmentRatings.forEach { treatment, ratingValue in
+                    let rating: Rating = .init(treatment: treatment, followup: followup, ratingValue: ratingValue)
+                    modelContext.insert(rating)
+                }
+                changedTreatmentRatings.forEach { treatment, ratingValue in
+                    let rating: Rating = followup.ratings.first { $0.treatment == treatment }!
+                    rating.ratingValue = ratingValue
+                    modelContext.insert(rating)
+                }
+                
+                followup.endDate = newEndDate
+                modelContext.insert(followup)
+                do {
+                    try modelContext.save()
+                } catch {
+                    print(error)
+                }
+            }
+        } catch {
+            print(error)
         }
-        changedTreatmentRatings.forEach { treatment, ratingValue in
-            let rating: Rating = followup.ratings.first { $0.treatment == treatment }!
-            rating.ratingValue = ratingValue
-            modelContext.insert(rating)
-        }
-        
-        followup.endDate = newEndDate
-        modelContext.insert(followup)
-        try? modelContext.save()
         isPresented = false
     }
 }

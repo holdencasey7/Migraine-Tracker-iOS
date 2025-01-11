@@ -74,23 +74,11 @@ struct CreateTreatmentNoteView: View {
     
     private func submit() {
         let treatmentNote: TreatmentNote = TreatmentNote(treatmentIn: treatment)
-        
-        
-            treatmentNote.dosage = dosage
-        
-        
-            treatmentNote.frequency = frequency
-        
-        
-            treatmentNote.datesTaken = datesTaken
-        
-        
-            treatmentNote.durartion = duration
-        
-        
-            treatmentNote.otherNotes = otherNotes
-        
-        
+        treatmentNote.dosage = dosage
+        treatmentNote.frequency = frequency
+        treatmentNote.datesTaken = datesTaken
+        treatmentNote.durartion = duration
+        treatmentNote.otherNotes = otherNotes
         allEntryTreatmentNotes.append(treatmentNote)
         isPresented = false
     }

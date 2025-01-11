@@ -41,14 +41,24 @@ struct CreateFollowupView: View {
     
     private func addFollowup() {
         let followup: Followup = .init(entry: entry, endDate: endDate)
-        modelContext.insert(followup)
-        try? modelContext.save()
-        
-        treatmentRatings.forEach { treatment, ratingValue in
-            let rating: Rating = .init(treatment: treatment, followup: followup, ratingValue: ratingValue)
-            modelContext.insert(rating)
-            try? modelContext.save()
+        do {
+            try modelContext.transaction {
+                modelContext.insert(followup)
+                treatmentRatings.forEach { treatment, ratingValue in
+                    let rating: Rating = .init(treatment: treatment, followup: followup, ratingValue: ratingValue)
+                    modelContext.insert(rating)
+                }
+                do {
+                    try modelContext.save()
+                } catch {
+                    print(error)
+                }
+            }
+        } catch {
+            print(error)
         }
+        
+        
     }
 }
 

@@ -208,7 +208,11 @@ struct AddEntryView: View {
         }
         
         modelContext.insert(entry)
-        try? modelContext.save()
+        do {
+            try modelContext.save()
+        } catch {
+            print(error)
+        }
     }
 }
 
