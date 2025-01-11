@@ -18,9 +18,10 @@ struct TreatmentIconlessHorizontalScrollRowViewHoldableForNotes: View {
         ScrollView(.horizontal) {
             HStack(alignment: .firstTextBaseline, spacing: Constants.genericIconlessHorizontalScrollRowViewHStackSpacing) {
                 ForEach(treatments.sorted(by: { $0.title < $1.title }), id: \.id) { treatment in
-                    GenericIconlessRowView(item: treatment, includeComma: treatments.sorted(by: { $0.title < $1.title }).last != treatment)
-                        .onLongPressGesture {
-                            if let treatmentNote = treatment.treatmentNotes.first(where: { $0.entryIn == entryDetailIn }) {
+                    let treatmentNote = treatment.treatmentNotes.first(where: { $0.entryIn == entryDetailIn })
+                    GenericIconlessRowView(item: treatment, includeComma: treatments.sorted(by: { $0.title < $1.title }).last != treatment, hasNote: treatmentNote != nil)
+                        .onTapGesture {
+                            if let treatmentNote {
                                 selectedTreatmentNote = treatmentNote
                                 toggleBugFix.toggle()
                             }
