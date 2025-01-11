@@ -91,7 +91,7 @@ struct EntryDetailView: View {
                     }
 //                    .padding(.leading, 40)
                     .sheet(isPresented: $presentEditSheet) {
-                        EditEntryView(isPresented: $presentEditSheet, entry: $entry, date: entry.timestamp, intensity: Double(entry.intensity), notes: entry.notes, finalSelectedTriggers: entry.triggers, finalSelectedTreatments: entry.treatments, finalSelectedSymptoms: entry.symptoms)
+                        EditEntryView(isPresented: $presentEditSheet, entry: $entry, date: entry.timestamp, intensity: Double(entry.intensity), notes: entry.notes, finalSelectedTriggers: entry.triggers, finalSelectedTreatments: entry.treatments, finalSelectedSymptoms: entry.symptoms, treatmentNotes: entry.treatmentNotes)
                     }
                     Spacer()
                     Button(action: {presentFollowupSheet = true}) {

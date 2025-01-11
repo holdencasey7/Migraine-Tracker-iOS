@@ -16,6 +16,11 @@ struct TreatmentSelectableMenuView: View {
     @State private var searchText = ""
     @State var filteredTreatments: [Treatment] = []
     
+    @State var isShowingTreatmentNotes: Bool = false
+    @State var selectedTreatmentForNotes: Treatment? = nil
+    @State var treatmentNotes: [TreatmentNote]
+    @Binding var finalTreatmentNotes: [TreatmentNote]
+    
     var body: some View {
         GeometryReader { geometry in
             NavigationStack {
@@ -41,21 +46,41 @@ struct TreatmentSelectableMenuView: View {
                                     selectedTreatments.removeAll(where: { $0 == treatment })
                                 }
                             }
+                            .swipeActions {
+                                Button("Notes") {
+//                                    selectedTreatmentForNotes = treatment // Has bug
+                                    isShowingTreatmentNotes = true
+                                }
+                                .tint(.blue)
+                            }
                         }
                     } header: {
                         Text(category.rawValue)
                     }
-                } .searchable(text: $searchText)
-                    .onChange(of: searchText) {
-                        if searchText.isEmpty {
-                            filteredTreatments = treatments
-                        } else {
-                            filteredTreatments = treatments.filter({$0.title.lowercased().starts(with: searchText.lowercased())})
-                        }
-                    }
-                    .onAppear {
+                }
+                .searchable(text: $searchText)
+                .onChange(of: searchText) {
+                    if searchText.isEmpty {
                         filteredTreatments = treatments
+                    } else {
+                        filteredTreatments = treatments.filter({$0.title.lowercased().starts(with: searchText.lowercased())})
                     }
+                }
+                .onAppear {
+                    filteredTreatments = treatments
+                }
+            }
+            .sheet(isPresented: $isShowingTreatmentNotes) {
+                Text("Hello")
+//                if let selectedTreatmentForNotes {
+//                    // Rethink how to do this
+////                    let treatmentNote
+////                    treatmentNotes.append(TreatmentNote(treatment: selectedTreatmentForNotes))
+////                    CreateTreatmentNoteView(treatmentNote: selectedTreatmentForNotes, allEntryTreatmentNotes: $treatmentNotes, isPresented: $isShowingTreatmentNotes)
+//                    Text(selectedTreatmentForNotes.title)
+//                } else {
+//                    Text("No Treatment Selected")
+//                }
             }
         }
         HStack {
@@ -70,6 +95,13 @@ struct TreatmentSelectableMenuView: View {
     }
     private func saveTreatments() {
         finalSelectedTreatments = selectedTreatments
+        treatmentNotes.forEach { treatmentNote in
+            if let treatmentIn = treatmentNote.treatmentIn {
+                if finalSelectedTreatments.contains(treatmentIn) {
+                    finalTreatmentNotes.append(treatmentNote)
+                }
+            }
+        }
         isPresented = false
     }
 }

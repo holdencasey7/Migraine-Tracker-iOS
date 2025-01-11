@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct CreateTreatmentNoteView: View {
-    @Binding var treatment: Treatment
+    var treatment: Treatment
     @Binding var allEntryTreatmentNotes: [TreatmentNote]
+    @Binding var isPresented: Bool
     
     @State var dosage: String?
     @State var frequency: Int?

@@ -29,6 +29,8 @@ struct EditEntryView: View {
     @State var presentTreatmentSheet: Bool = false
     @State var presentSymptomSheet: Bool = false
     
+    @State var treatmentNotes: [TreatmentNote]
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -128,7 +130,7 @@ struct EditEntryView: View {
                                 .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
                         )
                         .sheet(isPresented: $presentTreatmentSheet) {
-                            TreatmentSelectableMenuView( treatments: treatments, selectedTreatments: finalSelectedTreatments, finalSelectedTreatments: $finalSelectedTreatments, isPresented: $presentTreatmentSheet)
+                            TreatmentSelectableMenuView( treatments: treatments, selectedTreatments: finalSelectedTreatments, finalSelectedTreatments: $finalSelectedTreatments, isPresented: $presentTreatmentSheet, treatmentNotes: treatmentNotes, finalTreatmentNotes: $treatmentNotes)
                         }
                         GenericIconlessHorizontalScrollRowView(items: finalSelectedTreatments)
                             .padding(.horizontal)
