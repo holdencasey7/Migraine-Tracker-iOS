@@ -74,7 +74,8 @@ struct EntryDetailView: View {
                 VStack {
                     Text("TREATMENTS")
                         .modifier(EntryDetailSTTHeaderStyle())
-                    GenericIconlessHorizontalScrollRowView(items: entry.treatments)
+                    TreatmentIconlessHorizontalScrollRowViewHoldableForNotes(treatments: entry.treatments, entryDetailIn: entry)
+//                    GenericIconlessHorizontalScrollRowView(items: entry.treatments)
                         .padding(.horizontal)
                     Spacer()
                 }

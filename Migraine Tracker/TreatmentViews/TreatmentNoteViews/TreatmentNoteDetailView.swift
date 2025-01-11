@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct TreatmentNoteDetailView: View {
-    @Binding var treatmentNote: TreatmentNote
+    var treatmentNote: TreatmentNote
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(treatmentNote.dosage ?? "No dosage")
     }
 }
 
