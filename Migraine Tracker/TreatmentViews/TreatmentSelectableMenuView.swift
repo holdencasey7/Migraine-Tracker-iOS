@@ -48,8 +48,7 @@ struct TreatmentSelectableMenuView: View {
                             }
                             .swipeActions {
                                 Button("Notes") {
-//                                    selectedTreatmentForNotes = treatment // Has bug
-                                    isShowingTreatmentNotes = true
+                                    selectedTreatmentForNotes = treatment
                                 }
                                 .tint(.blue)
                             }
@@ -70,17 +69,13 @@ struct TreatmentSelectableMenuView: View {
                     filteredTreatments = treatments
                 }
             }
+            .onChange(of: selectedTreatmentForNotes) {
+                isShowingTreatmentNotes = true
+            }
             .sheet(isPresented: $isShowingTreatmentNotes) {
-                Text("Hello")
-//                if let selectedTreatmentForNotes {
-//                    // Rethink how to do this
-////                    let treatmentNote
-////                    treatmentNotes.append(TreatmentNote(treatment: selectedTreatmentForNotes))
-////                    CreateTreatmentNoteView(treatmentNote: selectedTreatmentForNotes, allEntryTreatmentNotes: $treatmentNotes, isPresented: $isShowingTreatmentNotes)
-//                    Text(selectedTreatmentForNotes.title)
-//                } else {
-//                    Text("No Treatment Selected")
-//                }
+                if let selectedTreatmentForNotes {
+                    CreateTreatmentNoteView(treatment: selectedTreatmentForNotes, allEntryTreatmentNotes: $treatmentNotes, isPresented: $isShowingTreatmentNotes)
+                }
             }
         }
         HStack {

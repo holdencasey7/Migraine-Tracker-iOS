@@ -20,6 +20,7 @@ struct CreateTreatmentNoteView: View {
     
     var body: some View {
         VStack {
+            Text("Hello")
             Text(treatment.title)
         }
         .onAppear {
@@ -50,6 +51,7 @@ struct CreateTreatmentNoteView: View {
         }
         
         allEntryTreatmentNotes.append(treatmentNote)
+        isPresented = false
     }
 }
 

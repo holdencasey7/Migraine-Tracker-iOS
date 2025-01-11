@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TreatmentNoteDetailView: View {
-    @State var treatmentNote: TreatmentNote
+    @Binding var treatmentNote: TreatmentNote
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
