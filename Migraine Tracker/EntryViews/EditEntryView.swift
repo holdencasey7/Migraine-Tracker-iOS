@@ -157,6 +157,7 @@ struct EditEntryView: View {
                         entry.notes = notes
                         entry.intensity = Int(intensity)
                         entry.timestamp = date
+                        entry.setTreatmentNotes(treatmentNotes)
                         
                         if let followup = entry.followup {
                             followup.ratings.forEach { rating in
@@ -177,6 +178,7 @@ struct EditEntryView: View {
                         finalSelectedTriggers.removeAll()
                         finalSelectedTreatments.removeAll()
                         finalSelectedSymptoms.removeAll()
+                        treatmentNotes.removeAll()
                         
                         isPresented = false
                     }

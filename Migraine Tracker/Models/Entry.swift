@@ -70,6 +70,13 @@ final class Entry:Identifiable, Hashable {
         let treatments: [Treatment] = []
         self.init(timestamp: timestamp, intensity: intensity, triggers: triggers, symptoms: symptoms, treatments: treatments, notes: notes)
     }
+    
+    func setTreatmentNotes(_ treatmentNotes: [TreatmentNote]) {
+        self.treatmentNotes = treatmentNotes
+        treatmentNotes.forEach { treatmentNote in
+            treatmentNote.entryIn = self
+        }
+    }
 }
 
 enum TimeGranularity {
