@@ -16,13 +16,16 @@ struct GenericRowView<T : GenericTriggerTreatmentSymptom>: View {
                     .resizable()
                     .scaledToFit()
                     .aspectRatio(1, contentMode: .fit)
-                    .frame(width: geometry.size.width * 0.2, height: geometry.size.width * 0.2)
+//                    .frame(width: geometry.size.width * 0.15, height: geometry.size.width * 0.15)
                 Text(item.title)
                     .font(Font.custom("Avenir", size: Constants.genericRowViewTitleFontSize))
                     .minimumScaleFactor(0.8)
                     .lineLimit(1)
                     .allowsTightening(true)
+                Spacer()
             }
+//            .frame(width: geometry.size.width * 0.15, height: geometry.size.width * 0.15)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

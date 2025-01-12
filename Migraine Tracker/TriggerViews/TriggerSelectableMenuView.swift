@@ -34,6 +34,7 @@ struct TriggerSelectableMenuView: View {
                                 }
                             }
                             .contentShape(Rectangle())
+                            .listRowBackground(selected ? Color("LightGrey") : Color.white)
                             .onTapGesture {tapGesture in
                                 if !selected {
                                     selectedTriggers.append(trigger)

@@ -40,6 +40,7 @@ struct TreatmentSelectableMenuView: View {
                                 }
                             }
                             .contentShape(Rectangle())
+                            .listRowBackground(selected ? Color("LightGrey") : Color.white)
                             .onTapGesture {tapGesture in
                                 if !selected {
                                     selectedTreatments.append(treatment)

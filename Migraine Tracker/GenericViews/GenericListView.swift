@@ -16,7 +16,7 @@ struct GenericListView<T: GenericTriggerTreatmentSymptom>: View {
                     ForEach(items.sorted(by: { $0.title < $1.title
                     })) { item in
                         GenericRowView<T>(item: item)
-                            .frame(height: geometry.size.width * 0.15)
+//                            .frame(height: geometry.size.width * 0.1)
                     }
                 }
             }
