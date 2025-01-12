@@ -8,7 +8,7 @@ import SwiftUI
 enum Constants {
 
     // Home View
-    static let leadingTriggerTreatmentFontSize: CGFloat = 21
+    
 
     // Subtitle
     static let subtitleKerning: CGFloat = 3
@@ -46,4 +46,10 @@ enum Constants {
     static let addEntryViewButtonRoundedRectangleCornerRadius: CGFloat = 10
     static let addEntryViewButtonRoundedRectangleOpacity: CGFloat = 0.85
     static let addEntrySubmitButtonFontSize: CGFloat = 25
+    
+    // Insights View
+    static let minimumRequiredEntryCount: Int = 5
+    static let leadingTriggerTreatmentFontSize: CGFloat = 21
+    static let averageDurationFontSize: CGFloat = 21
+    static let averageWeatherFontSize: CGFloat = 21
 }

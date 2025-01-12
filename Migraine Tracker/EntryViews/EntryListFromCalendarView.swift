@@ -25,9 +25,10 @@ struct EntryListFromCalendarView: View {
                     // Left-Aligned Calendar Button
                     HStack {
                         Button(action: {
+                            selectedDate = nil
                             isEntryDetailVisible = false
                             showingEntries = false
-                            self.selectedDate = nil
+                            
                         }) {
                             Image(systemName: "arrow.left.circle")
                                 .font(.system(size: 40))

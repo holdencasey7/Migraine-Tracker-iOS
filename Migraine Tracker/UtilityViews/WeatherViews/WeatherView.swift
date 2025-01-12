@@ -17,7 +17,8 @@ struct WeatherView: View {
     @State var conditionSymbol: String?
     
     var body: some View {
-        HStack(spacing: Constants.weatherViewOuterHStackSpacing) {
+        HStack {
+            Spacer()
             if let temp = temperature {
                 Text("\(String(format: "%.0f°F", temp))")
                     .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
@@ -31,13 +32,13 @@ struct WeatherView: View {
                     .lineLimit(1)
                     .allowsTightening(true)
             }
-            
+            Spacer()
             if let conditionSymbol = conditionSymbol {
                 Image(systemName: conditionSymbol)
             } else {
                 Image(systemName: "questionmark")
             }
-            
+            Spacer()
             if let pressure = pressure {
                 HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
                     Text("\(String(format: "%.2f\"Hg", pressure))")
@@ -61,7 +62,7 @@ struct WeatherView: View {
                 Text("--\"Hg")
                     .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
             }
-            
+            Spacer()
             if let humidity = humidity {
                 HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
                     Text("\(String(format: "%.0f%%", humidity))")
@@ -81,14 +82,15 @@ struct WeatherView: View {
                     Image(systemName: "humidity")
                 }
             }
+            Spacer()
         }
         .padding()
-        .padding(.horizontal, 10)
         .background(
             RoundedRectangle(cornerRadius: Constants.weatherViewRoundedRectangleCornerRadius, style: .continuous)
                 .fill(Color.white)
                 .stroke(Color.black, lineWidth: Constants.weatherViewRoundedRectanlgeBorderWidth)
         )
+        .padding(.horizontal)
     }
 }
 
