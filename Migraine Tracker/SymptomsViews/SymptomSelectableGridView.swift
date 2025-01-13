@@ -34,8 +34,6 @@ struct SymptomSelectableGridView: View {
                         } .background(selectedSymptoms.contains(symptom) ? Color("LightGrey") : Color.clear)
                             .background(in: RoundedRectangle(cornerRadius: 10))
                     }
-                    AddSymptomTileView()
-                        .padding()
                 }
             }
             Button(action: {

@@ -9,7 +9,37 @@ import SwiftUI
 
 struct SettingsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            Form {
+                Section {
+                    LabeledContent("Version", value: "Beta 1.0")
+                    LabeledContent("Developed By", value: "Holden Casey")
+                    LabeledContent("Designed By", value: "Sophia Casey")
+                } header: {
+                    Text("About")
+                }
+
+                Section {
+                    Text("Placeholder")
+                } header: {
+                    Text("Manage Items")
+                }
+                
+                Section {
+                    Text("Placeholder")
+                } header: {
+                    Text("Other")
+                }
+                
+                Section {
+                    Button("Reset All Content and Settings") {
+                    
+                    }
+                    .foregroundColor(.red)
+                }
+            }
+            .navigationBarTitle("Settings")
+        }
     }
 }
 

@@ -52,4 +52,8 @@ enum Constants {
     static let leadingTriggerTreatmentFontSize: CGFloat = 21
     static let averageDurationFontSize: CGFloat = 21
     static let averageWeatherFontSize: CGFloat = 21
+    
+    // Treament Notes View
+    static let treatmentNotesCreationViewSectionHeaderFontSize: CGFloat = 15
+    static let treatmentNotesCreationViewSectionHeaderKerning: CGFloat = 1
 }

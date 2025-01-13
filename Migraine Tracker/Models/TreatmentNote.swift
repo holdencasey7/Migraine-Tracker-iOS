@@ -17,7 +17,7 @@ final class TreatmentNote: Identifiable, Hashable {
     var dosage: String?
     var frequency: Int?
     var datesTaken: [Date]? // length should be equal to frequency in practice
-    var durartion: TimeInterval?
+    var duration: TimeInterval?
     var otherNotes: String?
     
     init(treatmentIn: Treatment?) {

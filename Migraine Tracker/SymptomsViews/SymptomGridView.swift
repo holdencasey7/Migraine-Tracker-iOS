@@ -18,8 +18,6 @@ struct SymptomGridView: View {
                     SymptomTileView(symptom: symptom)
                         .padding()
                 }
-                AddSymptomTileView()
-                    .padding()
             }
         }
     }
