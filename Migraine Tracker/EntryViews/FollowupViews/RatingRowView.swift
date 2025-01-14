@@ -21,13 +21,13 @@ struct RatingRowView: View {
                 HStack {
                     Image(systemName: rating.ratingValue == 0 ? "star" : "star.fill")
                         .font(.system(size: Constants.subtitleFontSize))
-                        .foregroundColor(Color("Blue5"))
+                        .foregroundColor(Color("Pink5"))
                     Image(systemName: rating.ratingValue <= 1 ? "star" : "star.fill")
                         .font(.system(size: Constants.subtitleFontSize))
-                        .foregroundColor(Color("Blue5"))
+                        .foregroundColor(Color("Pink5"))
                     Image(systemName: rating.ratingValue <= 2 ? "star" : "star.fill")
                         .font(.system(size: Constants.subtitleFontSize))
-                        .foregroundColor(Color("Blue5"))
+                        .foregroundColor(Color("Pink5"))
                 }
             }
         }

@@ -58,7 +58,7 @@ struct EditEntryView: View {
                             .padding()
                         CustomIntensitySliderView(value: $intensity)
                             .frame(width: geometry.size.width / 2)
-                        IntensityIconView(intensity: Int(intensity))
+                        IntensityIconView(intensity: Int(intensity), color: "Pink")
                             .padding()
                     }
                 }

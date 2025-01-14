@@ -9,10 +9,11 @@ import SwiftUI
 
 struct IntensityIconView: View {
     var intensity: Int
+    var color: String = "Blue"
     var body: some View {
         Image(systemName: "\(intensity).square.fill")
             .font(.title)
-            .foregroundColor(Color("Blue\(intensity)"))
+            .foregroundColor(Color("\(color)\(intensity)"))
     }
 }
 

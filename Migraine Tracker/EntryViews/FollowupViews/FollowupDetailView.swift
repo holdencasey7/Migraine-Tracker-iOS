@@ -18,7 +18,7 @@ struct FollowupDetailView: View {
     
     var body: some View {
         ZStack {
-            Color("MediumPink").edgesIgnoringSafeArea(.all)
+            Color("Blue1").edgesIgnoringSafeArea(.all)
             
             GeometryReader { geometry in
                 VStack {
@@ -40,7 +40,7 @@ struct FollowupDetailView: View {
                     .frame(width: geometry.size.width * 0.9, height: min(CGFloat(followup.ratings.count * 60), 250))
                     .background(
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.white.opacity(0.5))
+                            .fill(Color.white)
                             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
                     )
                     
@@ -84,7 +84,7 @@ struct FollowupDetailView: View {
                     .frame(width: geometry.size.width * 0.9)
                     .background(
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.white.opacity(0.5))
+                            .fill(Color.white)
                             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
                     )
                     
@@ -103,7 +103,7 @@ struct FollowupDetailView: View {
                     }
                     .background(
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.white.opacity(0.5))
+                            .fill(Color.white)
                             .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
                     )
                     .padding()

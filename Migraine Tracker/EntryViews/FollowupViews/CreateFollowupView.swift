@@ -20,8 +20,10 @@ struct CreateFollowupView: View {
     
     var body: some View {
         VStack {
-            RateTreatmentsView(treatmentRatings: $treatmentRatings)
-                .padding(.horizontal)
+            if !entry.treatments.isEmpty {
+                RateTreatmentsView(treatmentRatings: $treatmentRatings)
+                    .padding(.horizontal)
+            }
             HStack {
                 Text("End Date:")
                     .font(Font.custom("Avenir", size: Constants.headerFontSize))
@@ -50,7 +52,9 @@ struct CreateFollowupView: View {
                 treatmentRatings[treatment] = 0
             }
         }
-        .background(Color("FirstLightPink"))
+        .frame(maxHeight: .infinity)
+        .background(Color("FirstLightPink").edgesIgnoringSafeArea(.all))
+        
     }
     
     private func addFollowup() {
