@@ -21,6 +21,7 @@ struct CreateFollowupView: View {
     var body: some View {
         VStack {
             RateTreatmentsView(treatmentRatings: $treatmentRatings)
+                .padding(.horizontal)
             HStack {
                 Text("End Date:")
                     .font(Font.custom("Avenir", size: Constants.headerFontSize))

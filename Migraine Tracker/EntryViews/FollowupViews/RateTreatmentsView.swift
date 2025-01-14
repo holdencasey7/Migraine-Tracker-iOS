@@ -18,6 +18,7 @@ struct RateTreatmentsView: View {
                     HStack {
                         Image(systemName: treatmentRatings[treatment] ?? 0 == 0 ? "star" : "star.fill")
                             .font(.system(size: Constants.subtitleFontSize))
+                            .foregroundColor(Color("Blue5"))
                             .onTapGesture {
                                 if treatmentRatings[treatment] == 1 {
                                     treatmentRatings[treatment] = 0
@@ -27,6 +28,7 @@ struct RateTreatmentsView: View {
                             }
                         Image(systemName: treatmentRatings[treatment] ?? 0 <= 1 ? "star" : "star.fill")
                             .font(.system(size: Constants.subtitleFontSize))
+                            .foregroundColor(Color("Blue5"))
                             .onTapGesture {
                                 if treatmentRatings[treatment] == 2 {
                                     treatmentRatings[treatment] = 0
@@ -36,6 +38,7 @@ struct RateTreatmentsView: View {
                             }
                         Image(systemName: treatmentRatings[treatment] ?? 0 <= 2 ? "star" : "star.fill")
                             .font(.system(size: Constants.subtitleFontSize))
+                            .foregroundColor(Color("Blue5"))
                             .onTapGesture {
                                 if treatmentRatings[treatment] == 3 {
                                     treatmentRatings[treatment] = 0

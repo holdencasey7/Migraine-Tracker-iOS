@@ -23,12 +23,14 @@ struct UpdateFollowupView: View {
                     .font(Font.custom("Avenir", size: Constants.headerFontSize))
                     .padding()
                 RateTreatmentsView(treatmentRatings: $changedTreatmentRatings)
+                    .padding(.horizontal)
             }
             if !newTreatmentRatings.isEmpty {
                 Text("New Ratings:")
                     .font(Font.custom("Avenir", size: Constants.headerFontSize))
                     .padding()
                 RateTreatmentsView(treatmentRatings: $newTreatmentRatings)
+                    .padding(.horizontal)
             }
             HStack {
                 Text("End Date:")

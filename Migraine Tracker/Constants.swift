@@ -34,7 +34,7 @@ enum Constants {
     // Generic Views
     static let genericTileViewTitleFontSize: CGFloat = 14
     static let genericRowViewTitleFontSize: CGFloat = 19
-    static let genericListViewVStackSpacing: CGFloat = 5
+    static let genericListViewVStackSpacing: CGFloat = 10
     static let genericIconlessRowViewTitleFontSize: CGFloat = 19
     static let genericIconlessHorizontalScrollRowViewHStackSpacing: CGFloat = 5
     static let genericHorizontalScrollRowViewHStackSpacing: CGFloat = 5

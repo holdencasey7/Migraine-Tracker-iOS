@@ -19,7 +19,7 @@ struct GenericRowView<T : GenericTriggerTreatmentSymptom>: View {
 //                    .frame(width: geometry.size.width * 0.15, height: geometry.size.width * 0.15)
                 Text(item.title)
                     .font(Font.custom("Avenir", size: Constants.genericRowViewTitleFontSize))
-                    .minimumScaleFactor(0.8)
+                    .minimumScaleFactor(0.95)
                     .lineLimit(1)
                     .allowsTightening(true)
                 Spacer()
