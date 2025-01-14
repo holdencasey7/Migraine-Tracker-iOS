@@ -16,11 +16,10 @@ struct AddedEntryPopupView: View {
                 Color.clear
                     .edgesIgnoringSafeArea(.all)
                     .background(.thinMaterial.opacity(0.95))
-                Text("Entry Added!")
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                Image("EntryAddedCat")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+//                    .frame(width: 200, height: 200)
                     .shadow(radius: 5)
                     .transition(.opacity)
                     .animation(.easeOut(duration: 1.0), value: isVisible)
@@ -31,6 +30,7 @@ struct AddedEntryPopupView: View {
                             }
                         }
                     }
+                    .padding(100)
             }
             
         }

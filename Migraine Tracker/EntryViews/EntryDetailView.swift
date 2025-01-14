@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct EntryDetailView: View {
+    @State private var settingsDetent = PresentationDetent.medium
     // Where to put constants?
     let maxIntensity: Int = 5
     let minIntensity: Int = 1
@@ -107,6 +108,10 @@ struct EntryDetailView: View {
                             UpdateFollowupView(followup: entry.followup!, newEndDate: entry.followup!.endDate, isPresented: .constant(true))
                         } else if whichFollowup == 2 {
                             CreateFollowupView(entry: $entry)
+                                .presentationDetents(
+                                                    [.medium],
+                                                    selection: $settingsDetent
+                                                 )
                         }
                     }
                     Spacer()

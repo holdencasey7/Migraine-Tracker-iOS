@@ -125,11 +125,24 @@ struct CreateTreatmentNoteView: View {
                     
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color("Blue1"))
             Button(action: submit) {
                 Text("SUBMIT")
-                    .modifier(BigRoundedPinkButtonStyle())
+                    .font(Font.custom("Avenir", size: Constants.headerFontSize))
+                    .kerning(Constants.subtitleKerning)
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(1)
+                    .allowsTightening(true)
+                    .padding()
+                    .padding(.horizontal, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
+                            .fill(Color("FirstButtonPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
+                    )
             }
         }
+        .background(Color("Blue1"))
         .onAppear {
             let previousNote = allEntryTreatmentNotes.first { $0.treatmentIn == treatment }
             if let previousNote {

@@ -31,7 +31,7 @@ struct SymptomSelectableGridView: View {
                                     }
                                     
                                 }
-                        } .background(selectedSymptoms.contains(symptom) ? Color("LightGrey") : Color.clear)
+                        } .background(selectedSymptoms.contains(symptom) ? Color("LightBlue") : Color.clear)
                             .background(in: RoundedRectangle(cornerRadius: 10))
                     }
                 }

@@ -16,11 +16,11 @@ struct FollowupCompletionIconView: View {
         case 0:
             Image(systemName: "checkmark.arrow.trianglehead.counterclockwise")
                 .font(.title)
-                .foregroundColor(Color.green)
+                .foregroundColor(Color("Blue5"))
         case 1:
             Image(systemName: "checkmark.circle.trianglebadge.exclamationmark")
                 .font(.title)
-                .foregroundColor(Color.yellow)
+                .foregroundColor(Color("Blue2"))
         case 2:
             Text("")
                 .font(.title)

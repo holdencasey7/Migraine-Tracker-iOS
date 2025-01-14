@@ -40,7 +40,7 @@ struct TreatmentSelectableMenuView: View {
                                 }
                             }
                             .contentShape(Rectangle())
-                            .listRowBackground(selected ? Color("LightGrey") : Color.white)
+                            .listRowBackground(selected ? Color("LightBlue") : Color.white)
                             .onTapGesture {tapGesture in
                                 if !selected {
                                     selectedTreatments.append(treatment)
@@ -56,7 +56,7 @@ struct TreatmentSelectableMenuView: View {
                                     selectedTreatmentForNotes = treatment
                                     toggleBugFix.toggle()
                                 }
-                                .tint(.blue)
+                                .tint(Color("Blue5"))
                             }
                         }
                     } header: {

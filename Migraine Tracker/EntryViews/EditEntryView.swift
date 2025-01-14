@@ -81,7 +81,7 @@ struct EditEntryView: View {
                         .padding(5)
                         .background(
                             RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
-                                .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
+                                .fill(Color("MediumPink"))//.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
                         )
                         .sheet(isPresented: $presentSymptomSheet) {
                             SymptomSelectableGridView(symptoms: symptoms, finalSelectedSymptoms: $finalSelectedSymptoms, selectedSymptoms: entry.symptoms, isPresented: $presentSymptomSheet)
@@ -104,7 +104,7 @@ struct EditEntryView: View {
                         .padding(5)
                         .background(
                             RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
-                                .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
+                                .fill(Color("MediumPink"))//.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
                         )
                         .sheet(isPresented: $presentTriggerSheet) {
                             TriggerSelectableMenuView( triggers: triggers, selectedTriggers: finalSelectedTriggers, finalSelectedTriggers: $finalSelectedTriggers, isPresented: $presentTriggerSheet)
@@ -127,7 +127,7 @@ struct EditEntryView: View {
                         .padding(5)
                         .background(
                             RoundedRectangle(cornerRadius: Constants.addEntryViewButtonRoundedRectangleCornerRadius)
-                                .fill(Color.white.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
+                                .fill(Color("MediumPink"))//.opacity(Constants.addEntryViewButtonRoundedRectangleOpacity))
                         )
                         .sheet(isPresented: $presentTreatmentSheet) {
                             TreatmentSelectableMenuView( treatments: treatments, selectedTreatments: finalSelectedTreatments, finalSelectedTreatments: $finalSelectedTreatments, isPresented: $presentTreatmentSheet, treatmentNotes: treatmentNotes, finalTreatmentNotes: $treatmentNotes)
@@ -204,7 +204,7 @@ struct EditEntryView: View {
                 Spacer()
             }
             .frame(width: geometry.size.width)
-            .background(Image("FirstPinkAttempt").resizable().edgesIgnoringSafeArea(.all).aspectRatio(contentMode: .fill))
+            .background(Image("FirstBlueBackground").resizable().edgesIgnoringSafeArea(.all).aspectRatio(contentMode: .fill))
         }
     }
 }

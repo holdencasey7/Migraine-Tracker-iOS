@@ -12,10 +12,10 @@ struct IntensityIconView: View {
     var body: some View {
         Image(systemName: "\(intensity).square.fill")
             .font(.title)
-            .foregroundColor(intensity == 5 ? .red : intensity == 4 ? .orange : intensity == 3 ? .yellow : intensity == 2 ? .green : .teal)
+            .foregroundColor(Color("Blue\(intensity)"))
     }
 }
 
 #Preview {
-    IntensityIconView(intensity: 2)
+    IntensityIconView(intensity: 5)
 }

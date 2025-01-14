@@ -14,6 +14,7 @@ struct Migraine_TrackerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.light)
         }
         .modelContainer(appContainer) // Comes from SwiftDataAppContainer
     }

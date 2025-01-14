@@ -23,20 +23,33 @@ struct CreateFollowupView: View {
             RateTreatmentsView(treatmentRatings: $treatmentRatings)
             HStack {
                 Text("End Date:")
-                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                    .font(Font.custom("Avenir", size: Constants.headerFontSize))
                     .padding()
                 DatePicker("", selection: $endDate)
                     .padding(.trailing, 50)
             }
+            .padding()
             Button(action: addFollowup) {
-                Text("Add Followup")
+                Text("Add Follow-Up")
             }
+            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+            .kerning(Constants.subtitleKerning)
+            .minimumScaleFactor(0.8)
+            .lineLimit(1)
+            .allowsTightening(true)
+            .padding(5)
+            .padding(.horizontal, 10)
+            .background(
+                RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
+                    .fill(Color("MediumPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
+            )
         }
         .onAppear {
             entry.treatments.forEach { treatment in
                 treatmentRatings[treatment] = 0
             }
         }
+        .background(Color("FirstLightPink"))
     }
     
     private func addFollowup() {

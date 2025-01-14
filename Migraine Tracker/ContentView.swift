@@ -32,7 +32,7 @@ struct ContentView: View {
                 }
             }
         }
-        .background(selection == 0 ? Color("MediumPink") : Color("FirstLightPink"))
+        .background(selection == 0 ? Color("MediumPink") : selection == 3 ? Color("LightBlue") : Color("FirstLightPink"))
         .animation(.easeInOut(duration: 0.5), value: selection) // Smooth background transition
     }
 }

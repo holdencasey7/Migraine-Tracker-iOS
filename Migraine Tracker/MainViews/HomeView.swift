@@ -19,6 +19,8 @@ struct HomeView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
+                MigraineCatView()
+                    .padding()
                 GiantAddEntryButtonView(contentViewSelection: $contentViewSelection)
                     .padding()
                 Spacer()

@@ -18,25 +18,42 @@ struct UpdateFollowupView: View {
     
     var body: some View {
         VStack{
-            HStack {
-                Text("End Date:")
-                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                    .padding()
-                DatePicker("", selection: $newEndDate)
-                    .padding(.trailing, 50)
-            }
             if !changedTreatmentRatings.isEmpty {
                 Text("Existing Ratings:")
+                    .font(Font.custom("Avenir", size: Constants.headerFontSize))
+                    .padding()
                 RateTreatmentsView(treatmentRatings: $changedTreatmentRatings)
             }
             if !newTreatmentRatings.isEmpty {
                 Text("New Ratings:")
+                    .font(Font.custom("Avenir", size: Constants.headerFontSize))
+                    .padding()
                 RateTreatmentsView(treatmentRatings: $newTreatmentRatings)
             }
-            Button(action: updateFollowup) {
-                Text("Update Followup")
+            HStack {
+                Text("End Date:")
+                    .font(Font.custom("Avenir", size: Constants.headerFontSize))
+                    .padding()
+                DatePicker("", selection: $newEndDate)
+                    .padding(.trailing, 50)
             }
+            .padding()
+            Button(action: updateFollowup) {
+                Text("Update Follow-Up")
+            }
+            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+            .kerning(Constants.subtitleKerning)
+            .minimumScaleFactor(0.8)
+            .lineLimit(1)
+            .allowsTightening(true)
+            .padding(5)
+            .padding(.horizontal, 10)
+            .background(
+                RoundedRectangle(cornerRadius: Constants.entryDetailViewButtonRoundedRectangleCornerRadius)
+                    .fill(Color("MediumPink").opacity(Constants.entryDetailViewButtonRoundedRectangleOpacity))
+            )
         }
+        .background(Color("FirstLightPink"))
         .onAppear {
             if let entry = followup.entry {
                 let existingTreatmentsToRatings = getExistingRatings(entry: entry)

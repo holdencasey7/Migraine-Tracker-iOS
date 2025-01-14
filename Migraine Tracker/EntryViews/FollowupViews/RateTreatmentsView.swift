@@ -64,6 +64,7 @@ struct RateTreatmentsView: View {
                 .padding(.vertical)
             }
         }
+        .scrollContentBackground(.hidden)
     }
 }
 
