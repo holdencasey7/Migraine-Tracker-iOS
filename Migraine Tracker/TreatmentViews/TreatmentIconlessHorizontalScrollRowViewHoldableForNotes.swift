@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TreatmentIconlessHorizontalScrollRowViewHoldableForNotes: View {
+    @State private var settingsDetent = PresentationDetent.medium
     var treatments: [Treatment]
     var entryDetailIn: Entry
     @State private var selectedTreatmentNote: TreatmentNote? = nil
@@ -37,6 +38,10 @@ struct TreatmentIconlessHorizontalScrollRowViewHoldableForNotes: View {
             // Present TreatmentNoteDetailView when the sheet is shown
             if let treatmentNote = selectedTreatmentNote {
                 TreatmentNoteDetailView(treatmentNote: treatmentNote)
+                    .presentationDetents(
+                        [.medium, .large],
+                        selection: $settingsDetent
+                     )
             }
         }
     }

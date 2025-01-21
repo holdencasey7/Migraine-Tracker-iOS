@@ -109,9 +109,9 @@ struct EntryDetailView: View {
                         } else if whichFollowup == 2 {
                             CreateFollowupView(entry: $entry)
                                 .presentationDetents(
-                                                    [.medium],
-                                                    selection: $settingsDetent
-                                                 )
+                                    [.medium],
+                                    selection: $settingsDetent
+                                 )
                         }
                     }
                     Spacer()
