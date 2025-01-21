@@ -11,8 +11,7 @@ import SwiftData
 struct TriggerEditableMenuView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var triggers: [Trigger]
-    
-    @Binding var isPresented: Bool
+
     @State var presentAddTriggerSheet: Bool = false
     
     @State private var searchText: String = ""
@@ -66,14 +65,6 @@ struct TriggerEditableMenuView: View {
                 }
             }
         }
-        Button("Done") {
-            isPresented = false
-        }
-        .font(.title2)
-        .padding(5)
-        .padding(.trailing, 10)
-        .padding(.leading, 10)
-        .background(Color("LightGrey"), in: RoundedRectangle(cornerRadius: 10))
     }
 
     private func addItem() {

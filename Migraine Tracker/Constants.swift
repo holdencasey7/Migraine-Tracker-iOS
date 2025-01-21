@@ -56,4 +56,9 @@ enum Constants {
     // Treament Notes View
     static let treatmentNotesCreationViewSectionHeaderFontSize: CGFloat = 15
     static let treatmentNotesCreationViewSectionHeaderKerning: CGFloat = 1
+    
+    // Creation views
+    static let creationViewSectionHeaderFontSize: CGFloat = 15
+    static let creationViewSectionHeaderKerning: CGFloat = 1
+    static let anyIconSelectRoundedRectangleCornerRadius: CGFloat = 10
 }

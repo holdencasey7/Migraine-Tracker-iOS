@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -20,23 +21,31 @@ struct SettingsView: View {
                 }
 
                 Section {
-                    Text("Placeholder")
+                    NavigationLink("Triggers") {
+                        TriggerEditableMenuView()
+                    }
+                    NavigationLink("Treatments") {
+                        TreatmentEditableMenuView()
+                    }
+                    NavigationLink("Symptoms") {
+                        SymptomEditableMenuView()
+                    }
                 } header: {
                     Text("Manage Items")
                 }
                 
-                Section {
-                    Text("Placeholder")
-                } header: {
-                    Text("Other")
-                }
-                
-                Section {
-                    Button("Reset All Content and Settings") {
-                    
-                    }
-                    .foregroundColor(.red)
-                }
+//                Section {
+//                    Text("Placeholder")
+//                } header: {
+//                    Text("Other")
+//                }
+//                
+//                Section {
+//                    Button("Reset All Content and Settings") {
+//                    
+//                    }
+//                    .foregroundColor(.red)
+//                }
             }
             .navigationBarTitle("Settings")
         }

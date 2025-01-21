@@ -12,7 +12,6 @@ struct TreatmentEditableMenuView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var treatments: [Treatment]
     
-    @Binding var isPresented: Bool
     @State var presentAddTreatmentSheet: Bool = false
     
     @State private var searchText: String = ""
@@ -66,14 +65,6 @@ struct TreatmentEditableMenuView: View {
                 }
             }
         }
-        Button("Done") {
-            isPresented = false
-        }
-        .font(.title2)
-        .padding(5)
-        .padding(.trailing, 10)
-        .padding(.leading, 10)
-        .background(Color("LightGrey"), in: RoundedRectangle(cornerRadius: 10))
     }
 
     private func addItem() {

@@ -12,40 +12,68 @@ struct TriggerCreationView: View {
     @Environment(\.modelContext) private var modelContext
     
     @State private var title: String = ""
-    @State private var icon: String = ""
+    @State private var icon: String = "DefaultTreatmentIcon"
     @State private var category: TriggerCategory = .other
     
     @Binding var isPresented: Bool
     
     var body: some View {
-        VStack {
-            Text("Create a New Trigger")
-                .font(.title)
-                .padding()
-            Form {
-                TextField("Title", text: $title)
+        GeometryReader { geometry in
+            
+            VStack {
+                Text("CREATE A NEW TRIGGER")
+                    .font(Font.custom("Avenir", size: Constants.headerFontSize))
+                    .kerning(Constants.creationViewSectionHeaderKerning)
+                    .minimumScaleFactor(0.9)
+                    .lineLimit(1)
+                    .allowsTightening(true)
                     .padding()
-                    .submitLabel(.done)
-                IconPickerView(selectedIcon: $icon)
-                    .padding()
-                    .frame(height: 80)
-                Picker("Category", selection: $category) {
-                    ForEach(TriggerCategory.allCases) { category in
-                        Text(category.rawValue).tag(category)
+                Form {
+                    Section {
+                        TextField("Title", text: $title)
+                            .padding()
+                            .submitLabel(.done)
+                    } header: {
+                        Text("Choose a Name")
+                            .font(Font.custom("Avenir", size: Constants.creationViewSectionHeaderFontSize))
+                            .kerning(Constants.creationViewSectionHeaderKerning)
+                    }
+                    
+                    Section {
+                        SelectAnyIconView(selectedIcon: $icon)
+                            .frame(height: geometry.size.height * 0.15)
+                    } header: {
+                        Text("Select an Icon")
+                            .font(Font.custom("Avenir", size: Constants.creationViewSectionHeaderFontSize))
+                            .kerning(Constants.creationViewSectionHeaderKerning)
+                    }
+                    
+                    Section {
+                        Picker("Category", selection: $category) {
+                            ForEach(TriggerCategory.allCases) { category in
+                                Text(category.rawValue).tag(category)
+                            }
+                        }
+                    } header: {
+                        Text("Select a Category")
+                            .font(Font.custom("Avenir", size: Constants.creationViewSectionHeaderFontSize))
+                            .kerning(Constants.creationViewSectionHeaderKerning)
                     }
                 }
+                Button("CREATE") {
+                    let trigger: Trigger = .init(title: title, icon: icon, category: category)
+                    modelContext.insert(trigger)
+                    try? modelContext.save()
+                    
+                    title = ""
+                    icon = "DefaultTreatmentIcon"
+                    category = .other
+                    isPresented = false
+                }
+                .modifier(RoundedPinkButtonStyle())
             }
-            Button("Create") {
-                let trigger: Trigger = .init(title: title, icon: icon, category: category)
-                modelContext.insert(trigger)
-                try? modelContext.save()
-                isPresented = false
-            }
-            .font(.title2)
-            .padding(5)
-            .padding(.trailing, 10)
-            .padding(.leading, 10)
-            .background(Color("LightGrey"), in: RoundedRectangle(cornerRadius: 10))
+            .frame(maxWidth: .infinity)
+            
         }
     }
 }

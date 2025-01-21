@@ -13,32 +13,54 @@ struct SymptomCreationView: View {
     @Binding var isPresented: Bool
     
     @State var title: String = ""
-    @State var icon: String = ""
+    @State var icon: String = "DefaultTreatmentIcon"
     
     var body: some View {
-        VStack {
-            Text("Create a New Symptom")
-                .font(.title)
-                .padding()
-            Form {
-                TextField("Title", text: $title)
+        GeometryReader { geometry in
+            
+            VStack {
+                Text("CREATE A NEW SYMPTOM")
+                    .font(Font.custom("Avenir", size: Constants.headerFontSize))
+                    .kerning(Constants.creationViewSectionHeaderKerning)
+                    .minimumScaleFactor(0.9)
+                    .lineLimit(1)
+                    .allowsTightening(true)
                     .padding()
-                    .submitLabel(.done)
-                IconPickerView(selectedIcon: $icon)
-                    .padding()
-                    .frame(height: 80)
+                Form {
+                    Section {
+                        TextField("Title", text: $title)
+                            .padding()
+                            .submitLabel(.done)
+                    } header: {
+                        Text("Choose a Name")
+                            .font(Font.custom("Avenir", size: Constants.creationViewSectionHeaderFontSize))
+                            .kerning(Constants.creationViewSectionHeaderKerning)
+                    }
+                    
+                    Section {
+                        SelectAnyIconView(selectedIcon: $icon)
+                            .frame(height: geometry.size.height * 0.15)
+                    } header: {
+                        Text("Select an Icon")
+                            .font(Font.custom("Avenir", size: Constants.creationViewSectionHeaderFontSize))
+                            .kerning(Constants.creationViewSectionHeaderKerning)
+                    }
+                }
+                Button("CREATE") {
+                    let symptom: Symptom = .init(title: title, icon: icon)
+                    modelContext.insert(symptom)
+                    try? modelContext.save()
+                    
+                    title = ""
+                    icon = "DefaultTreatmentIcon"
+                    isPresented = false
+                    
+                    //TODO: should have a popup that says symptom added
+                }
+                .modifier(RoundedPinkButtonStyle())
             }
-            Button("Create") {
-                let symptom: Symptom = .init(title: title, icon: icon)
-                modelContext.insert(symptom)
-                try? modelContext.save()
-                isPresented = false
-            }
-            .font(.title2)
-            .padding(5)
-            .padding(.trailing, 10)
-            .padding(.leading, 10)
-            .background(Color("LightGrey"), in: RoundedRectangle(cornerRadius: 10))
+            .frame(maxWidth: .infinity)
+            
         }
     }
 }

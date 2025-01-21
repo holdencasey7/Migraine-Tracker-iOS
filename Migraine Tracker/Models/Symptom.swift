@@ -24,6 +24,10 @@ final class Symptom:Identifiable, Hashable, GenericTriggerTreatmentSymptom{
             self.title = "Untitled Symptom"
         }
         
-        self.icon = icon
+        if let icon = icon {
+            self.icon = icon
+        } else {
+            self.icon = "DefaultTriggerIcon"
+        }
     }
 }

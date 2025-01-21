@@ -9,13 +9,12 @@ import SwiftUI
 
 struct IconPickerView: View {
     @Binding var selectedIcon: String
-    var icons: [String] = ["heart", "pill", "star", "cloud.circle"]
+    var icons: [String]
     @State var tempSelectedIcon: String = ""
     
     var body: some View {
-        GeometryReader { geometry in
+//        GeometryReader { geometry in
             VStack {
-                Text("Icon Picker View Placeholder")
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(icons, id: \.self) { icon in
@@ -23,19 +22,42 @@ struct IconPickerView: View {
                                 selectedIcon = icon
                                 tempSelectedIcon = icon
                             }) {
-                                let iconName = tempSelectedIcon == icon ? "\(icon).fill" : icon
-                                Image(systemName: iconName)
+                                Image(icon)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .aspectRatio(1, contentMode: .fit)
+                                    .padding()
+                                    .background(
+                                        RoundedRectangle(cornerRadius: Constants.anyIconSelectRoundedRectangleCornerRadius)
+                                            .fill(tempSelectedIcon == icon ? Color("LightGrey") : Color.clear)
+                                    )
                             }
                         }
                     }
-                    .frame(minWidth: geometry.size.width,
-                            alignment: .center)
+//                    .frame(minWidth: geometry.size.width,
+//                            alignment: .center)
                 }
             }
-        }
+            .onAppear {
+                tempSelectedIcon = selectedIcon
+            }
+//        }
     }
 }
 
 #Preview {
-    IconPickerView(selectedIcon: .constant(""))
+    IconPickerView(selectedIcon: .constant(""), icons: [
+        "DefaultTreatmentIcon",
+        "LifestyleTriggerIcon",
+        "EnvironmentTriggerIcon",
+        "DietTriggerIcon",
+        "DefaultTriggerIcon",
+        "HeadacheSymptomIcon",
+        "NauseaSymptomIcon",
+        "VisionLossSymptomIcon",
+        "DizzinessSymptomIcon",
+        "NeckPainSymptomIcon",
+        "FatigueSymptomIcon",
+        "NumbnessSymptomIcon",
+    ])
 }
