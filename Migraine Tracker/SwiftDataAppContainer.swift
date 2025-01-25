@@ -27,7 +27,9 @@ let appContainer: ModelContainer = {
             Symptom(title: "Dizziness", icon: "DizzinessSymptomIcon"),
             Symptom(title: "Neck Pain", icon: "NeckPainSymptomIcon"),
             Symptom(title: "Fatigue", icon: "FatigueSymptomIcon"),
-            Symptom(title: "Numbness", icon: "NumbnessSymptomIcon")
+            Symptom(title: "Numbness", icon: "NumbnessSymptomIcon"),
+            Symptom(title: "Sinus Pressure", icon: "SinusPressureSymptomIcon"),
+            Symptom(title: "Aura", icon: "AuraSymptomIcon"),
             
         ]
         for symptom in symptoms {
@@ -42,13 +44,19 @@ let appContainer: ModelContainer = {
         // If not, add default treatments
         let treatments = [
             Treatment(title: "Other Painkillers", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
+            Treatment(title: "Advil (Ibuprofen)", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
+            Treatment(title: "Aspirin", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
+            Treatment(title: "Tylenol (Acetaminophen)", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
             Treatment(title: "Excedrin", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
             Treatment(title: "Midol", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
             Treatment(title: "Other Triptan Class Drugs", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
-            Treatment(title: "Imitrex", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
-            Treatment(title: "Herbal Tea", icon: "DefaultTreatmentIcon", category: TreatmentCategory.natural),
-            Treatment(title: "Caffeine", icon: "DefaultTreatmentIcon", category: TreatmentCategory.natural),
+            Treatment(title: "Imitrex (Sumatriptan)", icon: "DefaultTreatmentIcon", category: TreatmentCategory.medicine),
+            Treatment(title: "Herbal Tea", icon: "DietTriggerIcon", category: TreatmentCategory.natural),
+            Treatment(title: "Caffeine", icon: "DietTriggerIcon", category: TreatmentCategory.natural),
             Treatment(title: "Steam", icon: "DefaultTreatmentIcon", category: TreatmentCategory.natural),
+            Treatment(title: "Sleep", icon: "FatigueSymptomIcon", category: TreatmentCategory.natural),
+            Treatment(title: "Stretching", icon: "LifestyleTriggerIcon", category: TreatmentCategory.natural),
+            Treatment(title: "Massage", icon: "LifestyleTriggerIcon", category: TreatmentCategory.natural),
         ]
         for treatment in treatments {
             container.mainContext.insert(treatment)

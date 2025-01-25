@@ -22,18 +22,16 @@ struct HomeView: View {
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()
-//                if false /* time is night */{
-//                    SleepingCatView()
-//                        .padding()
-//                } else if localEntries.count > 10 {
-//                    PlayingCatView()
-//                        .padding()
-//                } else {
-//                    MigraineCatView()
-//                        .padding()
-//                }
-                MigraineCatView()
-                    .padding()
+                if false /* time is night */{
+                    SleepingCatView()
+                        .padding()
+                } else if localEntries.count > 10 {
+                    PlayingCatView()
+                        .padding()
+                } else {
+                    MigraineCatView()
+                        .padding()
+                }
                 GiantAddEntryButtonView(contentViewSelection: $contentViewSelection)
                     .padding()
                 Spacer()

@@ -15,6 +15,7 @@ struct Migraine_TrackerApp: App {
         WindowGroup {
             ContentView()
                 .preferredColorScheme(.light)
+                .dynamicTypeSize(.large)
         }
         .modelContainer(appContainer) // Comes from SwiftDataAppContainer
     }

@@ -192,18 +192,21 @@ struct AddEntryView: View {
     
         let entry = Entry(timestamp: date, intensity: Int(intensity), triggers: finalSelectedTriggers, symptoms: finalSelectedSymptoms, treatments: finalSelectedTreatments, treatmentNotes: treatmentNotes, notes: notes)
 
-        weatherViewModel.requestLocationUpdate()
-        
-        await weatherViewModel.fetchWeather() { success in
-            if success {
-                entry.temperature = weatherViewModel.temperature
-                entry.condition = weatherViewModel.condition
-                entry.pressure = weatherViewModel.pressure
-                entry.humidity = weatherViewModel.humidity
-                entry.pressureTrend = weatherViewModel.pressureTrend
-                entry.conditionSymbol = weatherViewModel.conditionSymbol
-            } else {
-                errorMessage = "Failed to fetch weather data."
+        // If date is within 1 hour of current date
+        if areDatesWithinOneHour(date, Date()) {
+            weatherViewModel.requestLocationUpdate()
+            
+            await weatherViewModel.fetchWeather() { success in
+                if success {
+                    entry.temperature = weatherViewModel.temperature
+                    entry.condition = weatherViewModel.condition
+                    entry.pressure = weatherViewModel.pressure
+                    entry.humidity = weatherViewModel.humidity
+                    entry.pressureTrend = weatherViewModel.pressureTrend
+                    entry.conditionSymbol = weatherViewModel.conditionSymbol
+                } else {
+                    errorMessage = "Failed to fetch weather data."
+                }
             }
         }
         
@@ -213,6 +216,11 @@ struct AddEntryView: View {
         } catch {
             print(error)
         }
+    }
+    
+    func areDatesWithinOneHour(_ date1: Date, _ date2: Date) -> Bool {
+        let timeDifference = abs(date1.timeIntervalSince(date2))
+        return timeDifference <= 3600 // 3600 seconds = 1 hour
     }
 }
 

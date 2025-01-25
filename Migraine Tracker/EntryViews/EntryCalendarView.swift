@@ -16,7 +16,8 @@ struct EntryCalendarView: View {
     @Binding var isPresented: Bool
     var body: some View {
         CalendarView(entries: entries, selectedDate: $selectedDate, showingEntries: $showingEntries)
-        .frame(maxHeight: 500)
+            .frame(maxHeight: 500)
+            .padding(.horizontal)
         .sheet(isPresented: Binding(
             get: { showingEntries && selectedDate != nil },
             set: { showingEntries = $0 }
@@ -32,12 +33,18 @@ struct EntryCalendarView: View {
                 
             }
         }
-        Button("Done") {
+        Button("DONE") {
             isPresented = false
         }
+        .font(Font.custom("Avenir", size: Constants.headerFontSize))
+        .kerning(Constants.subtitleKerning)
+        .minimumScaleFactor(0.8)
+        .lineLimit(1)
+        .allowsTightening(true)
+        .padding()
     }
 }
 
-//#Preview {
-//    EntryCalendarView(entries: [.init(timestamp: Date(), intensity: 1, notes: "1"), .init(timestamp: Date(), intensity: 2, notes: "2"), .init(timestamp: Date(), intensity: 3, notes: "3"), .init(timestamp: Date(), intensity: 4, notes: "4"), .init(timestamp: Date(), intensity: 5, notes: "5")])
-//}
+#Preview {
+    EntryCalendarView(entries: [.init(timestamp: Date(), intensity: 1, notes: "1"), .init(timestamp: Date(), intensity: 2, notes: "2"), .init(timestamp: Date(), intensity: 3, notes: "3"), .init(timestamp: Date(), intensity: 4, notes: "4"), .init(timestamp: Date(), intensity: 5, notes: "5")], isPresented: .constant(true))
+}

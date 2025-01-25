@@ -61,7 +61,7 @@ struct CalendarView: UIViewRepresentable {
                 if let date = Calendar.current.date(from: dateComponents) {
                     decorations[date] = UICalendarView.Decoration.image(
                         UIImage(systemName: "circle.fill"),
-                        color: .blue,
+                        color: UIColor(Color("Blue2")),
                         size: .medium
                     )
                 }

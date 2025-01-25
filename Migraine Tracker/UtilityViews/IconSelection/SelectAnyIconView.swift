@@ -21,6 +21,8 @@ struct SelectAnyIconView: View {
         "NeckPainSymptomIcon",
         "FatigueSymptomIcon",
         "NumbnessSymptomIcon",
+        "SinusPressureSymptomIcon",
+        "AuraSymptomIcon",
     ]
     
     @Binding var selectedIcon: String

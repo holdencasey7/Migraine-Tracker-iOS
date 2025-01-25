@@ -18,71 +18,79 @@ struct WeatherView: View {
     
     var body: some View {
         HStack {
-            Spacer()
-            if let temp = temperature {
-                Text("\(String(format: "%.0f°F", temp))")
+            if temperature == nil && pressure == nil && condition == nil && humidity == nil && pressureTrend == nil {
+                Text("Weather Unavailable for Past Date")
                     .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                     .minimumScaleFactor(0.8)
                     .lineLimit(1)
                     .allowsTightening(true)
             } else {
-                Text("--°F")
-                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                    .minimumScaleFactor(0.8)
-                    .lineLimit(1)
-                    .allowsTightening(true)
-            }
-            Spacer()
-            if let conditionSymbol = conditionSymbol {
-                Image(systemName: conditionSymbol)
-            } else {
-                Image(systemName: "questionmark")
-            }
-            Spacer()
-            if let pressure = pressure {
-                HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
-                    Text("\(String(format: "%.2f\"Hg", pressure))")
+                Spacer()
+                if let temp = temperature {
+                    Text("\(String(format: "%.0f°F", temp))")
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                         .minimumScaleFactor(0.8)
                         .lineLimit(1)
                         .allowsTightening(true)
-                    if let pressureTrend = pressureTrend {
-                        if pressureTrend == .falling {
-                            Image(systemName: "arrow.down.circle")
-                        } else if pressureTrend == .rising {
-                            Image(systemName: "arrow.up.circle")
-                        } else if pressureTrend == .steady {
-                            Image(systemName: "arrow.right.circle")
-                        } else {
-                            Image(systemName: "arrow.right.circle")
+                } else {
+                    Text("--°F")
+                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                        .minimumScaleFactor(0.8)
+                        .lineLimit(1)
+                        .allowsTightening(true)
+                }
+                Spacer()
+                if let conditionSymbol = conditionSymbol {
+                    Image(systemName: conditionSymbol)
+                } else {
+                    Image(systemName: "questionmark")
+                }
+                Spacer()
+                if let pressure = pressure {
+                    HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
+                        Text("\(String(format: "%.2f\"Hg", pressure))")
+                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                            .minimumScaleFactor(0.8)
+                            .lineLimit(1)
+                            .allowsTightening(true)
+                        if let pressureTrend = pressureTrend {
+                            if pressureTrend == .falling {
+                                Image(systemName: "arrow.down.circle")
+                            } else if pressureTrend == .rising {
+                                Image(systemName: "arrow.up.circle")
+                            } else if pressureTrend == .steady {
+                                Image(systemName: "equal.circle")
+                            } else {
+                                Image(systemName: "equal.circle")
+                            }
                         }
                     }
-                }
-            } else {
-                Text("--\"Hg")
-                    .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-            }
-            Spacer()
-            if let humidity = humidity {
-                HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
-                    Text("\(String(format: "%.0f%%", humidity))")
+                } else {
+                    Text("--\"Hg")
                         .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                        .minimumScaleFactor(0.8)
-                        .lineLimit(1)
-                        .allowsTightening(true)
-                    Image(systemName: "humidity")
                 }
-            } else {
-                HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
-                    Text("--%")
-                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                        .minimumScaleFactor(0.8)
-                        .lineLimit(1)
-                        .allowsTightening(true)
-                    Image(systemName: "humidity")
+                Spacer()
+                if let humidity = humidity {
+                    HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
+                        Text("\(String(format: "%.0f%%", humidity))")
+                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                            .minimumScaleFactor(0.8)
+                            .lineLimit(1)
+                            .allowsTightening(true)
+                        Image(systemName: "humidity")
+                    }
+                } else {
+                    HStack(alignment: .lastTextBaseline, spacing: Constants.weatherViewInnerHStackSpacing) {
+                        Text("--%")
+                            .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                            .minimumScaleFactor(0.8)
+                            .lineLimit(1)
+                            .allowsTightening(true)
+                        Image(systemName: "humidity")
+                    }
                 }
+                Spacer()
             }
-            Spacer()
         }
         .padding()
         .background(
@@ -95,5 +103,5 @@ struct WeatherView: View {
 }
 
 #Preview {
-    WeatherView(temperature: 101.55, pressure: 30.045, condition: .freezingDrizzle, humidity: 89.88, pressureTrend: .rising, conditionSymbol: "cloud")
+    WeatherView(temperature: nil, pressure: nil, condition: nil, humidity: nil, pressureTrend: nil, conditionSymbol: "cloud")
 }

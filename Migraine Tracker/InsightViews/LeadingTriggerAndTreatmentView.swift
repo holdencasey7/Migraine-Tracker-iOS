@@ -4,17 +4,25 @@ struct LeadingTriggerAndTreatmentView: View {
     var triggers: [Trigger]
     var treatments: [Treatment]
     
+    @State var showTopTriggersSheet: Bool = false
+    @State var showTopTreatmentsSheet: Bool = false
+    
     var body: some View {
             HStack(alignment: .top) {
                 VStack {
                     if let highestAverageRatingTreatment = getHighestAverageRatedTreatment(treatments: treatments)?.treatment {
-                        Text("Top Treatment")
+                        Text("Top Treatments")
                             .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
                             .multilineTextAlignment(.center)
                             .fontWeight(.bold)
                             .minimumScaleFactor(0.8)
                             .lineLimit(2)
                             .allowsTightening(true)
+                            .underline(true)
+                            .onTapGesture {showTopTreatmentsSheet = true}
+                            .sheet(isPresented: $showTopTreatmentsSheet) {
+                                TopTreatmentsSheetView(treatments: treatments)
+                            }
                         
                         if let imageName = highestAverageRatingTreatment.icon {
                             Image(imageName)
@@ -44,14 +52,18 @@ struct LeadingTriggerAndTreatmentView: View {
                 VStack {
                     if let mostCommonTrigger = getMostCommonTrigger(triggers: triggers)?.trigger {
                         if getMostCommonTrigger(triggers: triggers)!.count > 0 {
-                            Text("Top Trigger")
+                            Text("Top Triggers")
                                 .font(Font.custom("Avenir", size: Constants.leadingTriggerTreatmentFontSize))
                                 .multilineTextAlignment(.center)
                                 .fontWeight(.bold)
                                 .minimumScaleFactor(0.8)
                                 .lineLimit(2)
                                 .allowsTightening(true)
-                            
+                                .underline(true)
+                                .onTapGesture {showTopTriggersSheet = true}
+                                .sheet(isPresented: $showTopTriggersSheet) {
+                                    TopTriggersSheetView(triggers: triggers)
+                                }
                             if let imageName = mostCommonTrigger.icon {
                                 Image(imageName)
                                     .resizable()
