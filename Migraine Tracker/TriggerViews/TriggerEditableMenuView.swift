@@ -11,6 +11,7 @@ import SwiftData
 struct TriggerEditableMenuView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var triggers: [Trigger]
+    @State private var localTriggers: [Trigger] = []
 
     @State var presentAddTriggerSheet: Bool = false
     
@@ -40,16 +41,19 @@ struct TriggerEditableMenuView: View {
             .searchable(text: $searchText)
             .onChange(of: searchText) {
                 if searchText.isEmpty {
-                    filteredTriggers = triggers
+                    filteredTriggers = localTriggers
                 } else {
-                    filteredTriggers = triggers.filter({$0.title.lowercased().starts(with: searchText.lowercased())})
+                    filteredTriggers = localTriggers.filter({$0.title.lowercased().starts(with: searchText.lowercased())})
                 }
             }
+            .onChange(of: localTriggers) {
+                filteredTriggers = localTriggers
+            }
             .onChange(of: updater) {
-                filteredTriggers = triggers
+                filteredTriggers = localTriggers
             }
             .onAppear {
-                filteredTriggers = triggers
+                filteredTriggers = localTriggers
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -64,6 +68,12 @@ struct TriggerEditableMenuView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            localTriggers = triggers
+        }
+        .onChange(of: triggers) {
+            localTriggers = triggers
         }
     }
 

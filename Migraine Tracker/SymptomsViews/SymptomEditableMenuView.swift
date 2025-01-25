@@ -58,6 +58,9 @@ struct SymptomEditableMenuView: View {
                     }
                     .sheet(isPresented: $presentAddSymptomSheet) {
                         SymptomCreationView(isPresented: $presentAddSymptomSheet)
+                            .onDisappear {
+                                updater.toggle()
+                            }
                     }
                 }
             }

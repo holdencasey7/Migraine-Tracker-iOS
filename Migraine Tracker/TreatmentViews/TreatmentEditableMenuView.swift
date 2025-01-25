@@ -61,6 +61,9 @@ struct TreatmentEditableMenuView: View {
                     }
                     .sheet(isPresented: $presentAddTreatmentSheet) {
                         TreatmentCreationView(isPresented: $presentAddTreatmentSheet)
+                            .onDisappear {
+                                updater.toggle()
+                            }
                     }
                 }
             }
