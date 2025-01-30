@@ -45,21 +45,23 @@ struct TreatmentNoteDetailView: View {
                         .font(Font.custom("Avenir", size: Constants.headerFontSize))
                         .kerning(Constants.subtitleKerning)
                         .padding()
-                    //                .padding(.top, 30)
-                    Spacer()
-                    Text("Dosage: \(treatmentNote.dosage ?? "No dosage")")
-                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                        .minimumScaleFactor(0.9)
-                        .lineLimit(1)
-                        .allowsTightening(true)
-                        .padding()
-                    //                    .padding(.bottom)
-                        .frame(width: geometry.size.width * 0.9)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.white)
-                                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
-                        )
+                    if let dosage = treatmentNote.dosage {
+                        if !dosage.isEmpty {
+                            Spacer()
+                            Text("Dosage: \(dosage)")
+                                .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                                .minimumScaleFactor(0.9)
+                                .lineLimit(1)
+                                .allowsTightening(true)
+                                .padding()
+                                .frame(width: geometry.size.width * 0.9)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.white)
+                                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                )
+                        }
+                    }
                     
                     if let datesTaken = treatmentNote.datesTaken {
                         Spacer()
@@ -83,33 +85,44 @@ struct TreatmentNoteDetailView: View {
                         )
                         
                     }
-                    Spacer()
-                    Text("Duration: \(formattedDuration(for: treatmentNote.duration ?? .zero))")
-                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                        .minimumScaleFactor(0.9)
-                        .lineLimit(1)
-                        .allowsTightening(true)
-                        .padding()
-                    //                    .padding(.top)
-                        .frame(width: geometry.size.width * 0.9)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.white)
-                                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
-                        )
-                    Spacer()
-                    Text("Notes: \(treatmentNote.otherNotes ?? "No notes")")
-                        .multilineTextAlignment(.leading)
-                        .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
-                        .minimumScaleFactor(0.9)
-                        .allowsTightening(true)
-                        .padding()
-                        .frame(width: geometry.size.width * 0.9)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.white)
-                                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
-                        )
+                    
+                    if let duration = treatmentNote.duration {
+                        if !duration.isZero {
+                            Spacer()
+                            Text("Duration: \(formattedDuration(for: duration))")
+                                .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                                .minimumScaleFactor(0.9)
+                                .lineLimit(1)
+                                .allowsTightening(true)
+                                .padding()
+                            //                    .padding(.top)
+                                .frame(width: geometry.size.width * 0.9)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.white)
+                                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                )
+                        }
+                    }
+                    
+                    if let notes = treatmentNote.otherNotes {
+                        if !notes.isEmpty {
+                            Spacer()
+                            Text("Notes: \(notes)")
+                                .multilineTextAlignment(.leading)
+                                .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
+                                .minimumScaleFactor(0.9)
+                                .allowsTightening(true)
+                                .padding()
+                                .frame(width: geometry.size.width * 0.9)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(Color.white)
+                                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2)
+                                )
+                        }
+                    }
+                    
                     Spacer()
                 }
                 .frame(maxWidth: .infinity)
