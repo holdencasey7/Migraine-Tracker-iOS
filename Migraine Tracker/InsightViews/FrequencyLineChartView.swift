@@ -49,6 +49,7 @@ struct FrequencyLineChartView: View {
                 //                .kerning(Constants.subtitleKerning)
                     .padding(.horizontal)
                     .padding(.bottom)
+                    .underline(true)
             }
             .background(
                 RoundedRectangle(cornerRadius: 10)
