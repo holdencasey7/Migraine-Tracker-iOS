@@ -83,7 +83,7 @@ enum TimeGranularity {
     case day, week, month
 }
 
-func groupEntries(entries: [Entry], by granularity: TimeGranularity) -> [(String, Int)] {
+func groupEntries(entries: [Entry], by granularity: TimeGranularity, formattedDate: (Date) -> String = formattedDate) -> [(String, Int)] {
     let calendar = Calendar.current
     
     let groupedEntries: [String: Int]
@@ -92,7 +92,6 @@ func groupEntries(entries: [Entry], by granularity: TimeGranularity) -> [(String
         groupedEntries = Dictionary(grouping: entries, by: {
             let startOfDay = calendar.startOfDay(for: $0.timestamp)
             let formatted = formattedDate(startOfDay)
-            // Debug: Log the date being used for grouping
             return formatted
         })
         .mapValues { $0.count }

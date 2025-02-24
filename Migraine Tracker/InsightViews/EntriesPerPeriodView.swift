@@ -10,11 +10,16 @@ import SwiftUI
 struct EntriesPerPeriodView: View {
     var entries: [Entry]
     
+    let monthFormat: String = "MMMM yyyy"
+    let weekFormat: String = "M/d/yy"
+    
     @State private var selectedGranularity: TimeGranularity = .month
 
     var body: some View {
-        let groupedEntries = groupEntries(entries: entries, by: selectedGranularity)
-            .sorted { $0.0 > $1.0 } // Sort descending (most recent first)
+        let format = selectedGranularity == .month ? formatDateMonthly : formatDateWeekly
+        let groupedEntries = groupEntries(entries: entries, by: selectedGranularity, formattedDate: format)
+            .sorted { parseDate($0.0) > parseDate($1.0) }
+        
 
         VStack {
             Picker("Period", selection: $selectedGranularity) {
@@ -29,10 +34,7 @@ struct EntriesPerPeriodView: View {
                     // Try to make more similar to EntryList
                     ForEach(groupedEntries, id: \.0) { (period, count) in
                         HStack {
-                            // Say name of month year
-                            // Week: "2/1/25 - 2/8/25"
-                            //                            Text(period)
-                            Text("December 2025")
+                            Text(period)
                                 .font(Font.custom("Avenir", size: Constants.subtitleFontSize))
                                 .multilineTextAlignment(.center)
                                 .fontWeight(.bold)
@@ -59,6 +61,39 @@ struct EntriesPerPeriodView: View {
             }
         }
         .background(Color("FirstLightPink"))
+    }
+    
+    func formatDateMonthly(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = monthFormat
+        return dateFormatter.string(from: date)
+    }
+    
+    func formatDateWeekly(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = weekFormat
+        let startOfWeek = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: date)!
+        let endOfWeek = Calendar.current.date(byAdding: .weekOfYear, value: 0, to: date)! - 1
+        return dateFormatter.string(from: startOfWeek) + " - " + dateFormatter.string(from: endOfWeek)
+    }
+    
+    func parseDate(_ date: String) -> Date {
+        if selectedGranularity == .month {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = monthFormat
+            let date = dateFormatter.date(from: date)
+            return date ?? Date()
+        }
+        else if selectedGranularity == .week {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = weekFormat
+            let firstDate = date.split(separator: "-")[0].trimmingCharacters(in: .whitespaces)
+            let date = dateFormatter.date(from: firstDate)
+            return date ?? Date()
+        }
+        else {
+            return Date()
+        }
     }
 }
 
